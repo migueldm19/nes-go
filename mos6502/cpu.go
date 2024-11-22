@@ -227,6 +227,6 @@ func (cpu *CPU) nextValue(am AdressingMode) (val byte) {
 	return
 }
 
-func (cpu CPU) PrintState() {
-	fmt.Printf("    A:%2x X:%2x Y:%2x P:%2x SP:%2x\n", cpu.a, cpu.x, cpu.y, cpu.p, cpu.sp)
+func (cpu CPU) String() string {
+	return fmt.Sprintf("A:%2x X:%2x Y:%2x P:%2x SP:%2x", cpu.a, cpu.x, cpu.y, cpu.p, cpu.sp)
 }

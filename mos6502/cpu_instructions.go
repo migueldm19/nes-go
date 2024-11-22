@@ -452,7 +452,7 @@ func (cpu *CPU) Run() {
 
 func (cpu *CPU) Step() {
 	opcode := cpu.nextInstruction()
-	fmt.Printf("[PC: %4x] OPCODE %2x | ", cpu.pc-1, opcode)
+	fmt.Printf("[PC: %4x] OPCODE %2x | %s |", cpu.pc-1, opcode, cpu)
 
 	switch opcode {
 	case 0x00:
@@ -794,5 +794,5 @@ func (cpu *CPU) Step() {
 		fmt.Printf("Unknown")
 	}
 
-	cpu.PrintState()
+	fmt.Print("\n")
 }
