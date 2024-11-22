@@ -26,7 +26,7 @@ const (
 	FlagZero
 	FlagInterruptDisable
 	FlagDecimalMode
-	_ // empty flags
+	FlagB
 	_
 	FlagOverflow
 	FlagNegative
@@ -128,7 +128,8 @@ func (cpu *CPU) nextAddrIndirect() (addr uint16) {
 }
 
 func (cpu *CPU) bitTest(val byte) {
-	cpu.assignBasicFlags(val)
+	cpu.setFlag(FlagZero, (val&cpu.a) == 0)
+	cpu.setFlag(FlagNegative, isNegative(val))
 	cpu.setFlag(FlagOverflow, val&0x40 == 0x40)
 }
 

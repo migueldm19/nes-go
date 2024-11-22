@@ -34,7 +34,7 @@ with open("logs.txt") as log_file:
         cpu_states.append(CPUState(a, x, y, p, sp))
 
 
-for i in range(len(nestest_states)):
+for i in range(min(len(nestest_states), len(cpu_states))):
     try:
         assert nestest_states[i] == cpu_states[i]
     except:

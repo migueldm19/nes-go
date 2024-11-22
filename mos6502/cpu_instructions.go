@@ -4,7 +4,7 @@ import "fmt"
 
 func (cpu *CPU) brk() {
 	cpu.stackPushCurrentPc()
-	cpu.stackPush(cpu.p)
+	cpu.stackPush(cpu.p | FlagB)
 
 	addr1, _ := cpu.mem.Read(0xfffe)
 	addr2, _ := cpu.mem.Read(0xffff)
@@ -93,7 +93,7 @@ func (cpu *CPU) pha() {
 }
 
 func (cpu *CPU) php() {
-	cpu.stackPush(cpu.p)
+	cpu.stackPush(cpu.p | FlagB)
 	fmt.Printf("php")
 }
 
