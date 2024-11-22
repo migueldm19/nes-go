@@ -22,7 +22,7 @@ func (cpu *CPU) rti() {
 func (cpu *CPU) lda(am AdressingMode) {
 	cpu.a = cpu.nextValue(am)
 	cpu.assignBasicFlags(cpu.a)
-	fmt.Printf("lda AdressingMode[%v] %v", am, cpu.a)
+	fmt.Printf("lda AdressingMode[%v] %x", am, cpu.a)
 }
 
 func (cpu *CPU) ldx(am AdressingMode) {
@@ -66,6 +66,7 @@ func (cpu *CPU) tay() {
 
 func (cpu *CPU) tsx() {
 	cpu.x = cpu.sp
+	cpu.assignBasicFlags(cpu.x)
 	fmt.Printf("tsx")
 }
 
