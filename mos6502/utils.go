@@ -11,7 +11,7 @@ func addOverflow(a, b byte) (byte, bool) {
 // TODO: probar funcionamiento
 func subOverflow(a, b byte) (byte, bool) {
 	sub := a - b
-	return sub, a <= b
+	return sub, a < b
 }
 
 func isNegative(val byte) bool {

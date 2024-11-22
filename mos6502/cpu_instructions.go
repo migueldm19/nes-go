@@ -160,17 +160,16 @@ func (cpu *CPU) sbc(am AdressingMode) {
 	val1, overflow1 := subOverflow(cpu.a, memory)
 
 	var carry byte
-	if cpu.getFlag(FlagCarry) {
+	if !cpu.getFlag(FlagCarry) {
 		carry = 1
-	} else {
-		carry = 0
 	}
 
 	val2, overflow2 := subOverflow(val1, carry)
-	cpu.a = val2 + 1
 
+	cpu.a = val2
+
+	cpu.setFlag(FlagCarry, !(overflow1 || overflow2))
 	cpu.setFlag(FlagZero, cpu.a == 0)
-	cpu.setFlag(FlagCarry, overflow1 || overflow2)
 	cpu.setFlag(FlagNegative, isNegative(cpu.a))
 	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^(^memory))&0x80) == 0x80)
 	fmt.Printf("sbc AdressingMode[%v] %v", am, cpu.a)
