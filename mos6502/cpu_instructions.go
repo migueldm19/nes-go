@@ -3,7 +3,7 @@ package mos6502
 import "fmt"
 
 func (cpu *CPU) brk() {
-	cpu.stackPushCurrentPc()
+	cpu.stackPushCurrentPc(2)
 	cpu.stackPush(cpu.p | FlagB)
 
 	addr1, _ := cpu.mem.Read(0xfffe)
@@ -14,7 +14,7 @@ func (cpu *CPU) brk() {
 }
 
 func (cpu *CPU) rti() {
-	cpu.p = cpu.stackPull()
+	cpu.p = (cpu.stackPull() | 0x20) & 0xef
 	cpu.pc = cpu.stackPullAddr()
 	fmt.Printf("rti")
 }
@@ -89,12 +89,12 @@ func (cpu *CPU) tya() {
 
 func (cpu *CPU) pha() {
 	cpu.stackPush(cpu.a)
-	fmt.Printf("pha")
+	fmt.Printf("pha %x", cpu.a)
 }
 
 func (cpu *CPU) php() {
 	cpu.stackPush(cpu.p | FlagB)
-	fmt.Printf("php")
+	fmt.Printf("php %x", cpu.p|FlagB)
 }
 
 func (cpu *CPU) pla() {
@@ -140,8 +140,6 @@ func (cpu *CPU) adc(am AdressingMode) {
 	var carry byte
 	if cpu.getFlag(FlagCarry) {
 		carry = 1
-	} else {
-		carry = 0
 	}
 
 	val2, overflow2 := addOverflow(val1, carry)
@@ -166,7 +164,6 @@ func (cpu *CPU) sbc(am AdressingMode) {
 	}
 
 	val2, overflow2 := subOverflow(val1, carry)
-
 	cpu.a = val2
 
 	cpu.setFlag(FlagCarry, !(overflow1 || overflow2))
@@ -334,13 +331,13 @@ func (cpu *CPU) jmp_indirect() {
 
 func (cpu *CPU) jsr() {
 	addr := cpu.nextAddr()
-	cpu.stackPushCurrentPc()
+	cpu.stackPushCurrentPc(-1)
 	cpu.pc = addr
 	fmt.Printf("jsr %x", addr)
 }
 
 func (cpu *CPU) rts() {
-	cpu.pc = cpu.stackPullAddr()
+	cpu.pc = cpu.stackPullAddr() + 1
 	fmt.Printf("rts %x", cpu.pc)
 }
 

@@ -68,7 +68,7 @@
 [PC: c7e4] OPCODE 38 | A: 0 X: 0 Y: 0 P:66 SP:fb |sec
 [PC: c7e5] OPCODE 78 | A: 0 X: 0 Y: 0 P:67 SP:fb |sei
 [PC: c7e6] OPCODE f8 | A: 0 X: 0 Y: 0 P:67 SP:fb |sed
-[PC: c7e7] OPCODE  8 | A: 0 X: 0 Y: 0 P:6f SP:fb |php
+[PC: c7e7] OPCODE  8 | A: 0 X: 0 Y: 0 P:6f SP:fb |php 7f
 [PC: c7e8] OPCODE 68 | A: 0 X: 0 Y: 0 P:6f SP:fa |pla 7f
 [PC: c7e9] OPCODE 29 | A:7f X: 0 Y: 0 P:6d SP:fb |and AdressingMode[0] 6f
 [PC: c7eb] OPCODE c9 | A:6f X: 0 Y: 0 P:6d SP:fb |cmp AdressingMode[0] 6f, 6f
@@ -80,7 +80,7 @@
 [PC: c7fa] OPCODE d8 | A:40 X: 0 Y: 0 P:6d SP:fb |cld
 [PC: c7fb] OPCODE a9 | A:40 X: 0 Y: 0 P:65 SP:fb |lda AdressingMode[0] 10
 [PC: c7fd] OPCODE 18 | A:10 X: 0 Y: 0 P:65 SP:fb |clc
-[PC: c7fe] OPCODE  8 | A:10 X: 0 Y: 0 P:64 SP:fb |php
+[PC: c7fe] OPCODE  8 | A:10 X: 0 Y: 0 P:64 SP:fb |php 74
 [PC: c7ff] OPCODE 68 | A:10 X: 0 Y: 0 P:64 SP:fa |pla 74
 [PC: c800] OPCODE 29 | A:74 X: 0 Y: 0 P:64 SP:fb |and AdressingMode[0] 64
 [PC: c802] OPCODE c9 | A:64 X: 0 Y: 0 P:64 SP:fb |cmp AdressingMode[0] 64, 64
@@ -92,14 +92,14 @@
 [PC: c811] OPCODE f8 | A:80 X: 0 Y: 0 P:a5 SP:fb |sed
 [PC: c812] OPCODE a9 | A:80 X: 0 Y: 0 P:ad SP:fb |lda AdressingMode[0] 0
 [PC: c814] OPCODE 38 | A: 0 X: 0 Y: 0 P:2f SP:fb |sec
-[PC: c815] OPCODE  8 | A: 0 X: 0 Y: 0 P:2f SP:fb |php
+[PC: c815] OPCODE  8 | A: 0 X: 0 Y: 0 P:2f SP:fb |php 3f
 [PC: c816] OPCODE 68 | A: 0 X: 0 Y: 0 P:2f SP:fa |pla 3f
 [PC: c817] OPCODE 29 | A:3f X: 0 Y: 0 P:2d SP:fb |and AdressingMode[0] 2f
 [PC: c819] OPCODE c9 | A:2f X: 0 Y: 0 P:2d SP:fb |cmp AdressingMode[0] 2f, 2f
 [PC: c81b] OPCODE f0 | A:2f X: 0 Y: 0 P:2f SP:fb |beq 4 Zero flag[true]
 [PC: c821] OPCODE ea | A:2f X: 0 Y: 0 P:2f SP:fb |nop
 [PC: c822] OPCODE a9 | A:2f X: 0 Y: 0 P:2f SP:fb |lda AdressingMode[0] ff
-[PC: c824] OPCODE 48 | A:ff X: 0 Y: 0 P:ad SP:fb |pha
+[PC: c824] OPCODE 48 | A:ff X: 0 Y: 0 P:ad SP:fb |pha ff
 [PC: c825] OPCODE 28 | A:ff X: 0 Y: 0 P:ad SP:fa |plp
 [PC: c826] OPCODE d0 | A:ff X: 0 Y: 0 P:ef SP:fb |bne 9
 [PC: c828] OPCODE 10 | A:ff X: 0 Y: 0 P:ef SP:fb |bpl 7
@@ -108,7 +108,7 @@
 [PC: c82e] OPCODE 4c | A:ff X: 0 Y: 0 P:ef SP:fb |jmp absolute c835
 [PC: c835] OPCODE ea | A:ff X: 0 Y: 0 P:ef SP:fb |nop
 [PC: c836] OPCODE a9 | A:ff X: 0 Y: 0 P:ef SP:fb |lda AdressingMode[0] 4
-[PC: c838] OPCODE 48 | A: 4 X: 0 Y: 0 P:6d SP:fb |pha
+[PC: c838] OPCODE 48 | A: 4 X: 0 Y: 0 P:6d SP:fb |pha 4
 [PC: c839] OPCODE 28 | A: 4 X: 0 Y: 0 P:6d SP:fa |plp
 [PC: c83a] OPCODE f0 | A: 4 X: 0 Y: 0 P:24 SP:fb |beq 9 Zero flag[false]
 [PC: c83c] OPCODE 30 | A: 4 X: 0 Y: 0 P:24 SP:fb |bmi 7
@@ -122,7 +122,7 @@
 [PC: c84f] OPCODE 24 | A:ff X: 0 Y: 0 P:ac SP:fb |bit AdressingMode[1] 255
 [PC: c851] OPCODE 18 | A:ff X: 0 Y: 0 P:ec SP:fb |clc
 [PC: c852] OPCODE a9 | A:ff X: 0 Y: 0 P:ec SP:fb |lda AdressingMode[0] 0
-[PC: c854] OPCODE 48 | A: 0 X: 0 Y: 0 P:6e SP:fb |pha
+[PC: c854] OPCODE 48 | A: 0 X: 0 Y: 0 P:6e SP:fb |pha 0
 [PC: c855] OPCODE a9 | A: 0 X: 0 Y: 0 P:6e SP:fa |lda AdressingMode[0] ff
 [PC: c857] OPCODE 68 | A:ff X: 0 Y: 0 P:ec SP:fa |pla 0
 [PC: c858] OPCODE d0 | A: 0 X: 0 Y: 0 P:6e SP:fb |bne 9
@@ -136,7 +136,7 @@
 [PC: c86c] OPCODE 24 | A: 0 X: 0 Y: 0 P:6e SP:fb |bit AdressingMode[1] 0
 [PC: c86e] OPCODE 38 | A: 0 X: 0 Y: 0 P:2e SP:fb |sec
 [PC: c86f] OPCODE a9 | A: 0 X: 0 Y: 0 P:2f SP:fb |lda AdressingMode[0] ff
-[PC: c871] OPCODE 48 | A:ff X: 0 Y: 0 P:ad SP:fb |pha
+[PC: c871] OPCODE 48 | A:ff X: 0 Y: 0 P:ad SP:fb |pha ff
 [PC: c872] OPCODE a9 | A:ff X: 0 Y: 0 P:ad SP:fa |lda AdressingMode[0] 0
 [PC: c874] OPCODE 68 | A: 0 X: 0 Y: 0 P:2f SP:fa |pla ff
 [PC: c875] OPCODE f0 | A:ff X: 0 Y: 0 P:ad SP:fb |beq 9 Zero flag[false]
@@ -845,9 +845,9 @@
 [PC: ce01] OPCODE a2 | A:ff X:fb Y: 1 P:a5 SP:fb |ldx AdressingMode[0] 128
 [PC: ce03] OPCODE 9a | A:ff X:80 Y: 1 P:a5 SP:fb |txs
 [PC: ce04] OPCODE a9 | A:ff X:80 Y: 1 P:a5 SP:80 |lda AdressingMode[0] 33
-[PC: ce06] OPCODE 48 | A:33 X:80 Y: 1 P:25 SP:80 |pha
+[PC: ce06] OPCODE 48 | A:33 X:80 Y: 1 P:25 SP:80 |pha 33
 [PC: ce07] OPCODE a9 | A:33 X:80 Y: 1 P:25 SP:7f |lda AdressingMode[0] 69
-[PC: ce09] OPCODE 48 | A:69 X:80 Y: 1 P:25 SP:7f |pha
+[PC: ce09] OPCODE 48 | A:69 X:80 Y: 1 P:25 SP:7f |pha 69
 [PC: ce0a] OPCODE ba | A:69 X:80 Y: 1 P:25 SP:7e |tsx
 [PC: ce0b] OPCODE e0 | A:69 X:7e Y: 1 P:25 SP:7e |cpx AdressingMode[0] 126, 126
 [PC: ce0d] OPCODE d0 | A:69 X:7e Y: 1 P:27 SP:7e |bne 32
@@ -874,148 +874,1403 @@
 [PC: ce3d] OPCODE ba | A:69 X:80 Y: 1 P:a5 SP:7e |tsx
 [PC: ce3e] OPCODE e0 | A:69 X:7e Y: 1 P:25 SP:7e |cpx AdressingMode[0] 126, 126
 [PC: ce40] OPCODE d0 | A:69 X:7e Y: 1 P:27 SP:7e |bne 25
-[PC: ce42] OPCODE 68 | A:69 X:7e Y: 1 P:27 SP:7e |pla ce
-[PC: ce43] OPCODE 68 | A:ce X:7e Y: 1 P:a5 SP:7f |pla 3a
-[PC: ce44] OPCODE ba | A:3a X:7e Y: 1 P:25 SP:80 |tsx
-[PC: ce45] OPCODE e0 | A:3a X:80 Y: 1 P:a5 SP:80 |cpx AdressingMode[0] 128, 128
-[PC: ce47] OPCODE d0 | A:3a X:80 Y: 1 P:27 SP:80 |bne 18
-[PC: ce49] OPCODE a9 | A:3a X:80 Y: 1 P:27 SP:80 |lda AdressingMode[0] 0
+[PC: ce42] OPCODE 68 | A:69 X:7e Y: 1 P:27 SP:7e |pla 39
+[PC: ce43] OPCODE 68 | A:39 X:7e Y: 1 P:25 SP:7f |pla ce
+[PC: ce44] OPCODE ba | A:ce X:7e Y: 1 P:a5 SP:80 |tsx
+[PC: ce45] OPCODE e0 | A:ce X:80 Y: 1 P:a5 SP:80 |cpx AdressingMode[0] 128, 128
+[PC: ce47] OPCODE d0 | A:ce X:80 Y: 1 P:27 SP:80 |bne 18
+[PC: ce49] OPCODE a9 | A:ce X:80 Y: 1 P:27 SP:80 |lda AdressingMode[0] 0
 [PC: ce4b] OPCODE 20 | A: 0 X:80 Y: 1 P:27 SP:80 |jsr ce4e
-[PC: ce4e] OPCODE 68 | A: 0 X:80 Y: 1 P:27 SP:7e |pla ce
-[PC: ce4f] OPCODE c9 | A:ce X:80 Y: 1 P:a5 SP:7f |cmp AdressingMode[0] ce, 4d
-[PC: ce51] OPCODE d0 | A:ce X:80 Y: 1 P:a5 SP:7f |bne 8
-[PC: ce5b] OPCODE a2 | A:ce X:80 Y: 1 P:a5 SP:7f |ldx AdressingMode[0] 71
-[PC: ce5d] OPCODE 86 | A:ce X:47 Y: 1 P:25 SP:7f |stx AdressingMode[1] 71
-[PC: ce5f] OPCODE ea | A:ce X:47 Y: 1 P:25 SP:7f |nop
-[PC: ce60] OPCODE a9 | A:ce X:47 Y: 1 P:25 SP:7f |lda AdressingMode[0] ce
-[PC: ce62] OPCODE 48 | A:ce X:47 Y: 1 P:a5 SP:7f |pha
-[PC: ce63] OPCODE a9 | A:ce X:47 Y: 1 P:a5 SP:7e |lda AdressingMode[0] 66
-[PC: ce65] OPCODE 48 | A:66 X:47 Y: 1 P:25 SP:7e |pha
-[PC: ce66] OPCODE 60 | A:66 X:47 Y: 1 P:25 SP:7d |rts 66ce
-[PC: 66ce] OPCODE  0 | A:66 X:47 Y: 1 P:25 SP:7f |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:25 SP:7c |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:25 SP:7c |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:7c |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:79 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:79 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:79 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:76 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:76 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:76 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:73 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:73 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:73 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:70 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:70 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:70 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:6d |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:6d |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:6d |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:6a |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:6a |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:6a |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:67 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:67 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:67 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:64 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:64 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:64 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:61 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:61 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:61 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:5e |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:5e |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:5e |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:5b |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:5b |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:5b |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:58 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:58 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:58 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:55 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:55 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:55 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:52 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:52 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:52 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:4f |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:4f |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:4f |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:4c |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:4c |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:4c |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:49 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:49 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:49 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:46 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:46 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:46 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:43 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:43 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:43 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:40 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:40 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:40 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:3d |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:3d |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:3d |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:3a |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:3a |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:3a |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:37 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:37 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:37 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:34 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:34 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:34 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:31 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:31 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:31 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:2e |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:2e |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:2e |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:2b |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:2b |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:2b |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:28 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:28 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:28 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:25 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:25 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:25 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:22 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:22 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:22 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:1f |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:1f |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:1f |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:1c |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:1c |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:1c |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:19 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:19 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:19 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:16 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:16 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:16 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:13 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:13 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:13 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP:10 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP:10 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP:10 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP: d |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP: d |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP: d |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP: a |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP: a |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP: a |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP: 7 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP: 7 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP: 7 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP: 4 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP: 4 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP: 4 |brk
-[PC: f4c5] OPCODE 47 | A:66 X:47 Y: 1 P:26 SP: 1 |Unknown
-[PC: f4c6] OPCODE  6 | A:66 X:47 Y: 1 P:26 SP: 1 |asl AdressingMode[1] 0
-[PC:    2] OPCODE  0 | A:66 X:47 Y: 1 P:26 SP: 1 |
+[PC: ce4e] OPCODE 68 | A: 0 X:80 Y: 1 P:27 SP:7e |pla 4d
+[PC: ce4f] OPCODE c9 | A:4d X:80 Y: 1 P:25 SP:7f |cmp AdressingMode[0] 4d, 4d
+[PC: ce51] OPCODE d0 | A:4d X:80 Y: 1 P:27 SP:7f |bne 8
+[PC: ce53] OPCODE 68 | A:4d X:80 Y: 1 P:27 SP:7f |pla ce
+[PC: ce54] OPCODE c9 | A:ce X:80 Y: 1 P:a5 SP:80 |cmp AdressingMode[0] ce, ce
+[PC: ce56] OPCODE d0 | A:ce X:80 Y: 1 P:27 SP:80 |bne 3
+[PC: ce58] OPCODE 4c | A:ce X:80 Y: 1 P:27 SP:80 |jmp absolute ce5f
+[PC: ce5f] OPCODE ea | A:ce X:80 Y: 1 P:27 SP:80 |nop
+[PC: ce60] OPCODE a9 | A:ce X:80 Y: 1 P:27 SP:80 |lda AdressingMode[0] ce
+[PC: ce62] OPCODE 48 | A:ce X:80 Y: 1 P:a5 SP:80 |pha ce
+[PC: ce63] OPCODE a9 | A:ce X:80 Y: 1 P:a5 SP:7f |lda AdressingMode[0] 66
+[PC: ce65] OPCODE 48 | A:66 X:80 Y: 1 P:25 SP:7f |pha 66
+[PC: ce66] OPCODE 60 | A:66 X:80 Y: 1 P:25 SP:7e |rts ce67
+[PC: ce67] OPCODE a2 | A:66 X:80 Y: 1 P:25 SP:80 |ldx AdressingMode[0] 119
+[PC: ce69] OPCODE a0 | A:66 X:77 Y: 1 P:25 SP:80 |ldy AdressingMode[0] 105
+[PC: ce6b] OPCODE 18 | A:66 X:77 Y:69 P:25 SP:80 |clc
+[PC: ce6c] OPCODE 24 | A:66 X:77 Y:69 P:24 SP:80 |bit AdressingMode[1] 255
+[PC: ce6e] OPCODE a9 | A:66 X:77 Y:69 P:e4 SP:80 |lda AdressingMode[0] 83
+[PC: ce70] OPCODE 20 | A:83 X:77 Y:69 P:e4 SP:80 |jsr ce66
+[PC: ce66] OPCODE 60 | A:83 X:77 Y:69 P:e4 SP:7e |rts ce73
+[PC: ce73] OPCODE f0 | A:83 X:77 Y:69 P:e4 SP:80 |beq 36 Zero flag[false]
+[PC: ce75] OPCODE 10 | A:83 X:77 Y:69 P:e4 SP:80 |bpl 34
+[PC: ce77] OPCODE b0 | A:83 X:77 Y:69 P:e4 SP:80 |bcs 32
+[PC: ce79] OPCODE 50 | A:83 X:77 Y:69 P:e4 SP:80 |bvc 30
+[PC: ce7b] OPCODE c9 | A:83 X:77 Y:69 P:e4 SP:80 |cmp AdressingMode[0] 83, 83
+[PC: ce7d] OPCODE d0 | A:83 X:77 Y:69 P:67 SP:80 |bne 26
+[PC: ce7f] OPCODE c0 | A:83 X:77 Y:69 P:67 SP:80 |cpy AdressingMode[0] 105, 105
+[PC: ce81] OPCODE d0 | A:83 X:77 Y:69 P:67 SP:80 |bne 22
+[PC: ce83] OPCODE e0 | A:83 X:77 Y:69 P:67 SP:80 |cpx AdressingMode[0] 119, 119
+[PC: ce85] OPCODE d0 | A:83 X:77 Y:69 P:67 SP:80 |bne 18
+[PC: ce87] OPCODE 38 | A:83 X:77 Y:69 P:67 SP:80 |sec
+[PC: ce88] OPCODE b8 | A:83 X:77 Y:69 P:67 SP:80 |clv
+[PC: ce89] OPCODE a9 | A:83 X:77 Y:69 P:27 SP:80 |lda AdressingMode[0] 0
+[PC: ce8b] OPCODE 20 | A: 0 X:77 Y:69 P:27 SP:80 |jsr ce66
+[PC: ce66] OPCODE 60 | A: 0 X:77 Y:69 P:27 SP:7e |rts ce8e
+[PC: ce8e] OPCODE d0 | A: 0 X:77 Y:69 P:27 SP:80 |bne 9
+[PC: ce90] OPCODE 30 | A: 0 X:77 Y:69 P:27 SP:80 |bmi 7
+[PC: ce92] OPCODE 90 | A: 0 X:77 Y:69 P:27 SP:80 |bcc 5
+[PC: ce94] OPCODE 70 | A: 0 X:77 Y:69 P:27 SP:80 |bvs 3
+[PC: ce96] OPCODE 4c | A: 0 X:77 Y:69 P:27 SP:80 |jmp absolute ce9d
+[PC: ce9d] OPCODE ea | A: 0 X:77 Y:69 P:27 SP:80 |nop
+[PC: ce9e] OPCODE a9 | A: 0 X:77 Y:69 P:27 SP:80 |lda AdressingMode[0] ce
+[PC: cea0] OPCODE 48 | A:ce X:77 Y:69 P:a5 SP:80 |pha ce
+[PC: cea1] OPCODE a9 | A:ce X:77 Y:69 P:a5 SP:7f |lda AdressingMode[0] ae
+[PC: cea3] OPCODE 48 | A:ae X:77 Y:69 P:a5 SP:7f |pha ae
+[PC: cea4] OPCODE a9 | A:ae X:77 Y:69 P:a5 SP:7e |lda AdressingMode[0] 65
+[PC: cea6] OPCODE 48 | A:65 X:77 Y:69 P:25 SP:7e |pha 65
+[PC: cea7] OPCODE a9 | A:65 X:77 Y:69 P:25 SP:7d |lda AdressingMode[0] 55
+[PC: cea9] OPCODE a0 | A:55 X:77 Y:69 P:25 SP:7d |ldy AdressingMode[0] 136
+[PC: ceab] OPCODE a2 | A:55 X:77 Y:88 P:a5 SP:7d |ldx AdressingMode[0] 153
+[PC: cead] OPCODE 40 | A:55 X:99 Y:88 P:a5 SP:7d |rti
+[PC: ceae] OPCODE 30 | A:55 X:99 Y:88 P:65 SP:80 |bmi 53
+[PC: ceb0] OPCODE 50 | A:55 X:99 Y:88 P:65 SP:80 |bvc 51
+[PC: ceb2] OPCODE f0 | A:55 X:99 Y:88 P:65 SP:80 |beq 49 Zero flag[false]
+[PC: ceb4] OPCODE 90 | A:55 X:99 Y:88 P:65 SP:80 |bcc 47
+[PC: ceb6] OPCODE c9 | A:55 X:99 Y:88 P:65 SP:80 |cmp AdressingMode[0] 55, 55
+[PC: ceb8] OPCODE d0 | A:55 X:99 Y:88 P:67 SP:80 |bne 43
+[PC: ceba] OPCODE c0 | A:55 X:99 Y:88 P:67 SP:80 |cpy AdressingMode[0] 136, 136
+[PC: cebc] OPCODE d0 | A:55 X:99 Y:88 P:67 SP:80 |bne 39
+[PC: cebe] OPCODE e0 | A:55 X:99 Y:88 P:67 SP:80 |cpx AdressingMode[0] 153, 153
+[PC: cec0] OPCODE d0 | A:55 X:99 Y:88 P:67 SP:80 |bne 35
+[PC: cec2] OPCODE a9 | A:55 X:99 Y:88 P:67 SP:80 |lda AdressingMode[0] ce
+[PC: cec4] OPCODE 48 | A:ce X:99 Y:88 P:e5 SP:80 |pha ce
+[PC: cec5] OPCODE a9 | A:ce X:99 Y:88 P:e5 SP:7f |lda AdressingMode[0] ce
+[PC: cec7] OPCODE 48 | A:ce X:99 Y:88 P:e5 SP:7f |pha ce
+[PC: cec8] OPCODE a9 | A:ce X:99 Y:88 P:e5 SP:7e |lda AdressingMode[0] 87
+[PC: ceca] OPCODE 48 | A:87 X:99 Y:88 P:e5 SP:7e |pha 87
+[PC: cecb] OPCODE a9 | A:87 X:99 Y:88 P:e5 SP:7d |lda AdressingMode[0] 55
+[PC: cecd] OPCODE 40 | A:55 X:99 Y:88 P:65 SP:7d |rti
+[PC: cece] OPCODE 10 | A:55 X:99 Y:88 P:a7 SP:80 |bpl 21
+[PC: ced0] OPCODE 70 | A:55 X:99 Y:88 P:a7 SP:80 |bvs 19
+[PC: ced2] OPCODE d0 | A:55 X:99 Y:88 P:a7 SP:80 |bne 17
+[PC: ced4] OPCODE 90 | A:55 X:99 Y:88 P:a7 SP:80 |bcc 15
+[PC: ced6] OPCODE c9 | A:55 X:99 Y:88 P:a7 SP:80 |cmp AdressingMode[0] 55, 55
+[PC: ced8] OPCODE d0 | A:55 X:99 Y:88 P:27 SP:80 |bne 11
+[PC: ceda] OPCODE c0 | A:55 X:99 Y:88 P:27 SP:80 |cpy AdressingMode[0] 136, 136
+[PC: cedc] OPCODE d0 | A:55 X:99 Y:88 P:27 SP:80 |bne 7
+[PC: cede] OPCODE e0 | A:55 X:99 Y:88 P:27 SP:80 |cpx AdressingMode[0] 153, 153
+[PC: cee0] OPCODE d0 | A:55 X:99 Y:88 P:27 SP:80 |bne 3
+[PC: cee2] OPCODE 4c | A:55 X:99 Y:88 P:27 SP:80 |jmp absolute cee9
+[PC: cee9] OPCODE ae | A:55 X:99 Y:88 P:27 SP:80 |ldx AdressingMode[4] 251
+[PC: ceec] OPCODE 9a | A:55 X:fb Y:88 P:a5 SP:80 |txs
+[PC: ceed] OPCODE 60 | A:55 X:fb Y:88 P:a5 SP:fb |rts c60c
+[PC: c60c] OPCODE 20 | A:55 X:fb Y:88 P:a5 SP:fd |jsr ceee
+[PC: ceee] OPCODE a2 | A:55 X:fb Y:88 P:a5 SP:fb |ldx AdressingMode[0] 85
+[PC: cef0] OPCODE a0 | A:55 X:55 Y:88 P:25 SP:fb |ldy AdressingMode[0] 105
+[PC: cef2] OPCODE a9 | A:55 X:55 Y:69 P:25 SP:fb |lda AdressingMode[0] ff
+[PC: cef4] OPCODE 85 | A:ff X:55 Y:69 P:a5 SP:fb |sta AdressingMode[1] 255
+[PC: cef6] OPCODE ea | A:ff X:55 Y:69 P:a5 SP:fb |nop
+[PC: cef7] OPCODE 24 | A:ff X:55 Y:69 P:a5 SP:fb |bit AdressingMode[1] 255
+[PC: cef9] OPCODE 38 | A:ff X:55 Y:69 P:e5 SP:fb |sec
+[PC: cefa] OPCODE a9 | A:ff X:55 Y:69 P:e5 SP:fb |lda AdressingMode[0] 1
+[PC: cefc] OPCODE 4a | A: 1 X:55 Y:69 P:65 SP:fb |lsr acc 0
+[PC: cefd] OPCODE 90 | A: 0 X:55 Y:69 P:67 SP:fb |bcc 29
+[PC: ceff] OPCODE d0 | A: 0 X:55 Y:69 P:67 SP:fb |bne 27
+[PC: cf01] OPCODE 30 | A: 0 X:55 Y:69 P:67 SP:fb |bmi 25
+[PC: cf03] OPCODE 50 | A: 0 X:55 Y:69 P:67 SP:fb |bvc 23
+[PC: cf05] OPCODE c9 | A: 0 X:55 Y:69 P:67 SP:fb |cmp AdressingMode[0] 0, 0
+[PC: cf07] OPCODE d0 | A: 0 X:55 Y:69 P:67 SP:fb |bne 19
+[PC: cf09] OPCODE b8 | A: 0 X:55 Y:69 P:67 SP:fb |clv
+[PC: cf0a] OPCODE a9 | A: 0 X:55 Y:69 P:27 SP:fb |lda AdressingMode[0] aa
+[PC: cf0c] OPCODE 4a | A:aa X:55 Y:69 P:a5 SP:fb |lsr acc 85
+[PC: cf0d] OPCODE b0 | A:55 X:55 Y:69 P:24 SP:fb |bcs 13
+[PC: cf0f] OPCODE f0 | A:55 X:55 Y:69 P:24 SP:fb |beq 11 Zero flag[false]
+[PC: cf11] OPCODE 30 | A:55 X:55 Y:69 P:24 SP:fb |bmi 9
+[PC: cf13] OPCODE 70 | A:55 X:55 Y:69 P:24 SP:fb |bvs 7
+[PC: cf15] OPCODE c9 | A:55 X:55 Y:69 P:24 SP:fb |cmp AdressingMode[0] 55, 55
+[PC: cf17] OPCODE d0 | A:55 X:55 Y:69 P:27 SP:fb |bne 3
+[PC: cf19] OPCODE 4c | A:55 X:55 Y:69 P:27 SP:fb |jmp absolute cf20
+[PC: cf20] OPCODE ea | A:55 X:55 Y:69 P:27 SP:fb |nop
+[PC: cf21] OPCODE 24 | A:55 X:55 Y:69 P:27 SP:fb |bit AdressingMode[1] 255
+[PC: cf23] OPCODE 38 | A:55 X:55 Y:69 P:e5 SP:fb |sec
+[PC: cf24] OPCODE a9 | A:55 X:55 Y:69 P:e5 SP:fb |lda AdressingMode[0] 80
+[PC: cf26] OPCODE  a | A:80 X:55 Y:69 P:e5 SP:fb |asl acc 0
+[PC: cf27] OPCODE 90 | A: 0 X:55 Y:69 P:67 SP:fb |bcc 30
+[PC: cf29] OPCODE d0 | A: 0 X:55 Y:69 P:67 SP:fb |bne 28
+[PC: cf2b] OPCODE 30 | A: 0 X:55 Y:69 P:67 SP:fb |bmi 26
+[PC: cf2d] OPCODE 50 | A: 0 X:55 Y:69 P:67 SP:fb |bvc 24
+[PC: cf2f] OPCODE c9 | A: 0 X:55 Y:69 P:67 SP:fb |cmp AdressingMode[0] 0, 0
+[PC: cf31] OPCODE d0 | A: 0 X:55 Y:69 P:67 SP:fb |bne 20
+[PC: cf33] OPCODE b8 | A: 0 X:55 Y:69 P:67 SP:fb |clv
+[PC: cf34] OPCODE 38 | A: 0 X:55 Y:69 P:27 SP:fb |sec
+[PC: cf35] OPCODE a9 | A: 0 X:55 Y:69 P:27 SP:fb |lda AdressingMode[0] 55
+[PC: cf37] OPCODE  a | A:55 X:55 Y:69 P:25 SP:fb |asl acc 170
+[PC: cf38] OPCODE b0 | A:aa X:55 Y:69 P:a4 SP:fb |bcs 13
+[PC: cf3a] OPCODE f0 | A:aa X:55 Y:69 P:a4 SP:fb |beq 11 Zero flag[false]
+[PC: cf3c] OPCODE 10 | A:aa X:55 Y:69 P:a4 SP:fb |bpl 9
+[PC: cf3e] OPCODE 70 | A:aa X:55 Y:69 P:a4 SP:fb |bvs 7
+[PC: cf40] OPCODE c9 | A:aa X:55 Y:69 P:a4 SP:fb |cmp AdressingMode[0] aa, aa
+[PC: cf42] OPCODE d0 | A:aa X:55 Y:69 P:27 SP:fb |bne 3
+[PC: cf44] OPCODE 4c | A:aa X:55 Y:69 P:27 SP:fb |jmp absolute cf4b
+[PC: cf4b] OPCODE ea | A:aa X:55 Y:69 P:27 SP:fb |nop
+[PC: cf4c] OPCODE 24 | A:aa X:55 Y:69 P:27 SP:fb |bit AdressingMode[1] 255
+[PC: cf4e] OPCODE 38 | A:aa X:55 Y:69 P:e5 SP:fb |sec
+[PC: cf4f] OPCODE a9 | A:aa X:55 Y:69 P:e5 SP:fb |lda AdressingMode[0] 1
+[PC: cf51] OPCODE 6a | A: 1 X:55 Y:69 P:65 SP:fb |ror acc 128
+[PC: cf52] OPCODE 90 | A:80 X:55 Y:69 P:e5 SP:fb |bcc 30
+[PC: cf54] OPCODE f0 | A:80 X:55 Y:69 P:e5 SP:fb |beq 28 Zero flag[false]
+[PC: cf56] OPCODE 10 | A:80 X:55 Y:69 P:e5 SP:fb |bpl 26
+[PC: cf58] OPCODE 50 | A:80 X:55 Y:69 P:e5 SP:fb |bvc 24
+[PC: cf5a] OPCODE c9 | A:80 X:55 Y:69 P:e5 SP:fb |cmp AdressingMode[0] 80, 80
+[PC: cf5c] OPCODE d0 | A:80 X:55 Y:69 P:67 SP:fb |bne 20
+[PC: cf5e] OPCODE b8 | A:80 X:55 Y:69 P:67 SP:fb |clv
+[PC: cf5f] OPCODE 18 | A:80 X:55 Y:69 P:27 SP:fb |clc
+[PC: cf60] OPCODE a9 | A:80 X:55 Y:69 P:26 SP:fb |lda AdressingMode[0] 55
+[PC: cf62] OPCODE 6a | A:55 X:55 Y:69 P:24 SP:fb |ror acc 170
+[PC: cf63] OPCODE 90 | A:aa X:55 Y:69 P:a5 SP:fb |bcc 13
+[PC: cf65] OPCODE f0 | A:aa X:55 Y:69 P:a5 SP:fb |beq 11 Zero flag[false]
+[PC: cf67] OPCODE 30 | A:aa X:55 Y:69 P:a5 SP:fb |bmi 9
+[PC: cf72] OPCODE a2 | A:aa X:55 Y:69 P:a5 SP:fb |ldx AdressingMode[0] 76
+[PC: cf74] OPCODE 86 | A:aa X:4c Y:69 P:25 SP:fb |stx AdressingMode[1] 76
+[PC: cf76] OPCODE ea | A:aa X:4c Y:69 P:25 SP:fb |nop
+[PC: cf77] OPCODE 24 | A:aa X:4c Y:69 P:25 SP:fb |bit AdressingMode[1] 255
+[PC: cf79] OPCODE 38 | A:aa X:4c Y:69 P:e5 SP:fb |sec
+[PC: cf7a] OPCODE a9 | A:aa X:4c Y:69 P:e5 SP:fb |lda AdressingMode[0] 80
+[PC: cf7c] OPCODE 2a | A:80 X:4c Y:69 P:e5 SP:fb |rol acc 1
+[PC: cf7d] OPCODE 90 | A: 1 X:4c Y:69 P:65 SP:fb |bcc 30
+[PC: cf7f] OPCODE f0 | A: 1 X:4c Y:69 P:65 SP:fb |beq 28 Zero flag[false]
+[PC: cf81] OPCODE 30 | A: 1 X:4c Y:69 P:65 SP:fb |bmi 26
+[PC: cf83] OPCODE 50 | A: 1 X:4c Y:69 P:65 SP:fb |bvc 24
+[PC: cf85] OPCODE c9 | A: 1 X:4c Y:69 P:65 SP:fb |cmp AdressingMode[0] 1, 1
+[PC: cf87] OPCODE d0 | A: 1 X:4c Y:69 P:67 SP:fb |bne 20
+[PC: cf89] OPCODE b8 | A: 1 X:4c Y:69 P:67 SP:fb |clv
+[PC: cf8a] OPCODE 18 | A: 1 X:4c Y:69 P:27 SP:fb |clc
+[PC: cf8b] OPCODE a9 | A: 1 X:4c Y:69 P:26 SP:fb |lda AdressingMode[0] 55
+[PC: cf8d] OPCODE 2a | A:55 X:4c Y:69 P:24 SP:fb |rol acc 170
+[PC: cf8e] OPCODE b0 | A:aa X:4c Y:69 P:a4 SP:fb |bcs 13
+[PC: cf90] OPCODE f0 | A:aa X:4c Y:69 P:a4 SP:fb |beq 11 Zero flag[false]
+[PC: cf92] OPCODE 10 | A:aa X:4c Y:69 P:a4 SP:fb |bpl 9
+[PC: cf94] OPCODE 70 | A:aa X:4c Y:69 P:a4 SP:fb |bvs 7
+[PC: cf96] OPCODE c9 | A:aa X:4c Y:69 P:a4 SP:fb |cmp AdressingMode[0] aa, aa
+[PC: cf98] OPCODE d0 | A:aa X:4c Y:69 P:27 SP:fb |bne 3
+[PC: cf9a] OPCODE 4c | A:aa X:4c Y:69 P:27 SP:fb |jmp absolute cfa1
+[PC: cfa1] OPCODE 60 | A:aa X:4c Y:69 P:27 SP:fb |rts c60f
+[PC: c60f] OPCODE 20 | A:aa X:4c Y:69 P:27 SP:fd |jsr cfa2
+[PC: cfa2] OPCODE a5 | A:aa X:4c Y:69 P:27 SP:fb |lda AdressingMode[1] 4c
+[PC: cfa4] OPCODE 8d | A:4c X:4c Y:69 P:25 SP:fb |sta AdressingMode[4] 76
+[PC: cfa7] OPCODE a9 | A:4c X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 0
+[PC: cfa9] OPCODE 85 | A: 0 X:4c Y:69 P:27 SP:fb |sta AdressingMode[1] 0
+[PC: cfab] OPCODE a9 | A: 0 X:4c Y:69 P:27 SP:fb |lda AdressingMode[0] 2
+[PC: cfad] OPCODE 85 | A: 2 X:4c Y:69 P:25 SP:fb |sta AdressingMode[1] 2
+[PC: cfaf] OPCODE a9 | A: 2 X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] ff
+[PC: cfb1] OPCODE 85 | A:ff X:4c Y:69 P:a5 SP:fb |sta AdressingMode[1] 255
+[PC: cfb3] OPCODE a9 | A:ff X:4c Y:69 P:a5 SP:fb |lda AdressingMode[0] 0
+[PC: cfb5] OPCODE 85 | A: 0 X:4c Y:69 P:27 SP:fb |sta AdressingMode[1] 0
+[PC: cfb7] OPCODE a9 | A: 0 X:4c Y:69 P:27 SP:fb |lda AdressingMode[0] 3
+[PC: cfb9] OPCODE 85 | A: 3 X:4c Y:69 P:25 SP:fb |sta AdressingMode[1] 3
+[PC: cfbb] OPCODE 85 | A: 3 X:4c Y:69 P:25 SP:fb |sta AdressingMode[1] 3
+[PC: cfbd] OPCODE a9 | A: 3 X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 0
+[PC: cfbf] OPCODE 85 | A: 0 X:4c Y:69 P:27 SP:fb |sta AdressingMode[1] 0
+[PC: cfc1] OPCODE a9 | A: 0 X:4c Y:69 P:27 SP:fb |lda AdressingMode[0] 4
+[PC: cfc3] OPCODE 85 | A: 4 X:4c Y:69 P:25 SP:fb |sta AdressingMode[1] 4
+[PC: cfc5] OPCODE a9 | A: 4 X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 5a
+[PC: cfc7] OPCODE 8d | A:5a X:4c Y:69 P:25 SP:fb |sta AdressingMode[4] 90
+[PC: cfca] OPCODE a9 | A:5a X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 5b
+[PC: cfcc] OPCODE 8d | A:5b X:4c Y:69 P:25 SP:fb |sta AdressingMode[4] 91
+[PC: cfcf] OPCODE a9 | A:5b X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 5c
+[PC: cfd1] OPCODE 8d | A:5c X:4c Y:69 P:25 SP:fb |sta AdressingMode[4] 92
+[PC: cfd4] OPCODE a9 | A:5c X:4c Y:69 P:25 SP:fb |lda AdressingMode[0] 5d
+[PC: cfd6] OPCODE 8d | A:5d X:4c Y:69 P:25 SP:fb |sta AdressingMode[4] 93
+[PC: cfd9] OPCODE a2 | A:5d X:4c Y:69 P:25 SP:fb |ldx AdressingMode[0] 0
+[PC: cfdb] OPCODE a1 | A:5d X: 0 Y:69 P:27 SP:fb |lda AdressingMode[7] 0
+[PC: cfdd] OPCODE c9 | A: 0 X: 0 Y:69 P:27 SP:fb |cmp AdressingMode[0] 0, 5a
+[PC: cfdf] OPCODE d0 | A: 0 X: 0 Y:69 P:a4 SP:fb |bne 31
+[PC: d000] OPCODE a9 | A: 0 X: 0 Y:69 P:a4 SP:fb |lda AdressingMode[0] 58
+[PC: d002] OPCODE 8d | A:58 X: 0 Y:69 P:24 SP:fb |sta AdressingMode[4] 88
+[PC: d005] OPCODE a9 | A:58 X: 0 Y:69 P:24 SP:fb |lda AdressingMode[0] aa
+[PC: d007] OPCODE a2 | A:aa X: 0 Y:69 P:a4 SP:fb |ldx AdressingMode[0] 0
+[PC: d009] OPCODE 81 | A:aa X: 0 Y:69 P:26 SP:fb |sta AdressingMode[7] 170
+[PC: d00b] OPCODE e8 | A:aa X: 0 Y:69 P:26 SP:fb |inx 0
+[PC: d00c] OPCODE e8 | A:aa X: 1 Y:69 P:24 SP:fb |inx 1
+[PC: d00d] OPCODE a9 | A:aa X: 2 Y:69 P:24 SP:fb |lda AdressingMode[0] ab
+[PC: d00f] OPCODE 81 | A:ab X: 2 Y:69 P:a4 SP:fb |sta AdressingMode[7] 171
+[PC: d011] OPCODE e8 | A:ab X: 2 Y:69 P:a4 SP:fb |inx 2
+[PC: d012] OPCODE a9 | A:ab X: 3 Y:69 P:24 SP:fb |lda AdressingMode[0] ac
+[PC: d014] OPCODE 81 | A:ac X: 3 Y:69 P:a4 SP:fb |sta AdressingMode[7] 172
+[PC: d016] OPCODE a2 | A:ac X: 3 Y:69 P:a4 SP:fb |ldx AdressingMode[0] 0
+[PC: d018] OPCODE a9 | A:ac X: 0 Y:69 P:26 SP:fb |lda AdressingMode[0] ad
+[PC: d01a] OPCODE 81 | A:ad X: 0 Y:69 P:a4 SP:fb |sta AdressingMode[7] 173
+[PC: d01c] OPCODE ad | A:ad X: 0 Y:69 P:a4 SP:fb |lda AdressingMode[4] 5a
+[PC: d01f] OPCODE c9 | A:5a X: 0 Y:69 P:24 SP:fb |cmp AdressingMode[0] 5a, aa
+[PC: d021] OPCODE d0 | A:5a X: 0 Y:69 P:a4 SP:fb |bne 21
+[PC: d038] OPCODE a9 | A:5a X: 0 Y:69 P:a4 SP:fb |lda AdressingMode[0] 59
+[PC: d03a] OPCODE 8d | A:59 X: 0 Y:69 P:24 SP:fb |sta AdressingMode[4] 89
+[PC: d03d] OPCODE ad | A:59 X: 0 Y:69 P:24 SP:fb |lda AdressingMode[4] 59
+[PC: d040] OPCODE 85 | A:59 X: 0 Y:69 P:24 SP:fb |sta AdressingMode[1] 89
+[PC: d042] OPCODE a9 | A:59 X: 0 Y:69 P:24 SP:fb |lda AdressingMode[0] 0
+[PC: d044] OPCODE 8d | A: 0 X: 0 Y:69 P:26 SP:fb |sta AdressingMode[4] 0
+[PC: d047] OPCODE a9 | A: 0 X: 0 Y:69 P:26 SP:fb |lda AdressingMode[0] aa
+[PC: d049] OPCODE 8d | A:aa X: 0 Y:69 P:a4 SP:fb |sta AdressingMode[4] 170
+[PC: d04c] OPCODE a2 | A:aa X: 0 Y:69 P:a4 SP:fb |ldx AdressingMode[0] 0
+[PC: d04e] OPCODE a0 | A:aa X: 0 Y:69 P:26 SP:fb |ldy AdressingMode[0] 90
+[PC: d050] OPCODE 20 | A:aa X: 0 Y:5a P:24 SP:fb |jsr f7b6
+[PC: f7b6] OPCODE 18 | A:aa X: 0 Y:5a P:24 SP:f9 |clc
+[PC: f7b7] OPCODE a9 | A:aa X: 0 Y:5a P:24 SP:f9 |lda AdressingMode[0] ff
+[PC: f7b9] OPCODE 85 | A:ff X: 0 Y:5a P:a4 SP:f9 |sta AdressingMode[1] 255
+[PC: f7bb] OPCODE 24 | A:ff X: 0 Y:5a P:a4 SP:f9 |bit AdressingMode[1] 255
+[PC: f7bd] OPCODE a9 | A:ff X: 0 Y:5a P:e4 SP:f9 |lda AdressingMode[0] 55
+[PC: f7bf] OPCODE 60 | A:55 X: 0 Y:5a P:64 SP:f9 |rts d053
+[PC: d053] OPCODE  1 | A:55 X: 0 Y:5a P:64 SP:fb |ora AdressingMode[7] 85
+[PC: d055] OPCODE 20 | A:55 X: 0 Y:5a P:64 SP:fb |jsr f7c0
+[PC: f7c0] OPCODE b0 | A:55 X: 0 Y:5a P:64 SP:f9 |bcs 9
+[PC: f7c2] OPCODE 10 | A:55 X: 0 Y:5a P:64 SP:f9 |bpl 7
+[PC: f7cb] OPCODE 84 | A:55 X: 0 Y:5a P:64 SP:f9 |sty AdressingMode[1] 90
+[PC: f7cd] OPCODE 60 | A:55 X: 0 Y:5a P:64 SP:f9 |rts d058
+[PC: d058] OPCODE c8 | A:55 X: 0 Y:5a P:64 SP:fb |iny 90
+[PC: d059] OPCODE 20 | A:55 X: 0 Y:5b P:64 SP:fb |jsr f7ce
+[PC: f7ce] OPCODE 38 | A:55 X: 0 Y:5b P:64 SP:f9 |sec
+[PC: f7cf] OPCODE b8 | A:55 X: 0 Y:5b P:65 SP:f9 |clv
+[PC: f7d0] OPCODE a9 | A:55 X: 0 Y:5b P:25 SP:f9 |lda AdressingMode[0] 0
+[PC: f7d2] OPCODE 60 | A: 0 X: 0 Y:5b P:27 SP:f9 |rts d05c
+[PC: d05c] OPCODE  1 | A: 0 X: 0 Y:5b P:27 SP:fb |ora AdressingMode[7] 0
+[PC: d05e] OPCODE 20 | A: 0 X: 0 Y:5b P:27 SP:fb |jsr f7d3
+[PC: f7d3] OPCODE d0 | A: 0 X: 0 Y:5b P:27 SP:f9 |bne 7
+[PC: f7d5] OPCODE 70 | A: 0 X: 0 Y:5b P:27 SP:f9 |bvs 5
+[PC: f7d7] OPCODE 90 | A: 0 X: 0 Y:5b P:27 SP:f9 |bcc 3
+[PC: f7d9] OPCODE 30 | A: 0 X: 0 Y:5b P:27 SP:f9 |bmi 1
+[PC: f7db] OPCODE 60 | A: 0 X: 0 Y:5b P:27 SP:f9 |rts d061
+[PC: d061] OPCODE c8 | A: 0 X: 0 Y:5b P:27 SP:fb |iny 91
+[PC: d062] OPCODE 20 | A: 0 X: 0 Y:5c P:25 SP:fb |jsr f7df
+[PC: f7df] OPCODE 18 | A: 0 X: 0 Y:5c P:25 SP:f9 |clc
+[PC: f7e0] OPCODE 24 | A: 0 X: 0 Y:5c P:24 SP:f9 |bit AdressingMode[1] 255
+[PC: f7e2] OPCODE a9 | A: 0 X: 0 Y:5c P:e6 SP:f9 |lda AdressingMode[0] 55
+[PC: f7e4] OPCODE 60 | A:55 X: 0 Y:5c P:64 SP:f9 |rts d065
+[PC: d065] OPCODE 21 | A:55 X: 0 Y:5c P:64 SP:fb |and AdressingMode[7] 0
+[PC: d067] OPCODE 20 | A: 0 X: 0 Y:5c P:66 SP:fb |jsr f7e5
+[PC: f7e5] OPCODE d0 | A: 0 X: 0 Y:5c P:66 SP:f9 |bne 7
+[PC: f7e7] OPCODE 50 | A: 0 X: 0 Y:5c P:66 SP:f9 |bvc 5
+[PC: f7e9] OPCODE b0 | A: 0 X: 0 Y:5c P:66 SP:f9 |bcs 3
+[PC: f7eb] OPCODE 30 | A: 0 X: 0 Y:5c P:66 SP:f9 |bmi 1
+[PC: f7ed] OPCODE 60 | A: 0 X: 0 Y:5c P:66 SP:f9 |rts d06a
+[PC: d06a] OPCODE c8 | A: 0 X: 0 Y:5c P:66 SP:fb |iny 92
+[PC: d06b] OPCODE a9 | A: 0 X: 0 Y:5d P:64 SP:fb |lda AdressingMode[0] ef
+[PC: d06d] OPCODE 8d | A:ef X: 0 Y:5d P:e4 SP:fb |sta AdressingMode[4] 239
+[PC: d070] OPCODE 20 | A:ef X: 0 Y:5d P:e4 SP:fb |jsr f7f1
+[PC: f7f1] OPCODE 38 | A:ef X: 0 Y:5d P:e4 SP:f9 |sec
+[PC: f7f2] OPCODE b8 | A:ef X: 0 Y:5d P:e5 SP:f9 |clv
+[PC: f7f3] OPCODE a9 | A:ef X: 0 Y:5d P:a5 SP:f9 |lda AdressingMode[0] f8
+[PC: f7f5] OPCODE 60 | A:f8 X: 0 Y:5d P:a5 SP:f9 |rts d073
+[PC: d073] OPCODE 21 | A:f8 X: 0 Y:5d P:a5 SP:fb |and AdressingMode[7] 0
+[PC: d075] OPCODE 20 | A: 0 X: 0 Y:5d P:27 SP:fb |jsr f7f6
+[PC: f7f6] OPCODE 90 | A: 0 X: 0 Y:5d P:27 SP:f9 |bcc 9
+[PC: f7f8] OPCODE 10 | A: 0 X: 0 Y:5d P:27 SP:f9 |bpl 7
+[PC: f801] OPCODE 84 | A: 0 X: 0 Y:5d P:27 SP:f9 |sty AdressingMode[1] 93
+[PC: f803] OPCODE 60 | A: 0 X: 0 Y:5d P:27 SP:f9 |rts d078
+[PC: d078] OPCODE c8 | A: 0 X: 0 Y:5d P:27 SP:fb |iny 93
+[PC: d079] OPCODE 20 | A: 0 X: 0 Y:5e P:25 SP:fb |jsr f804
+[PC: f804] OPCODE 18 | A: 0 X: 0 Y:5e P:25 SP:f9 |clc
+[PC: f805] OPCODE 24 | A: 0 X: 0 Y:5e P:24 SP:f9 |bit AdressingMode[1] 255
+[PC: f807] OPCODE a9 | A: 0 X: 0 Y:5e P:e6 SP:f9 |lda AdressingMode[0] 5f
+[PC: f809] OPCODE 60 | A:5f X: 0 Y:5e P:64 SP:f9 |rts d07c
+[PC: d07c] OPCODE 41 | A:5f X: 0 Y:5e P:64 SP:fb |eor AdressingMode[7] 95
+[PC: d07e] OPCODE 20 | A:5f X: 0 Y:5e P:64 SP:fb |jsr f80a
+[PC: f80a] OPCODE b0 | A:5f X: 0 Y:5e P:64 SP:f9 |bcs 9
+[PC: f80c] OPCODE 10 | A:5f X: 0 Y:5e P:64 SP:f9 |bpl 7
+[PC: f815] OPCODE 84 | A:5f X: 0 Y:5e P:64 SP:f9 |sty AdressingMode[1] 94
+[PC: f817] OPCODE 60 | A:5f X: 0 Y:5e P:64 SP:f9 |rts d081
+[PC: d081] OPCODE c8 | A:5f X: 0 Y:5e P:64 SP:fb |iny 94
+[PC: d082] OPCODE a9 | A:5f X: 0 Y:5f P:64 SP:fb |lda AdressingMode[0] 70
+[PC: d084] OPCODE 8d | A:70 X: 0 Y:5f P:64 SP:fb |sta AdressingMode[4] 112
+[PC: d087] OPCODE 20 | A:70 X: 0 Y:5f P:64 SP:fb |jsr f818
+[PC: f818] OPCODE 38 | A:70 X: 0 Y:5f P:64 SP:f9 |sec
+[PC: f819] OPCODE b8 | A:70 X: 0 Y:5f P:65 SP:f9 |clv
+[PC: f81a] OPCODE a9 | A:70 X: 0 Y:5f P:25 SP:f9 |lda AdressingMode[0] 70
+[PC: f81c] OPCODE 60 | A:70 X: 0 Y:5f P:25 SP:f9 |rts d08a
+[PC: d08a] OPCODE 41 | A:70 X: 0 Y:5f P:25 SP:fb |eor AdressingMode[7] 112
+[PC: d08c] OPCODE 20 | A:70 X: 0 Y:5f P:25 SP:fb |jsr f81d
+[PC: f81d] OPCODE d0 | A:70 X: 0 Y:5f P:25 SP:f9 |bne 7
+[PC: f826] OPCODE 84 | A:70 X: 0 Y:5f P:25 SP:f9 |sty AdressingMode[1] 95
+[PC: f828] OPCODE 60 | A:70 X: 0 Y:5f P:25 SP:f9 |rts d08f
+[PC: d08f] OPCODE c8 | A:70 X: 0 Y:5f P:25 SP:fb |iny 95
+[PC: d090] OPCODE a9 | A:70 X: 0 Y:60 P:25 SP:fb |lda AdressingMode[0] 69
+[PC: d092] OPCODE 8d | A:69 X: 0 Y:60 P:25 SP:fb |sta AdressingMode[4] 105
+[PC: d095] OPCODE 20 | A:69 X: 0 Y:60 P:25 SP:fb |jsr f829
+[PC: f829] OPCODE 18 | A:69 X: 0 Y:60 P:25 SP:f9 |clc
+[PC: f82a] OPCODE 24 | A:69 X: 0 Y:60 P:24 SP:f9 |bit AdressingMode[1] 255
+[PC: f82c] OPCODE a9 | A:69 X: 0 Y:60 P:e4 SP:f9 |lda AdressingMode[0] 0
+[PC: f82e] OPCODE 60 | A: 0 X: 0 Y:60 P:66 SP:f9 |rts d098
+[PC: d098] OPCODE 61 | A: 0 X: 0 Y:60 P:66 SP:fb |adc AdressingMode[7] 0
+[PC: d09a] OPCODE 20 | A: 0 X: 0 Y:60 P:26 SP:fb |jsr f82f
+[PC: f82f] OPCODE 30 | A: 0 X: 0 Y:60 P:26 SP:f9 |bmi 9
+[PC: f831] OPCODE b0 | A: 0 X: 0 Y:60 P:26 SP:f9 |bcs 7
+[PC: f833] OPCODE c9 | A: 0 X: 0 Y:60 P:26 SP:f9 |cmp AdressingMode[0] 0, 69
+[PC: f835] OPCODE d0 | A: 0 X: 0 Y:60 P:a4 SP:f9 |bne 3
+[PC: f83a] OPCODE 84 | A: 0 X: 0 Y:60 P:a4 SP:f9 |sty AdressingMode[1] 96
+[PC: f83c] OPCODE 60 | A: 0 X: 0 Y:60 P:a4 SP:f9 |rts d09d
+[PC: d09d] OPCODE c8 | A: 0 X: 0 Y:60 P:a4 SP:fb |iny 96
+[PC: d09e] OPCODE 20 | A: 0 X: 0 Y:61 P:24 SP:fb |jsr f83d
+[PC: f83d] OPCODE 38 | A: 0 X: 0 Y:61 P:24 SP:f9 |sec
+[PC: f83e] OPCODE 24 | A: 0 X: 0 Y:61 P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f840] OPCODE a9 | A: 0 X: 0 Y:61 P:e7 SP:f9 |lda AdressingMode[0] 0
+[PC: f842] OPCODE 60 | A: 0 X: 0 Y:61 P:67 SP:f9 |rts d0a1
+[PC: d0a1] OPCODE 61 | A: 0 X: 0 Y:61 P:67 SP:fb |adc AdressingMode[7] 1
+[PC: d0a3] OPCODE 20 | A: 1 X: 0 Y:61 P:24 SP:fb |jsr f843
+[PC: f843] OPCODE 30 | A: 1 X: 0 Y:61 P:24 SP:f9 |bmi 9
+[PC: f845] OPCODE b0 | A: 1 X: 0 Y:61 P:24 SP:f9 |bcs 7
+[PC: f847] OPCODE c9 | A: 1 X: 0 Y:61 P:24 SP:f9 |cmp AdressingMode[0] 1, 6a
+[PC: f849] OPCODE d0 | A: 1 X: 0 Y:61 P:a4 SP:f9 |bne 3
+[PC: f84e] OPCODE 84 | A: 1 X: 0 Y:61 P:a4 SP:f9 |sty AdressingMode[1] 97
+[PC: f850] OPCODE 60 | A: 1 X: 0 Y:61 P:a4 SP:f9 |rts d0a6
+[PC: d0a6] OPCODE c8 | A: 1 X: 0 Y:61 P:a4 SP:fb |iny 97
+[PC: d0a7] OPCODE a9 | A: 1 X: 0 Y:62 P:24 SP:fb |lda AdressingMode[0] 7f
+[PC: d0a9] OPCODE 8d | A:7f X: 0 Y:62 P:24 SP:fb |sta AdressingMode[4] 127
+[PC: d0ac] OPCODE 20 | A:7f X: 0 Y:62 P:24 SP:fb |jsr f851
+[PC: f851] OPCODE 38 | A:7f X: 0 Y:62 P:24 SP:f9 |sec
+[PC: f852] OPCODE b8 | A:7f X: 0 Y:62 P:25 SP:f9 |clv
+[PC: f853] OPCODE a9 | A:7f X: 0 Y:62 P:25 SP:f9 |lda AdressingMode[0] 7f
+[PC: f855] OPCODE 60 | A:7f X: 0 Y:62 P:25 SP:f9 |rts d0af
+[PC: d0af] OPCODE 61 | A:7f X: 0 Y:62 P:25 SP:fb |adc AdressingMode[7] 80
+[PC: d0b1] OPCODE 20 | A:80 X: 0 Y:62 P:e4 SP:fb |jsr f856
+[PC: f856] OPCODE 10 | A:80 X: 0 Y:62 P:e4 SP:f9 |bpl 9
+[PC: f858] OPCODE b0 | A:80 X: 0 Y:62 P:e4 SP:f9 |bcs 7
+[PC: f85a] OPCODE c9 | A:80 X: 0 Y:62 P:e4 SP:f9 |cmp AdressingMode[0] 80, ff
+[PC: f85c] OPCODE d0 | A:80 X: 0 Y:62 P:e4 SP:f9 |bne 3
+[PC: f861] OPCODE 84 | A:80 X: 0 Y:62 P:e4 SP:f9 |sty AdressingMode[1] 98
+[PC: f863] OPCODE 60 | A:80 X: 0 Y:62 P:e4 SP:f9 |rts d0b4
+[PC: d0b4] OPCODE c8 | A:80 X: 0 Y:62 P:e4 SP:fb |iny 98
+[PC: d0b5] OPCODE a9 | A:80 X: 0 Y:63 P:64 SP:fb |lda AdressingMode[0] 80
+[PC: d0b7] OPCODE 8d | A:80 X: 0 Y:63 P:e4 SP:fb |sta AdressingMode[4] 128
+[PC: d0ba] OPCODE 20 | A:80 X: 0 Y:63 P:e4 SP:fb |jsr f864
+[PC: f864] OPCODE 18 | A:80 X: 0 Y:63 P:e4 SP:f9 |clc
+[PC: f865] OPCODE 24 | A:80 X: 0 Y:63 P:e4 SP:f9 |bit AdressingMode[1] 255
+[PC: f867] OPCODE a9 | A:80 X: 0 Y:63 P:e4 SP:f9 |lda AdressingMode[0] 7f
+[PC: f869] OPCODE 60 | A:7f X: 0 Y:63 P:64 SP:f9 |rts d0bd
+[PC: d0bd] OPCODE 61 | A:7f X: 0 Y:63 P:64 SP:fb |adc AdressingMode[7] 7f
+[PC: d0bf] OPCODE 20 | A:7f X: 0 Y:63 P:24 SP:fb |jsr f86a
+[PC: f86a] OPCODE 10 | A:7f X: 0 Y:63 P:24 SP:f9 |bpl 9
+[PC: f875] OPCODE 84 | A:7f X: 0 Y:63 P:24 SP:f9 |sty AdressingMode[1] 99
+[PC: f877] OPCODE 60 | A:7f X: 0 Y:63 P:24 SP:f9 |rts d0c2
+[PC: d0c2] OPCODE c8 | A:7f X: 0 Y:63 P:24 SP:fb |iny 99
+[PC: d0c3] OPCODE 20 | A:7f X: 0 Y:64 P:24 SP:fb |jsr f878
+[PC: f878] OPCODE 38 | A:7f X: 0 Y:64 P:24 SP:f9 |sec
+[PC: f879] OPCODE b8 | A:7f X: 0 Y:64 P:25 SP:f9 |clv
+[PC: f87a] OPCODE a9 | A:7f X: 0 Y:64 P:25 SP:f9 |lda AdressingMode[0] 7f
+[PC: f87c] OPCODE 60 | A:7f X: 0 Y:64 P:25 SP:f9 |rts d0c6
+[PC: d0c6] OPCODE 61 | A:7f X: 0 Y:64 P:25 SP:fb |adc AdressingMode[7] 80
+[PC: d0c8] OPCODE 20 | A:80 X: 0 Y:64 P:e4 SP:fb |jsr f87d
+[PC: f87d] OPCODE d0 | A:80 X: 0 Y:64 P:e4 SP:f9 |bne 7
+[PC: f886] OPCODE 84 | A:80 X: 0 Y:64 P:e4 SP:f9 |sty AdressingMode[1] 100
+[PC: f888] OPCODE 60 | A:80 X: 0 Y:64 P:e4 SP:f9 |rts d0cb
+[PC: d0cb] OPCODE c8 | A:80 X: 0 Y:64 P:e4 SP:fb |iny 100
+[PC: d0cc] OPCODE a9 | A:80 X: 0 Y:65 P:64 SP:fb |lda AdressingMode[0] 40
+[PC: d0ce] OPCODE 8d | A:40 X: 0 Y:65 P:64 SP:fb |sta AdressingMode[4] 64
+[PC: d0d1] OPCODE 20 | A:40 X: 0 Y:65 P:64 SP:fb |jsr f889
+[PC: f889] OPCODE 24 | A:40 X: 0 Y:65 P:64 SP:f9 |bit AdressingMode[1] 255
+[PC: f88b] OPCODE a9 | A:40 X: 0 Y:65 P:e4 SP:f9 |lda AdressingMode[0] 40
+[PC: f88d] OPCODE 60 | A:40 X: 0 Y:65 P:64 SP:f9 |rts d0d4
+[PC: d0d4] OPCODE c1 | A:40 X: 0 Y:65 P:64 SP:fb |cmp AdressingMode[7] 40, 0
+[PC: d0d6] OPCODE 20 | A:40 X: 0 Y:65 P:65 SP:fb |jsr f88e
+[PC: f88e] OPCODE 30 | A:40 X: 0 Y:65 P:65 SP:f9 |bmi 7
+[PC: f890] OPCODE 90 | A:40 X: 0 Y:65 P:65 SP:f9 |bcc 5
+[PC: f892] OPCODE d0 | A:40 X: 0 Y:65 P:65 SP:f9 |bne 3
+[PC: f897] OPCODE 84 | A:40 X: 0 Y:65 P:65 SP:f9 |sty AdressingMode[1] 101
+[PC: f899] OPCODE 60 | A:40 X: 0 Y:65 P:65 SP:f9 |rts d0d9
+[PC: d0d9] OPCODE c8 | A:40 X: 0 Y:65 P:65 SP:fb |iny 101
+[PC: d0da] OPCODE 48 | A:40 X: 0 Y:66 P:65 SP:fb |pha 40
+[PC: d0db] OPCODE a9 | A:40 X: 0 Y:66 P:65 SP:fa |lda AdressingMode[0] 3f
+[PC: d0dd] OPCODE 8d | A:3f X: 0 Y:66 P:65 SP:fa |sta AdressingMode[4] 63
+[PC: d0e0] OPCODE 68 | A:3f X: 0 Y:66 P:65 SP:fa |pla 40
+[PC: d0e1] OPCODE 20 | A:40 X: 0 Y:66 P:65 SP:fb |jsr f89a
+[PC: f89a] OPCODE b8 | A:40 X: 0 Y:66 P:65 SP:f9 |clv
+[PC: f89b] OPCODE 60 | A:40 X: 0 Y:66 P:25 SP:f9 |rts d0e4
+[PC: d0e4] OPCODE c1 | A:40 X: 0 Y:66 P:25 SP:fb |cmp AdressingMode[7] 40, 0
+[PC: d0e6] OPCODE 20 | A:40 X: 0 Y:66 P:25 SP:fb |jsr f89c
+[PC: f89c] OPCODE f0 | A:40 X: 0 Y:66 P:25 SP:f9 |beq 7 Zero flag[false]
+[PC: f89e] OPCODE 30 | A:40 X: 0 Y:66 P:25 SP:f9 |bmi 5
+[PC: f8a0] OPCODE 90 | A:40 X: 0 Y:66 P:25 SP:f9 |bcc 3
+[PC: f8a2] OPCODE 70 | A:40 X: 0 Y:66 P:25 SP:f9 |bvs 1
+[PC: f8a4] OPCODE 60 | A:40 X: 0 Y:66 P:25 SP:f9 |rts d0e9
+[PC: d0e9] OPCODE c8 | A:40 X: 0 Y:66 P:25 SP:fb |iny 102
+[PC: d0ea] OPCODE 48 | A:40 X: 0 Y:67 P:25 SP:fb |pha 40
+[PC: d0eb] OPCODE a9 | A:40 X: 0 Y:67 P:25 SP:fa |lda AdressingMode[0] 41
+[PC: d0ed] OPCODE 8d | A:41 X: 0 Y:67 P:25 SP:fa |sta AdressingMode[4] 65
+[PC: d0f0] OPCODE 68 | A:41 X: 0 Y:67 P:25 SP:fa |pla 40
+[PC: d0f1] OPCODE c1 | A:40 X: 0 Y:67 P:25 SP:fb |cmp AdressingMode[7] 40, 0
+[PC: d0f3] OPCODE 20 | A:40 X: 0 Y:67 P:25 SP:fb |jsr f8a8
+[PC: f8a8] OPCODE f0 | A:40 X: 0 Y:67 P:25 SP:f9 |beq 5 Zero flag[false]
+[PC: f8aa] OPCODE 10 | A:40 X: 0 Y:67 P:25 SP:f9 |bpl 3
+[PC: f8af] OPCODE 84 | A:40 X: 0 Y:67 P:25 SP:f9 |sty AdressingMode[1] 103
+[PC: f8b1] OPCODE 60 | A:40 X: 0 Y:67 P:25 SP:f9 |rts d0f6
+[PC: d0f6] OPCODE c8 | A:40 X: 0 Y:67 P:25 SP:fb |iny 103
+[PC: d0f7] OPCODE 48 | A:40 X: 0 Y:68 P:25 SP:fb |pha 40
+[PC: d0f8] OPCODE a9 | A:40 X: 0 Y:68 P:25 SP:fa |lda AdressingMode[0] 0
+[PC: d0fa] OPCODE 8d | A: 0 X: 0 Y:68 P:27 SP:fa |sta AdressingMode[4] 0
+[PC: d0fd] OPCODE 68 | A: 0 X: 0 Y:68 P:27 SP:fa |pla 40
+[PC: d0fe] OPCODE 20 | A:40 X: 0 Y:68 P:25 SP:fb |jsr f8b2
+[PC: f8b2] OPCODE a9 | A:40 X: 0 Y:68 P:25 SP:f9 |lda AdressingMode[0] 80
+[PC: f8b4] OPCODE 60 | A:80 X: 0 Y:68 P:a5 SP:f9 |rts d101
+[PC: d101] OPCODE c1 | A:80 X: 0 Y:68 P:a5 SP:fb |cmp AdressingMode[7] 80, 0
+[PC: d103] OPCODE 20 | A:80 X: 0 Y:68 P:a5 SP:fb |jsr f8b5
+[PC: f8b5] OPCODE f0 | A:80 X: 0 Y:68 P:a5 SP:f9 |beq 5 Zero flag[false]
+[PC: f8b7] OPCODE 10 | A:80 X: 0 Y:68 P:a5 SP:f9 |bpl 3
+[PC: f8b9] OPCODE 90 | A:80 X: 0 Y:68 P:a5 SP:f9 |bcc 1
+[PC: f8bb] OPCODE 60 | A:80 X: 0 Y:68 P:a5 SP:f9 |rts d106
+[PC: d106] OPCODE c8 | A:80 X: 0 Y:68 P:a5 SP:fb |iny 104
+[PC: d107] OPCODE 48 | A:80 X: 0 Y:69 P:25 SP:fb |pha 80
+[PC: d108] OPCODE a9 | A:80 X: 0 Y:69 P:25 SP:fa |lda AdressingMode[0] 80
+[PC: d10a] OPCODE 8d | A:80 X: 0 Y:69 P:a5 SP:fa |sta AdressingMode[4] 128
+[PC: d10d] OPCODE 68 | A:80 X: 0 Y:69 P:a5 SP:fa |pla 80
+[PC: d10e] OPCODE c1 | A:80 X: 0 Y:69 P:a5 SP:fb |cmp AdressingMode[7] 80, 0
+[PC: d110] OPCODE 20 | A:80 X: 0 Y:69 P:a5 SP:fb |jsr f8bf
+[PC: f8bf] OPCODE d0 | A:80 X: 0 Y:69 P:a5 SP:f9 |bne 5
+[PC: f8c6] OPCODE 84 | A:80 X: 0 Y:69 P:a5 SP:f9 |sty AdressingMode[1] 105
+[PC: f8c8] OPCODE 60 | A:80 X: 0 Y:69 P:a5 SP:f9 |rts d113
+[PC: d113] OPCODE c8 | A:80 X: 0 Y:69 P:a5 SP:fb |iny 105
+[PC: d114] OPCODE 48 | A:80 X: 0 Y:6a P:25 SP:fb |pha 80
+[PC: d115] OPCODE a9 | A:80 X: 0 Y:6a P:25 SP:fa |lda AdressingMode[0] 81
+[PC: d117] OPCODE 8d | A:81 X: 0 Y:6a P:a5 SP:fa |sta AdressingMode[4] 129
+[PC: d11a] OPCODE 68 | A:81 X: 0 Y:6a P:a5 SP:fa |pla 80
+[PC: d11b] OPCODE c1 | A:80 X: 0 Y:6a P:a5 SP:fb |cmp AdressingMode[7] 80, 0
+[PC: d11d] OPCODE 20 | A:80 X: 0 Y:6a P:a5 SP:fb |jsr f8c9
+[PC: f8c9] OPCODE b0 | A:80 X: 0 Y:6a P:a5 SP:f9 |bcs 5
+[PC: f8d0] OPCODE 84 | A:80 X: 0 Y:6a P:a5 SP:f9 |sty AdressingMode[1] 106
+[PC: f8d2] OPCODE 60 | A:80 X: 0 Y:6a P:a5 SP:f9 |rts d120
+[PC: d120] OPCODE c8 | A:80 X: 0 Y:6a P:a5 SP:fb |iny 106
+[PC: d121] OPCODE 48 | A:80 X: 0 Y:6b P:25 SP:fb |pha 80
+[PC: d122] OPCODE a9 | A:80 X: 0 Y:6b P:25 SP:fa |lda AdressingMode[0] 7f
+[PC: d124] OPCODE 8d | A:7f X: 0 Y:6b P:25 SP:fa |sta AdressingMode[4] 127
+[PC: d127] OPCODE 68 | A:7f X: 0 Y:6b P:25 SP:fa |pla 80
+[PC: d128] OPCODE c1 | A:80 X: 0 Y:6b P:a5 SP:fb |cmp AdressingMode[7] 80, 0
+[PC: d12a] OPCODE 20 | A:80 X: 0 Y:6b P:a5 SP:fb |jsr f8d3
+[PC: f8d3] OPCODE 90 | A:80 X: 0 Y:6b P:a5 SP:f9 |bcc 5
+[PC: f8d5] OPCODE f0 | A:80 X: 0 Y:6b P:a5 SP:f9 |beq 3 Zero flag[false]
+[PC: f8d7] OPCODE 30 | A:80 X: 0 Y:6b P:a5 SP:f9 |bmi 1
+[PC: f8da] OPCODE 84 | A:80 X: 0 Y:6b P:a5 SP:f9 |sty AdressingMode[1] 107
+[PC: f8dc] OPCODE 60 | A:80 X: 0 Y:6b P:a5 SP:f9 |rts d12d
+[PC: d12d] OPCODE c8 | A:80 X: 0 Y:6b P:a5 SP:fb |iny 107
+[PC: d12e] OPCODE a9 | A:80 X: 0 Y:6c P:25 SP:fb |lda AdressingMode[0] 40
+[PC: d130] OPCODE 8d | A:40 X: 0 Y:6c P:25 SP:fb |sta AdressingMode[4] 64
+[PC: d133] OPCODE 20 | A:40 X: 0 Y:6c P:25 SP:fb |jsr f931
+[PC: f931] OPCODE 24 | A:40 X: 0 Y:6c P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f933] OPCODE a9 | A:40 X: 0 Y:6c P:e5 SP:f9 |lda AdressingMode[0] 40
+[PC: f935] OPCODE 38 | A:40 X: 0 Y:6c P:65 SP:f9 |sec
+[PC: f936] OPCODE 60 | A:40 X: 0 Y:6c P:65 SP:f9 |rts d136
+[PC: d136] OPCODE e1 | A:40 X: 0 Y:6c P:65 SP:fb |sbc AdressingMode[7] 64
+[PC: d138] OPCODE 20 | A:40 X: 0 Y:6c P:25 SP:fb |jsr f937
+[PC: f937] OPCODE 30 | A:40 X: 0 Y:6c P:25 SP:f9 |bmi 11
+[PC: f939] OPCODE 90 | A:40 X: 0 Y:6c P:25 SP:f9 |bcc 9
+[PC: f93b] OPCODE d0 | A:40 X: 0 Y:6c P:25 SP:f9 |bne 7
+[PC: f944] OPCODE 84 | A:40 X: 0 Y:6c P:25 SP:f9 |sty AdressingMode[1] 108
+[PC: f946] OPCODE 60 | A:40 X: 0 Y:6c P:25 SP:f9 |rts d13b
+[PC: d13b] OPCODE c8 | A:40 X: 0 Y:6c P:25 SP:fb |iny 108
+[PC: d13c] OPCODE a9 | A:40 X: 0 Y:6d P:25 SP:fb |lda AdressingMode[0] 3f
+[PC: d13e] OPCODE 8d | A:3f X: 0 Y:6d P:25 SP:fb |sta AdressingMode[4] 63
+[PC: d141] OPCODE 20 | A:3f X: 0 Y:6d P:25 SP:fb |jsr f947
+[PC: f947] OPCODE b8 | A:3f X: 0 Y:6d P:25 SP:f9 |clv
+[PC: f948] OPCODE 38 | A:3f X: 0 Y:6d P:25 SP:f9 |sec
+[PC: f949] OPCODE a9 | A:3f X: 0 Y:6d P:25 SP:f9 |lda AdressingMode[0] 40
+[PC: f94b] OPCODE 60 | A:40 X: 0 Y:6d P:25 SP:f9 |rts d144
+[PC: d144] OPCODE e1 | A:40 X: 0 Y:6d P:25 SP:fb |sbc AdressingMode[7] 64
+[PC: d146] OPCODE 20 | A:40 X: 0 Y:6d P:25 SP:fb |jsr f94c
+[PC: f94c] OPCODE f0 | A:40 X: 0 Y:6d P:25 SP:f9 |beq 11 Zero flag[false]
+[PC: f94e] OPCODE 30 | A:40 X: 0 Y:6d P:25 SP:f9 |bmi 9
+[PC: f950] OPCODE 90 | A:40 X: 0 Y:6d P:25 SP:f9 |bcc 7
+[PC: f952] OPCODE 70 | A:40 X: 0 Y:6d P:25 SP:f9 |bvs 5
+[PC: f954] OPCODE c9 | A:40 X: 0 Y:6d P:25 SP:f9 |cmp AdressingMode[0] 40, 1
+[PC: f956] OPCODE d0 | A:40 X: 0 Y:6d P:25 SP:f9 |bne 1
+[PC: f959] OPCODE 84 | A:40 X: 0 Y:6d P:25 SP:f9 |sty AdressingMode[1] 109
+[PC: f95b] OPCODE 60 | A:40 X: 0 Y:6d P:25 SP:f9 |rts d149
+[PC: d149] OPCODE c8 | A:40 X: 0 Y:6d P:25 SP:fb |iny 109
+[PC: d14a] OPCODE a9 | A:40 X: 0 Y:6e P:25 SP:fb |lda AdressingMode[0] 41
+[PC: d14c] OPCODE 8d | A:41 X: 0 Y:6e P:25 SP:fb |sta AdressingMode[4] 65
+[PC: d14f] OPCODE 20 | A:41 X: 0 Y:6e P:25 SP:fb |jsr f95c
+[PC: f95c] OPCODE a9 | A:41 X: 0 Y:6e P:25 SP:f9 |lda AdressingMode[0] 40
+[PC: f95e] OPCODE 38 | A:40 X: 0 Y:6e P:25 SP:f9 |sec
+[PC: f95f] OPCODE 24 | A:40 X: 0 Y:6e P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f961] OPCODE 60 | A:40 X: 0 Y:6e P:e5 SP:f9 |rts d152
+[PC: d152] OPCODE e1 | A:40 X: 0 Y:6e P:e5 SP:fb |sbc AdressingMode[7] 64
+[PC: d154] OPCODE 20 | A:40 X: 0 Y:6e P:25 SP:fb |jsr f962
+[PC: f962] OPCODE b0 | A:40 X: 0 Y:6e P:25 SP:f9 |bcs 11
+[PC: f96f] OPCODE 84 | A:40 X: 0 Y:6e P:25 SP:f9 |sty AdressingMode[1] 110
+[PC: f971] OPCODE 60 | A:40 X: 0 Y:6e P:25 SP:f9 |rts d157
+[PC: d157] OPCODE c8 | A:40 X: 0 Y:6e P:25 SP:fb |iny 110
+[PC: d158] OPCODE a9 | A:40 X: 0 Y:6f P:25 SP:fb |lda AdressingMode[0] 0
+[PC: d15a] OPCODE 8d | A: 0 X: 0 Y:6f P:27 SP:fb |sta AdressingMode[4] 0
+[PC: d15d] OPCODE 20 | A: 0 X: 0 Y:6f P:27 SP:fb |jsr f972
+[PC: f972] OPCODE 18 | A: 0 X: 0 Y:6f P:27 SP:f9 |clc
+[PC: f973] OPCODE a9 | A: 0 X: 0 Y:6f P:26 SP:f9 |lda AdressingMode[0] 80
+[PC: f975] OPCODE 60 | A:80 X: 0 Y:6f P:a4 SP:f9 |rts d160
+[PC: d160] OPCODE e1 | A:80 X: 0 Y:6f P:a4 SP:fb |sbc AdressingMode[7] 127
+[PC: d162] OPCODE 20 | A:7f X: 0 Y:6f P:65 SP:fb |jsr f976
+[PC: f976] OPCODE 90 | A:7f X: 0 Y:6f P:65 SP:f9 |bcc 5
+[PC: f978] OPCODE c9 | A:7f X: 0 Y:6f P:65 SP:f9 |cmp AdressingMode[0] 7f, 7f
+[PC: f97a] OPCODE d0 | A:7f X: 0 Y:6f P:67 SP:f9 |bne 1
+[PC: f97c] OPCODE 60 | A:7f X: 0 Y:6f P:67 SP:f9 |rts d165
+[PC: d165] OPCODE c8 | A:7f X: 0 Y:6f P:67 SP:fb |iny 111
+[PC: d166] OPCODE a9 | A:7f X: 0 Y:70 P:65 SP:fb |lda AdressingMode[0] 7f
+[PC: d168] OPCODE 8d | A:7f X: 0 Y:70 P:65 SP:fb |sta AdressingMode[4] 127
+[PC: d16b] OPCODE 20 | A:7f X: 0 Y:70 P:65 SP:fb |jsr f980
+[PC: f980] OPCODE 38 | A:7f X: 0 Y:70 P:65 SP:f9 |sec
+[PC: f981] OPCODE a9 | A:7f X: 0 Y:70 P:65 SP:f9 |lda AdressingMode[0] 81
+[PC: f983] OPCODE 60 | A:81 X: 0 Y:70 P:e5 SP:f9 |rts d16e
+[PC: d16e] OPCODE e1 | A:81 X: 0 Y:70 P:e5 SP:fb |sbc AdressingMode[7] 129
+[PC: d170] OPCODE 20 | A:81 X: 0 Y:70 P:a5 SP:fb |jsr f984
+[PC: f984] OPCODE 50 | A:81 X: 0 Y:70 P:a5 SP:f9 |bvc 7
+[PC: f98d] OPCODE 84 | A:81 X: 0 Y:70 P:a5 SP:f9 |sty AdressingMode[1] 112
+[PC: f98f] OPCODE 60 | A:81 X: 0 Y:70 P:a5 SP:f9 |rts d173
+[PC: d173] OPCODE 60 | A:81 X: 0 Y:70 P:a5 SP:fb |rts c612
+[PC: c612] OPCODE 20 | A:81 X: 0 Y:70 P:a5 SP:fd |jsr d174
+[PC: d174] OPCODE a9 | A:81 X: 0 Y:70 P:a5 SP:fb |lda AdressingMode[0] 55
+[PC: d176] OPCODE 85 | A:55 X: 0 Y:70 P:25 SP:fb |sta AdressingMode[1] 85
+[PC: d178] OPCODE a9 | A:55 X: 0 Y:70 P:25 SP:fb |lda AdressingMode[0] ff
+[PC: d17a] OPCODE 85 | A:ff X: 0 Y:70 P:a5 SP:fb |sta AdressingMode[1] 255
+[PC: d17c] OPCODE 24 | A:ff X: 0 Y:70 P:a5 SP:fb |bit AdressingMode[1] 255
+[PC: d17e] OPCODE a0 | A:ff X: 0 Y:70 P:e5 SP:fb |ldy AdressingMode[0] 17
+[PC: d180] OPCODE a2 | A:ff X: 0 Y:11 P:65 SP:fb |ldx AdressingMode[0] 35
+[PC: d182] OPCODE a9 | A:ff X:23 Y:11 P:65 SP:fb |lda AdressingMode[0] 0
+[PC: d184] OPCODE a5 | A: 0 X:23 Y:11 P:67 SP:fb |lda AdressingMode[1] 55
+[PC: d186] OPCODE f0 | A:55 X:23 Y:11 P:65 SP:fb |beq 16 Zero flag[false]
+[PC: d188] OPCODE 30 | A:55 X:23 Y:11 P:65 SP:fb |bmi 14
+[PC: d18a] OPCODE c9 | A:55 X:23 Y:11 P:65 SP:fb |cmp AdressingMode[0] 55, 55
+[PC: d18c] OPCODE d0 | A:55 X:23 Y:11 P:67 SP:fb |bne 10
+[PC: d18e] OPCODE c0 | A:55 X:23 Y:11 P:67 SP:fb |cpy AdressingMode[0] 17, 17
+[PC: d190] OPCODE d0 | A:55 X:23 Y:11 P:67 SP:fb |bne 6
+[PC: d192] OPCODE e0 | A:55 X:23 Y:11 P:67 SP:fb |cpx AdressingMode[0] 35, 35
+[PC: d194] OPCODE 50 | A:55 X:23 Y:11 P:67 SP:fb |bvc 2
+[PC: d196] OPCODE f0 | A:55 X:23 Y:11 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d19c] OPCODE a9 | A:55 X:23 Y:11 P:67 SP:fb |lda AdressingMode[0] 46
+[PC: d19e] OPCODE 24 | A:46 X:23 Y:11 P:65 SP:fb |bit AdressingMode[1] 255
+[PC: d1a0] OPCODE 85 | A:46 X:23 Y:11 P:e5 SP:fb |sta AdressingMode[1] 70
+[PC: d1a2] OPCODE f0 | A:46 X:23 Y:11 P:e5 SP:fb |beq 10 Zero flag[false]
+[PC: d1a4] OPCODE 10 | A:46 X:23 Y:11 P:e5 SP:fb |bpl 8
+[PC: d1a6] OPCODE 50 | A:46 X:23 Y:11 P:e5 SP:fb |bvc 6
+[PC: d1a8] OPCODE a5 | A:46 X:23 Y:11 P:e5 SP:fb |lda AdressingMode[1] 46
+[PC: d1aa] OPCODE c9 | A:46 X:23 Y:11 P:65 SP:fb |cmp AdressingMode[0] 46, 46
+[PC: d1ac] OPCODE f0 | A:46 X:23 Y:11 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d1b2] OPCODE a9 | A:46 X:23 Y:11 P:67 SP:fb |lda AdressingMode[0] 55
+[PC: d1b4] OPCODE 85 | A:55 X:23 Y:11 P:65 SP:fb |sta AdressingMode[1] 85
+[PC: d1b6] OPCODE 24 | A:55 X:23 Y:11 P:65 SP:fb |bit AdressingMode[1] 255
+[PC: d1b8] OPCODE a9 | A:55 X:23 Y:11 P:e5 SP:fb |lda AdressingMode[0] 11
+[PC: d1ba] OPCODE a2 | A:11 X:23 Y:11 P:65 SP:fb |ldx AdressingMode[0] 35
+[PC: d1bc] OPCODE a0 | A:11 X:23 Y:11 P:65 SP:fb |ldy AdressingMode[0] 0
+[PC: d1be] OPCODE a4 | A:11 X:23 Y: 0 P:67 SP:fb |ldy AdressingMode[1] 85
+[PC: d1c0] OPCODE f0 | A:11 X:23 Y:55 P:65 SP:fb |beq 16 Zero flag[false]
+[PC: d1c2] OPCODE 30 | A:11 X:23 Y:55 P:65 SP:fb |bmi 14
+[PC: d1c4] OPCODE c0 | A:11 X:23 Y:55 P:65 SP:fb |cpy AdressingMode[0] 85, 85
+[PC: d1c6] OPCODE d0 | A:11 X:23 Y:55 P:67 SP:fb |bne 10
+[PC: d1c8] OPCODE c9 | A:11 X:23 Y:55 P:67 SP:fb |cmp AdressingMode[0] 11, 11
+[PC: d1ca] OPCODE d0 | A:11 X:23 Y:55 P:67 SP:fb |bne 6
+[PC: d1cc] OPCODE e0 | A:11 X:23 Y:55 P:67 SP:fb |cpx AdressingMode[0] 35, 35
+[PC: d1ce] OPCODE 50 | A:11 X:23 Y:55 P:67 SP:fb |bvc 2
+[PC: d1d0] OPCODE f0 | A:11 X:23 Y:55 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d1d6] OPCODE a0 | A:11 X:23 Y:55 P:67 SP:fb |ldy AdressingMode[0] 70
+[PC: d1d8] OPCODE 24 | A:11 X:23 Y:46 P:65 SP:fb |bit AdressingMode[1] 255
+[PC: d1da] OPCODE 84 | A:11 X:23 Y:46 P:e5 SP:fb |sty AdressingMode[1] 70
+[PC: d1dc] OPCODE f0 | A:11 X:23 Y:46 P:e5 SP:fb |beq 10 Zero flag[false]
+[PC: d1de] OPCODE 10 | A:11 X:23 Y:46 P:e5 SP:fb |bpl 8
+[PC: d1e0] OPCODE 50 | A:11 X:23 Y:46 P:e5 SP:fb |bvc 6
+[PC: d1e2] OPCODE a4 | A:11 X:23 Y:46 P:e5 SP:fb |ldy AdressingMode[1] 70
+[PC: d1e4] OPCODE c0 | A:11 X:23 Y:46 P:65 SP:fb |cpy AdressingMode[0] 70, 70
+[PC: d1e6] OPCODE f0 | A:11 X:23 Y:46 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d1ec] OPCODE 24 | A:11 X:23 Y:46 P:67 SP:fb |bit AdressingMode[1] 255
+[PC: d1ee] OPCODE a9 | A:11 X:23 Y:46 P:e5 SP:fb |lda AdressingMode[0] 55
+[PC: d1f0] OPCODE 85 | A:55 X:23 Y:46 P:65 SP:fb |sta AdressingMode[1] 85
+[PC: d1f2] OPCODE a0 | A:55 X:23 Y:46 P:65 SP:fb |ldy AdressingMode[0] 17
+[PC: d1f4] OPCODE a9 | A:55 X:23 Y:11 P:65 SP:fb |lda AdressingMode[0] 23
+[PC: d1f6] OPCODE a2 | A:23 X:23 Y:11 P:65 SP:fb |ldx AdressingMode[0] 0
+[PC: d1f8] OPCODE a6 | A:23 X: 0 Y:11 P:67 SP:fb |ldx AdressingMode[1] 85
+[PC: d1fa] OPCODE f0 | A:23 X:55 Y:11 P:65 SP:fb |beq 16 Zero flag[false]
+[PC: d1fc] OPCODE 30 | A:23 X:55 Y:11 P:65 SP:fb |bmi 14
+[PC: d1fe] OPCODE e0 | A:23 X:55 Y:11 P:65 SP:fb |cpx AdressingMode[0] 85, 85
+[PC: d200] OPCODE d0 | A:23 X:55 Y:11 P:67 SP:fb |bne 10
+[PC: d202] OPCODE c0 | A:23 X:55 Y:11 P:67 SP:fb |cpy AdressingMode[0] 17, 17
+[PC: d204] OPCODE d0 | A:23 X:55 Y:11 P:67 SP:fb |bne 6
+[PC: d206] OPCODE c9 | A:23 X:55 Y:11 P:67 SP:fb |cmp AdressingMode[0] 23, 23
+[PC: d208] OPCODE 50 | A:23 X:55 Y:11 P:67 SP:fb |bvc 2
+[PC: d20a] OPCODE f0 | A:23 X:55 Y:11 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d210] OPCODE a2 | A:23 X:55 Y:11 P:67 SP:fb |ldx AdressingMode[0] 70
+[PC: d212] OPCODE 24 | A:23 X:46 Y:11 P:65 SP:fb |bit AdressingMode[1] 255
+[PC: d214] OPCODE 86 | A:23 X:46 Y:11 P:e5 SP:fb |stx AdressingMode[1] 70
+[PC: d216] OPCODE f0 | A:23 X:46 Y:11 P:e5 SP:fb |beq 10 Zero flag[false]
+[PC: d218] OPCODE 10 | A:23 X:46 Y:11 P:e5 SP:fb |bpl 8
+[PC: d21a] OPCODE 50 | A:23 X:46 Y:11 P:e5 SP:fb |bvc 6
+[PC: d21c] OPCODE a6 | A:23 X:46 Y:11 P:e5 SP:fb |ldx AdressingMode[1] 70
+[PC: d21e] OPCODE e0 | A:23 X:46 Y:11 P:65 SP:fb |cpx AdressingMode[0] 70, 70
+[PC: d220] OPCODE f0 | A:23 X:46 Y:11 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d226] OPCODE a9 | A:23 X:46 Y:11 P:67 SP:fb |lda AdressingMode[0] c0
+[PC: d228] OPCODE 85 | A:c0 X:46 Y:11 P:e5 SP:fb |sta AdressingMode[1] 192
+[PC: d22a] OPCODE a2 | A:c0 X:46 Y:11 P:e5 SP:fb |ldx AdressingMode[0] 51
+[PC: d22c] OPCODE a0 | A:c0 X:33 Y:11 P:65 SP:fb |ldy AdressingMode[0] 136
+[PC: d22e] OPCODE a9 | A:c0 X:33 Y:88 P:e5 SP:fb |lda AdressingMode[0] 5
+[PC: d230] OPCODE 24 | A: 5 X:33 Y:88 P:65 SP:fb |bit AdressingMode[1] 192
+[PC: d232] OPCODE 10 | A: 5 X:33 Y:88 P:e7 SP:fb |bpl 16
+[PC: d234] OPCODE 50 | A: 5 X:33 Y:88 P:e7 SP:fb |bvc 14
+[PC: d236] OPCODE d0 | A: 5 X:33 Y:88 P:e7 SP:fb |bne 12
+[PC: d238] OPCODE c9 | A: 5 X:33 Y:88 P:e7 SP:fb |cmp AdressingMode[0] 5, 5
+[PC: d23a] OPCODE d0 | A: 5 X:33 Y:88 P:67 SP:fb |bne 8
+[PC: d23c] OPCODE e0 | A: 5 X:33 Y:88 P:67 SP:fb |cpx AdressingMode[0] 51, 51
+[PC: d23e] OPCODE d0 | A: 5 X:33 Y:88 P:67 SP:fb |bne 4
+[PC: d240] OPCODE c0 | A: 5 X:33 Y:88 P:67 SP:fb |cpy AdressingMode[0] 136, 136
+[PC: d242] OPCODE f0 | A: 5 X:33 Y:88 P:67 SP:fb |beq 4 Zero flag[true]
+[PC: d248] OPCODE a9 | A: 5 X:33 Y:88 P:67 SP:fb |lda AdressingMode[0] 3
+[PC: d24a] OPCODE 85 | A: 3 X:33 Y:88 P:65 SP:fb |sta AdressingMode[1] 3
+[PC: d24c] OPCODE a9 | A: 3 X:33 Y:88 P:65 SP:fb |lda AdressingMode[0] 1
+[PC: d24e] OPCODE 24 | A: 1 X:33 Y:88 P:65 SP:fb |bit AdressingMode[1] 3
+[PC: d250] OPCODE 30 | A: 1 X:33 Y:88 P:25 SP:fb |bmi 8
+[PC: d252] OPCODE 70 | A: 1 X:33 Y:88 P:25 SP:fb |bvs 6
+[PC: d254] OPCODE f0 | A: 1 X:33 Y:88 P:25 SP:fb |beq 4 Zero flag[false]
+[PC: d256] OPCODE c9 | A: 1 X:33 Y:88 P:25 SP:fb |cmp AdressingMode[0] 1, 1
+[PC: d258] OPCODE f0 | A: 1 X:33 Y:88 P:27 SP:fb |beq 4 Zero flag[true]
+[PC: d25e] OPCODE a0 | A: 1 X:33 Y:88 P:27 SP:fb |ldy AdressingMode[0] 126
+[PC: d260] OPCODE a9 | A: 1 X:33 Y:7e P:25 SP:fb |lda AdressingMode[0] aa
+[PC: d262] OPCODE 85 | A:aa X:33 Y:7e P:a5 SP:fb |sta AdressingMode[1] 170
+[PC: d264] OPCODE 20 | A:aa X:33 Y:7e P:a5 SP:fb |jsr f7b6
+[PC: f7b6] OPCODE 18 | A:aa X:33 Y:7e P:a5 SP:f9 |clc
+[PC: f7b7] OPCODE a9 | A:aa X:33 Y:7e P:a4 SP:f9 |lda AdressingMode[0] ff
+[PC: f7b9] OPCODE 85 | A:ff X:33 Y:7e P:a4 SP:f9 |sta AdressingMode[1] 255
+[PC: f7bb] OPCODE 24 | A:ff X:33 Y:7e P:a4 SP:f9 |bit AdressingMode[1] 255
+[PC: f7bd] OPCODE a9 | A:ff X:33 Y:7e P:e4 SP:f9 |lda AdressingMode[0] 55
+[PC: f7bf] OPCODE 60 | A:55 X:33 Y:7e P:64 SP:f9 |rts d267
+[PC: d267] OPCODE  5 | A:55 X:33 Y:7e P:64 SP:fb |ora AdressingMode[1] 255
+[PC: d269] OPCODE 20 | A:ff X:33 Y:7e P:e4 SP:fb |jsr f7c0
+[PC: f7c0] OPCODE b0 | A:ff X:33 Y:7e P:e4 SP:f9 |bcs 9
+[PC: f7c2] OPCODE 10 | A:ff X:33 Y:7e P:e4 SP:f9 |bpl 7
+[PC: f7c4] OPCODE c9 | A:ff X:33 Y:7e P:e4 SP:f9 |cmp AdressingMode[0] ff, ff
+[PC: f7c6] OPCODE d0 | A:ff X:33 Y:7e P:67 SP:f9 |bne 3
+[PC: f7c8] OPCODE 50 | A:ff X:33 Y:7e P:67 SP:f9 |bvc 1
+[PC: f7ca] OPCODE 60 | A:ff X:33 Y:7e P:67 SP:f9 |rts d26c
+[PC: d26c] OPCODE c8 | A:ff X:33 Y:7e P:67 SP:fb |iny 126
+[PC: d26d] OPCODE a9 | A:ff X:33 Y:7f P:65 SP:fb |lda AdressingMode[0] 0
+[PC: d26f] OPCODE 85 | A: 0 X:33 Y:7f P:67 SP:fb |sta AdressingMode[1] 0
+[PC: d271] OPCODE 20 | A: 0 X:33 Y:7f P:67 SP:fb |jsr f7ce
+[PC: f7ce] OPCODE 38 | A: 0 X:33 Y:7f P:67 SP:f9 |sec
+[PC: f7cf] OPCODE b8 | A: 0 X:33 Y:7f P:67 SP:f9 |clv
+[PC: f7d0] OPCODE a9 | A: 0 X:33 Y:7f P:27 SP:f9 |lda AdressingMode[0] 0
+[PC: f7d2] OPCODE 60 | A: 0 X:33 Y:7f P:27 SP:f9 |rts d274
+[PC: d274] OPCODE  5 | A: 0 X:33 Y:7f P:27 SP:fb |ora AdressingMode[1] 0
+[PC: d276] OPCODE 20 | A: 0 X:33 Y:7f P:27 SP:fb |jsr f7d3
+[PC: f7d3] OPCODE d0 | A: 0 X:33 Y:7f P:27 SP:f9 |bne 7
+[PC: f7d5] OPCODE 70 | A: 0 X:33 Y:7f P:27 SP:f9 |bvs 5
+[PC: f7d7] OPCODE 90 | A: 0 X:33 Y:7f P:27 SP:f9 |bcc 3
+[PC: f7d9] OPCODE 30 | A: 0 X:33 Y:7f P:27 SP:f9 |bmi 1
+[PC: f7db] OPCODE 60 | A: 0 X:33 Y:7f P:27 SP:f9 |rts d279
+[PC: d279] OPCODE c8 | A: 0 X:33 Y:7f P:27 SP:fb |iny 127
+[PC: d27a] OPCODE a9 | A: 0 X:33 Y:80 P:a5 SP:fb |lda AdressingMode[0] aa
+[PC: d27c] OPCODE 85 | A:aa X:33 Y:80 P:a5 SP:fb |sta AdressingMode[1] 170
+[PC: d27e] OPCODE 20 | A:aa X:33 Y:80 P:a5 SP:fb |jsr f7df
+[PC: f7df] OPCODE 18 | A:aa X:33 Y:80 P:a5 SP:f9 |clc
+[PC: f7e0] OPCODE 24 | A:aa X:33 Y:80 P:a4 SP:f9 |bit AdressingMode[1] 255
+[PC: f7e2] OPCODE a9 | A:aa X:33 Y:80 P:e4 SP:f9 |lda AdressingMode[0] 55
+[PC: f7e4] OPCODE 60 | A:55 X:33 Y:80 P:64 SP:f9 |rts d281
+[PC: d281] OPCODE 25 | A:55 X:33 Y:80 P:64 SP:fb |and AdressingMode[1] 0
+[PC: d283] OPCODE 20 | A: 0 X:33 Y:80 P:66 SP:fb |jsr f7e5
+[PC: f7e5] OPCODE d0 | A: 0 X:33 Y:80 P:66 SP:f9 |bne 7
+[PC: f7e7] OPCODE 50 | A: 0 X:33 Y:80 P:66 SP:f9 |bvc 5
+[PC: f7e9] OPCODE b0 | A: 0 X:33 Y:80 P:66 SP:f9 |bcs 3
+[PC: f7eb] OPCODE 30 | A: 0 X:33 Y:80 P:66 SP:f9 |bmi 1
+[PC: f7ed] OPCODE 60 | A: 0 X:33 Y:80 P:66 SP:f9 |rts d286
+[PC: d286] OPCODE c8 | A: 0 X:33 Y:80 P:66 SP:fb |iny 128
+[PC: d287] OPCODE a9 | A: 0 X:33 Y:81 P:e4 SP:fb |lda AdressingMode[0] ef
+[PC: d289] OPCODE 85 | A:ef X:33 Y:81 P:e4 SP:fb |sta AdressingMode[1] 239
+[PC: d28b] OPCODE 20 | A:ef X:33 Y:81 P:e4 SP:fb |jsr f7f1
+[PC: f7f1] OPCODE 38 | A:ef X:33 Y:81 P:e4 SP:f9 |sec
+[PC: f7f2] OPCODE b8 | A:ef X:33 Y:81 P:e5 SP:f9 |clv
+[PC: f7f3] OPCODE a9 | A:ef X:33 Y:81 P:a5 SP:f9 |lda AdressingMode[0] f8
+[PC: f7f5] OPCODE 60 | A:f8 X:33 Y:81 P:a5 SP:f9 |rts d28e
+[PC: d28e] OPCODE 25 | A:f8 X:33 Y:81 P:a5 SP:fb |and AdressingMode[1] e8
+[PC: d290] OPCODE 20 | A:e8 X:33 Y:81 P:a5 SP:fb |jsr f7f6
+[PC: f7f6] OPCODE 90 | A:e8 X:33 Y:81 P:a5 SP:f9 |bcc 9
+[PC: f7f8] OPCODE 10 | A:e8 X:33 Y:81 P:a5 SP:f9 |bpl 7
+[PC: f7fa] OPCODE c9 | A:e8 X:33 Y:81 P:a5 SP:f9 |cmp AdressingMode[0] e8, e8
+[PC: f7fc] OPCODE d0 | A:e8 X:33 Y:81 P:27 SP:f9 |bne 3
+[PC: f7fe] OPCODE 70 | A:e8 X:33 Y:81 P:27 SP:f9 |bvs 1
+[PC: f800] OPCODE 60 | A:e8 X:33 Y:81 P:27 SP:f9 |rts d293
+[PC: d293] OPCODE c8 | A:e8 X:33 Y:81 P:27 SP:fb |iny 129
+[PC: d294] OPCODE a9 | A:e8 X:33 Y:82 P:a5 SP:fb |lda AdressingMode[0] aa
+[PC: d296] OPCODE 85 | A:aa X:33 Y:82 P:a5 SP:fb |sta AdressingMode[1] 170
+[PC: d298] OPCODE 20 | A:aa X:33 Y:82 P:a5 SP:fb |jsr f804
+[PC: f804] OPCODE 18 | A:aa X:33 Y:82 P:a5 SP:f9 |clc
+[PC: f805] OPCODE 24 | A:aa X:33 Y:82 P:a4 SP:f9 |bit AdressingMode[1] 255
+[PC: f807] OPCODE a9 | A:aa X:33 Y:82 P:e4 SP:f9 |lda AdressingMode[0] 5f
+[PC: f809] OPCODE 60 | A:5f X:33 Y:82 P:64 SP:f9 |rts d29b
+[PC: d29b] OPCODE 45 | A:5f X:33 Y:82 P:64 SP:fb |eor AdressingMode[1] 245
+[PC: d29d] OPCODE 20 | A:f5 X:33 Y:82 P:e4 SP:fb |jsr f80a
+[PC: f80a] OPCODE b0 | A:f5 X:33 Y:82 P:e4 SP:f9 |bcs 9
+[PC: f80c] OPCODE 10 | A:f5 X:33 Y:82 P:e4 SP:f9 |bpl 7
+[PC: f80e] OPCODE c9 | A:f5 X:33 Y:82 P:e4 SP:f9 |cmp AdressingMode[0] f5, f5
+[PC: f810] OPCODE d0 | A:f5 X:33 Y:82 P:67 SP:f9 |bne 3
+[PC: f812] OPCODE 50 | A:f5 X:33 Y:82 P:67 SP:f9 |bvc 1
+[PC: f814] OPCODE 60 | A:f5 X:33 Y:82 P:67 SP:f9 |rts d2a0
+[PC: d2a0] OPCODE c8 | A:f5 X:33 Y:82 P:67 SP:fb |iny 130
+[PC: d2a1] OPCODE a9 | A:f5 X:33 Y:83 P:e5 SP:fb |lda AdressingMode[0] 70
+[PC: d2a3] OPCODE 85 | A:70 X:33 Y:83 P:65 SP:fb |sta AdressingMode[1] 112
+[PC: d2a5] OPCODE 20 | A:70 X:33 Y:83 P:65 SP:fb |jsr f818
+[PC: f818] OPCODE 38 | A:70 X:33 Y:83 P:65 SP:f9 |sec
+[PC: f819] OPCODE b8 | A:70 X:33 Y:83 P:65 SP:f9 |clv
+[PC: f81a] OPCODE a9 | A:70 X:33 Y:83 P:25 SP:f9 |lda AdressingMode[0] 70
+[PC: f81c] OPCODE 60 | A:70 X:33 Y:83 P:25 SP:f9 |rts d2a8
+[PC: d2a8] OPCODE 45 | A:70 X:33 Y:83 P:25 SP:fb |eor AdressingMode[1] 0
+[PC: d2aa] OPCODE 20 | A: 0 X:33 Y:83 P:27 SP:fb |jsr f81d
+[PC: f81d] OPCODE d0 | A: 0 X:33 Y:83 P:27 SP:f9 |bne 7
+[PC: f81f] OPCODE 70 | A: 0 X:33 Y:83 P:27 SP:f9 |bvs 5
+[PC: f821] OPCODE 90 | A: 0 X:33 Y:83 P:27 SP:f9 |bcc 3
+[PC: f823] OPCODE 30 | A: 0 X:33 Y:83 P:27 SP:f9 |bmi 1
+[PC: f825] OPCODE 60 | A: 0 X:33 Y:83 P:27 SP:f9 |rts d2ad
+[PC: d2ad] OPCODE c8 | A: 0 X:33 Y:83 P:27 SP:fb |iny 131
+[PC: d2ae] OPCODE a9 | A: 0 X:33 Y:84 P:a5 SP:fb |lda AdressingMode[0] 69
+[PC: d2b0] OPCODE 85 | A:69 X:33 Y:84 P:25 SP:fb |sta AdressingMode[1] 105
+[PC: d2b2] OPCODE 20 | A:69 X:33 Y:84 P:25 SP:fb |jsr f829
+[PC: f829] OPCODE 18 | A:69 X:33 Y:84 P:25 SP:f9 |clc
+[PC: f82a] OPCODE 24 | A:69 X:33 Y:84 P:24 SP:f9 |bit AdressingMode[1] 255
+[PC: f82c] OPCODE a9 | A:69 X:33 Y:84 P:e4 SP:f9 |lda AdressingMode[0] 0
+[PC: f82e] OPCODE 60 | A: 0 X:33 Y:84 P:66 SP:f9 |rts d2b5
+[PC: d2b5] OPCODE 65 | A: 0 X:33 Y:84 P:66 SP:fb |adc AdressingMode[1] 69
+[PC: d2b7] OPCODE 20 | A:69 X:33 Y:84 P:24 SP:fb |jsr f82f
+[PC: f82f] OPCODE 30 | A:69 X:33 Y:84 P:24 SP:f9 |bmi 9
+[PC: f831] OPCODE b0 | A:69 X:33 Y:84 P:24 SP:f9 |bcs 7
+[PC: f833] OPCODE c9 | A:69 X:33 Y:84 P:24 SP:f9 |cmp AdressingMode[0] 69, 69
+[PC: f835] OPCODE d0 | A:69 X:33 Y:84 P:27 SP:f9 |bne 3
+[PC: f837] OPCODE 70 | A:69 X:33 Y:84 P:27 SP:f9 |bvs 1
+[PC: f839] OPCODE 60 | A:69 X:33 Y:84 P:27 SP:f9 |rts d2ba
+[PC: d2ba] OPCODE c8 | A:69 X:33 Y:84 P:27 SP:fb |iny 132
+[PC: d2bb] OPCODE 20 | A:69 X:33 Y:85 P:a5 SP:fb |jsr f83d
+[PC: f83d] OPCODE 38 | A:69 X:33 Y:85 P:a5 SP:f9 |sec
+[PC: f83e] OPCODE 24 | A:69 X:33 Y:85 P:a5 SP:f9 |bit AdressingMode[1] 255
+[PC: f840] OPCODE a9 | A:69 X:33 Y:85 P:e5 SP:f9 |lda AdressingMode[0] 0
+[PC: f842] OPCODE 60 | A: 0 X:33 Y:85 P:67 SP:f9 |rts d2be
+[PC: d2be] OPCODE 65 | A: 0 X:33 Y:85 P:67 SP:fb |adc AdressingMode[1] 6a
+[PC: d2c0] OPCODE 20 | A:6a X:33 Y:85 P:24 SP:fb |jsr f843
+[PC: f843] OPCODE 30 | A:6a X:33 Y:85 P:24 SP:f9 |bmi 9
+[PC: f845] OPCODE b0 | A:6a X:33 Y:85 P:24 SP:f9 |bcs 7
+[PC: f847] OPCODE c9 | A:6a X:33 Y:85 P:24 SP:f9 |cmp AdressingMode[0] 6a, 6a
+[PC: f849] OPCODE d0 | A:6a X:33 Y:85 P:27 SP:f9 |bne 3
+[PC: f84b] OPCODE 70 | A:6a X:33 Y:85 P:27 SP:f9 |bvs 1
+[PC: f84d] OPCODE 60 | A:6a X:33 Y:85 P:27 SP:f9 |rts d2c3
+[PC: d2c3] OPCODE c8 | A:6a X:33 Y:85 P:27 SP:fb |iny 133
+[PC: d2c4] OPCODE a9 | A:6a X:33 Y:86 P:a5 SP:fb |lda AdressingMode[0] 7f
+[PC: d2c6] OPCODE 85 | A:7f X:33 Y:86 P:25 SP:fb |sta AdressingMode[1] 127
+[PC: d2c8] OPCODE 20 | A:7f X:33 Y:86 P:25 SP:fb |jsr f851
+[PC: f851] OPCODE 38 | A:7f X:33 Y:86 P:25 SP:f9 |sec
+[PC: f852] OPCODE b8 | A:7f X:33 Y:86 P:25 SP:f9 |clv
+[PC: f853] OPCODE a9 | A:7f X:33 Y:86 P:25 SP:f9 |lda AdressingMode[0] 7f
+[PC: f855] OPCODE 60 | A:7f X:33 Y:86 P:25 SP:f9 |rts d2cb
+[PC: d2cb] OPCODE 65 | A:7f X:33 Y:86 P:25 SP:fb |adc AdressingMode[1] ff
+[PC: d2cd] OPCODE 20 | A:ff X:33 Y:86 P:e4 SP:fb |jsr f856
+[PC: f856] OPCODE 10 | A:ff X:33 Y:86 P:e4 SP:f9 |bpl 9
+[PC: f858] OPCODE b0 | A:ff X:33 Y:86 P:e4 SP:f9 |bcs 7
+[PC: f85a] OPCODE c9 | A:ff X:33 Y:86 P:e4 SP:f9 |cmp AdressingMode[0] ff, ff
+[PC: f85c] OPCODE d0 | A:ff X:33 Y:86 P:67 SP:f9 |bne 3
+[PC: f85e] OPCODE 50 | A:ff X:33 Y:86 P:67 SP:f9 |bvc 1
+[PC: f860] OPCODE 60 | A:ff X:33 Y:86 P:67 SP:f9 |rts d2d0
+[PC: d2d0] OPCODE c8 | A:ff X:33 Y:86 P:67 SP:fb |iny 134
+[PC: d2d1] OPCODE a9 | A:ff X:33 Y:87 P:e5 SP:fb |lda AdressingMode[0] 80
+[PC: d2d3] OPCODE 85 | A:80 X:33 Y:87 P:e5 SP:fb |sta AdressingMode[1] 128
+[PC: d2d5] OPCODE 20 | A:80 X:33 Y:87 P:e5 SP:fb |jsr f864
+[PC: f864] OPCODE 18 | A:80 X:33 Y:87 P:e5 SP:f9 |clc
+[PC: f865] OPCODE 24 | A:80 X:33 Y:87 P:e4 SP:f9 |bit AdressingMode[1] 255
+[PC: f867] OPCODE a9 | A:80 X:33 Y:87 P:e4 SP:f9 |lda AdressingMode[0] 7f
+[PC: f869] OPCODE 60 | A:7f X:33 Y:87 P:64 SP:f9 |rts d2d8
+[PC: d2d8] OPCODE 65 | A:7f X:33 Y:87 P:64 SP:fb |adc AdressingMode[1] ff
+[PC: d2da] OPCODE 20 | A:ff X:33 Y:87 P:a4 SP:fb |jsr f86a
+[PC: f86a] OPCODE 10 | A:ff X:33 Y:87 P:a4 SP:f9 |bpl 9
+[PC: f86c] OPCODE b0 | A:ff X:33 Y:87 P:a4 SP:f9 |bcs 7
+[PC: f86e] OPCODE c9 | A:ff X:33 Y:87 P:a4 SP:f9 |cmp AdressingMode[0] ff, ff
+[PC: f870] OPCODE d0 | A:ff X:33 Y:87 P:27 SP:f9 |bne 3
+[PC: f872] OPCODE 70 | A:ff X:33 Y:87 P:27 SP:f9 |bvs 1
+[PC: f874] OPCODE 60 | A:ff X:33 Y:87 P:27 SP:f9 |rts d2dd
+[PC: d2dd] OPCODE c8 | A:ff X:33 Y:87 P:27 SP:fb |iny 135
+[PC: d2de] OPCODE 20 | A:ff X:33 Y:88 P:a5 SP:fb |jsr f878
+[PC: f878] OPCODE 38 | A:ff X:33 Y:88 P:a5 SP:f9 |sec
+[PC: f879] OPCODE b8 | A:ff X:33 Y:88 P:a5 SP:f9 |clv
+[PC: f87a] OPCODE a9 | A:ff X:33 Y:88 P:a5 SP:f9 |lda AdressingMode[0] 7f
+[PC: f87c] OPCODE 60 | A:7f X:33 Y:88 P:25 SP:f9 |rts d2e1
+[PC: d2e1] OPCODE 65 | A:7f X:33 Y:88 P:25 SP:fb |adc AdressingMode[1] 0
+[PC: d2e3] OPCODE 20 | A: 0 X:33 Y:88 P:27 SP:fb |jsr f87d
+[PC: f87d] OPCODE d0 | A: 0 X:33 Y:88 P:27 SP:f9 |bne 7
+[PC: f87f] OPCODE 30 | A: 0 X:33 Y:88 P:27 SP:f9 |bmi 5
+[PC: f881] OPCODE 70 | A: 0 X:33 Y:88 P:27 SP:f9 |bvs 3
+[PC: f883] OPCODE 90 | A: 0 X:33 Y:88 P:27 SP:f9 |bcc 1
+[PC: f885] OPCODE 60 | A: 0 X:33 Y:88 P:27 SP:f9 |rts d2e6
+[PC: d2e6] OPCODE c8 | A: 0 X:33 Y:88 P:27 SP:fb |iny 136
+[PC: d2e7] OPCODE a9 | A: 0 X:33 Y:89 P:a5 SP:fb |lda AdressingMode[0] 40
+[PC: d2e9] OPCODE 85 | A:40 X:33 Y:89 P:25 SP:fb |sta AdressingMode[1] 64
+[PC: d2eb] OPCODE 20 | A:40 X:33 Y:89 P:25 SP:fb |jsr f889
+[PC: f889] OPCODE 24 | A:40 X:33 Y:89 P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f88b] OPCODE a9 | A:40 X:33 Y:89 P:e5 SP:f9 |lda AdressingMode[0] 40
+[PC: f88d] OPCODE 60 | A:40 X:33 Y:89 P:65 SP:f9 |rts d2ee
+[PC: d2ee] OPCODE c5 | A:40 X:33 Y:89 P:65 SP:fb |cmp AdressingMode[1] 40, 40
+[PC: d2f0] OPCODE 20 | A:40 X:33 Y:89 P:67 SP:fb |jsr f88e
+[PC: f88e] OPCODE 30 | A:40 X:33 Y:89 P:67 SP:f9 |bmi 7
+[PC: f890] OPCODE 90 | A:40 X:33 Y:89 P:67 SP:f9 |bcc 5
+[PC: f892] OPCODE d0 | A:40 X:33 Y:89 P:67 SP:f9 |bne 3
+[PC: f894] OPCODE 50 | A:40 X:33 Y:89 P:67 SP:f9 |bvc 1
+[PC: f896] OPCODE 60 | A:40 X:33 Y:89 P:67 SP:f9 |rts d2f3
+[PC: d2f3] OPCODE c8 | A:40 X:33 Y:89 P:67 SP:fb |iny 137
+[PC: d2f4] OPCODE 48 | A:40 X:33 Y:8a P:e5 SP:fb |pha 40
+[PC: d2f5] OPCODE a9 | A:40 X:33 Y:8a P:e5 SP:fa |lda AdressingMode[0] 3f
+[PC: d2f7] OPCODE 85 | A:3f X:33 Y:8a P:65 SP:fa |sta AdressingMode[1] 63
+[PC: d2f9] OPCODE 68 | A:3f X:33 Y:8a P:65 SP:fa |pla 40
+[PC: d2fa] OPCODE 20 | A:40 X:33 Y:8a P:65 SP:fb |jsr f89a
+[PC: f89a] OPCODE b8 | A:40 X:33 Y:8a P:65 SP:f9 |clv
+[PC: f89b] OPCODE 60 | A:40 X:33 Y:8a P:25 SP:f9 |rts d2fd
+[PC: d2fd] OPCODE c5 | A:40 X:33 Y:8a P:25 SP:fb |cmp AdressingMode[1] 40, 3f
+[PC: d2ff] OPCODE 20 | A:40 X:33 Y:8a P:25 SP:fb |jsr f89c
+[PC: f89c] OPCODE f0 | A:40 X:33 Y:8a P:25 SP:f9 |beq 7 Zero flag[false]
+[PC: f89e] OPCODE 30 | A:40 X:33 Y:8a P:25 SP:f9 |bmi 5
+[PC: f8a0] OPCODE 90 | A:40 X:33 Y:8a P:25 SP:f9 |bcc 3
+[PC: f8a2] OPCODE 70 | A:40 X:33 Y:8a P:25 SP:f9 |bvs 1
+[PC: f8a4] OPCODE 60 | A:40 X:33 Y:8a P:25 SP:f9 |rts d302
+[PC: d302] OPCODE c8 | A:40 X:33 Y:8a P:25 SP:fb |iny 138
+[PC: d303] OPCODE 48 | A:40 X:33 Y:8b P:a5 SP:fb |pha 40
+[PC: d304] OPCODE a9 | A:40 X:33 Y:8b P:a5 SP:fa |lda AdressingMode[0] 41
+[PC: d306] OPCODE 85 | A:41 X:33 Y:8b P:25 SP:fa |sta AdressingMode[1] 65
+[PC: d308] OPCODE 68 | A:41 X:33 Y:8b P:25 SP:fa |pla 40
+[PC: d309] OPCODE c5 | A:40 X:33 Y:8b P:25 SP:fb |cmp AdressingMode[1] 40, 41
+[PC: d30b] OPCODE 20 | A:40 X:33 Y:8b P:a4 SP:fb |jsr f8a8
+[PC: f8a8] OPCODE f0 | A:40 X:33 Y:8b P:a4 SP:f9 |beq 5 Zero flag[false]
+[PC: f8aa] OPCODE 10 | A:40 X:33 Y:8b P:a4 SP:f9 |bpl 3
+[PC: f8ac] OPCODE 10 | A:40 X:33 Y:8b P:a4 SP:f9 |bpl 1
+[PC: f8ae] OPCODE 60 | A:40 X:33 Y:8b P:a4 SP:f9 |rts d30e
+[PC: d30e] OPCODE c8 | A:40 X:33 Y:8b P:a4 SP:fb |iny 139
+[PC: d30f] OPCODE 48 | A:40 X:33 Y:8c P:a4 SP:fb |pha 40
+[PC: d310] OPCODE a9 | A:40 X:33 Y:8c P:a4 SP:fa |lda AdressingMode[0] 0
+[PC: d312] OPCODE 85 | A: 0 X:33 Y:8c P:26 SP:fa |sta AdressingMode[1] 0
+[PC: d314] OPCODE 68 | A: 0 X:33 Y:8c P:26 SP:fa |pla 40
+[PC: d315] OPCODE 20 | A:40 X:33 Y:8c P:24 SP:fb |jsr f8b2
+[PC: f8b2] OPCODE a9 | A:40 X:33 Y:8c P:24 SP:f9 |lda AdressingMode[0] 80
+[PC: f8b4] OPCODE 60 | A:80 X:33 Y:8c P:a4 SP:f9 |rts d318
+[PC: d318] OPCODE c5 | A:80 X:33 Y:8c P:a4 SP:fb |cmp AdressingMode[1] 80, 0
+[PC: d31a] OPCODE 20 | A:80 X:33 Y:8c P:a5 SP:fb |jsr f8b5
+[PC: f8b5] OPCODE f0 | A:80 X:33 Y:8c P:a5 SP:f9 |beq 5 Zero flag[false]
+[PC: f8b7] OPCODE 10 | A:80 X:33 Y:8c P:a5 SP:f9 |bpl 3
+[PC: f8b9] OPCODE 90 | A:80 X:33 Y:8c P:a5 SP:f9 |bcc 1
+[PC: f8bb] OPCODE 60 | A:80 X:33 Y:8c P:a5 SP:f9 |rts d31d
+[PC: d31d] OPCODE c8 | A:80 X:33 Y:8c P:a5 SP:fb |iny 140
+[PC: d31e] OPCODE 48 | A:80 X:33 Y:8d P:a5 SP:fb |pha 80
+[PC: d31f] OPCODE a9 | A:80 X:33 Y:8d P:a5 SP:fa |lda AdressingMode[0] 80
+[PC: d321] OPCODE 85 | A:80 X:33 Y:8d P:a5 SP:fa |sta AdressingMode[1] 128
+[PC: d323] OPCODE 68 | A:80 X:33 Y:8d P:a5 SP:fa |pla 80
+[PC: d324] OPCODE c5 | A:80 X:33 Y:8d P:a5 SP:fb |cmp AdressingMode[1] 80, 80
+[PC: d326] OPCODE 20 | A:80 X:33 Y:8d P:27 SP:fb |jsr f8bf
+[PC: f8bf] OPCODE d0 | A:80 X:33 Y:8d P:27 SP:f9 |bne 5
+[PC: f8c1] OPCODE 30 | A:80 X:33 Y:8d P:27 SP:f9 |bmi 3
+[PC: f8c3] OPCODE 90 | A:80 X:33 Y:8d P:27 SP:f9 |bcc 1
+[PC: f8c5] OPCODE 60 | A:80 X:33 Y:8d P:27 SP:f9 |rts d329
+[PC: d329] OPCODE c8 | A:80 X:33 Y:8d P:27 SP:fb |iny 141
+[PC: d32a] OPCODE 48 | A:80 X:33 Y:8e P:a5 SP:fb |pha 80
+[PC: d32b] OPCODE a9 | A:80 X:33 Y:8e P:a5 SP:fa |lda AdressingMode[0] 81
+[PC: d32d] OPCODE 85 | A:81 X:33 Y:8e P:a5 SP:fa |sta AdressingMode[1] 129
+[PC: d32f] OPCODE 68 | A:81 X:33 Y:8e P:a5 SP:fa |pla 80
+[PC: d330] OPCODE c5 | A:80 X:33 Y:8e P:a5 SP:fb |cmp AdressingMode[1] 80, 81
+[PC: d332] OPCODE 20 | A:80 X:33 Y:8e P:a4 SP:fb |jsr f8c9
+[PC: f8c9] OPCODE b0 | A:80 X:33 Y:8e P:a4 SP:f9 |bcs 5
+[PC: f8cb] OPCODE f0 | A:80 X:33 Y:8e P:a4 SP:f9 |beq 3 Zero flag[false]
+[PC: f8cd] OPCODE 10 | A:80 X:33 Y:8e P:a4 SP:f9 |bpl 1
+[PC: f8cf] OPCODE 60 | A:80 X:33 Y:8e P:a4 SP:f9 |rts d335
+[PC: d335] OPCODE c8 | A:80 X:33 Y:8e P:a4 SP:fb |iny 142
+[PC: d336] OPCODE 48 | A:80 X:33 Y:8f P:a4 SP:fb |pha 80
+[PC: d337] OPCODE a9 | A:80 X:33 Y:8f P:a4 SP:fa |lda AdressingMode[0] 7f
+[PC: d339] OPCODE 85 | A:7f X:33 Y:8f P:24 SP:fa |sta AdressingMode[1] 127
+[PC: d33b] OPCODE 68 | A:7f X:33 Y:8f P:24 SP:fa |pla 80
+[PC: d33c] OPCODE c5 | A:80 X:33 Y:8f P:a4 SP:fb |cmp AdressingMode[1] 80, 7f
+[PC: d33e] OPCODE 20 | A:80 X:33 Y:8f P:25 SP:fb |jsr f8d3
+[PC: f8d3] OPCODE 90 | A:80 X:33 Y:8f P:25 SP:f9 |bcc 5
+[PC: f8d5] OPCODE f0 | A:80 X:33 Y:8f P:25 SP:f9 |beq 3 Zero flag[false]
+[PC: f8d7] OPCODE 30 | A:80 X:33 Y:8f P:25 SP:f9 |bmi 1
+[PC: f8d9] OPCODE 60 | A:80 X:33 Y:8f P:25 SP:f9 |rts d341
+[PC: d341] OPCODE c8 | A:80 X:33 Y:8f P:25 SP:fb |iny 143
+[PC: d342] OPCODE a9 | A:80 X:33 Y:90 P:a5 SP:fb |lda AdressingMode[0] 40
+[PC: d344] OPCODE 85 | A:40 X:33 Y:90 P:25 SP:fb |sta AdressingMode[1] 64
+[PC: d346] OPCODE 20 | A:40 X:33 Y:90 P:25 SP:fb |jsr f931
+[PC: f931] OPCODE 24 | A:40 X:33 Y:90 P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f933] OPCODE a9 | A:40 X:33 Y:90 P:e5 SP:f9 |lda AdressingMode[0] 40
+[PC: f935] OPCODE 38 | A:40 X:33 Y:90 P:65 SP:f9 |sec
+[PC: f936] OPCODE 60 | A:40 X:33 Y:90 P:65 SP:f9 |rts d349
+[PC: d349] OPCODE e5 | A:40 X:33 Y:90 P:65 SP:fb |sbc AdressingMode[1] 0
+[PC: d34b] OPCODE 20 | A: 0 X:33 Y:90 P:27 SP:fb |jsr f937
+[PC: f937] OPCODE 30 | A: 0 X:33 Y:90 P:27 SP:f9 |bmi 11
+[PC: f939] OPCODE 90 | A: 0 X:33 Y:90 P:27 SP:f9 |bcc 9
+[PC: f93b] OPCODE d0 | A: 0 X:33 Y:90 P:27 SP:f9 |bne 7
+[PC: f93d] OPCODE 70 | A: 0 X:33 Y:90 P:27 SP:f9 |bvs 5
+[PC: f93f] OPCODE c9 | A: 0 X:33 Y:90 P:27 SP:f9 |cmp AdressingMode[0] 0, 0
+[PC: f941] OPCODE d0 | A: 0 X:33 Y:90 P:27 SP:f9 |bne 1
+[PC: f943] OPCODE 60 | A: 0 X:33 Y:90 P:27 SP:f9 |rts d34e
+[PC: d34e] OPCODE c8 | A: 0 X:33 Y:90 P:27 SP:fb |iny 144
+[PC: d34f] OPCODE a9 | A: 0 X:33 Y:91 P:a5 SP:fb |lda AdressingMode[0] 3f
+[PC: d351] OPCODE 85 | A:3f X:33 Y:91 P:25 SP:fb |sta AdressingMode[1] 63
+[PC: d353] OPCODE 20 | A:3f X:33 Y:91 P:25 SP:fb |jsr f947
+[PC: f947] OPCODE b8 | A:3f X:33 Y:91 P:25 SP:f9 |clv
+[PC: f948] OPCODE 38 | A:3f X:33 Y:91 P:25 SP:f9 |sec
+[PC: f949] OPCODE a9 | A:3f X:33 Y:91 P:25 SP:f9 |lda AdressingMode[0] 40
+[PC: f94b] OPCODE 60 | A:40 X:33 Y:91 P:25 SP:f9 |rts d356
+[PC: d356] OPCODE e5 | A:40 X:33 Y:91 P:25 SP:fb |sbc AdressingMode[1] 1
+[PC: d358] OPCODE 20 | A: 1 X:33 Y:91 P:25 SP:fb |jsr f94c
+[PC: f94c] OPCODE f0 | A: 1 X:33 Y:91 P:25 SP:f9 |beq 11 Zero flag[false]
+[PC: f94e] OPCODE 30 | A: 1 X:33 Y:91 P:25 SP:f9 |bmi 9
+[PC: f950] OPCODE 90 | A: 1 X:33 Y:91 P:25 SP:f9 |bcc 7
+[PC: f952] OPCODE 70 | A: 1 X:33 Y:91 P:25 SP:f9 |bvs 5
+[PC: f954] OPCODE c9 | A: 1 X:33 Y:91 P:25 SP:f9 |cmp AdressingMode[0] 1, 1
+[PC: f956] OPCODE d0 | A: 1 X:33 Y:91 P:27 SP:f9 |bne 1
+[PC: f958] OPCODE 60 | A: 1 X:33 Y:91 P:27 SP:f9 |rts d35b
+[PC: d35b] OPCODE c8 | A: 1 X:33 Y:91 P:27 SP:fb |iny 145
+[PC: d35c] OPCODE a9 | A: 1 X:33 Y:92 P:a5 SP:fb |lda AdressingMode[0] 41
+[PC: d35e] OPCODE 85 | A:41 X:33 Y:92 P:25 SP:fb |sta AdressingMode[1] 65
+[PC: d360] OPCODE 20 | A:41 X:33 Y:92 P:25 SP:fb |jsr f95c
+[PC: f95c] OPCODE a9 | A:41 X:33 Y:92 P:25 SP:f9 |lda AdressingMode[0] 40
+[PC: f95e] OPCODE 38 | A:40 X:33 Y:92 P:25 SP:f9 |sec
+[PC: f95f] OPCODE 24 | A:40 X:33 Y:92 P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f961] OPCODE 60 | A:40 X:33 Y:92 P:e5 SP:f9 |rts d363
+[PC: d363] OPCODE e5 | A:40 X:33 Y:92 P:e5 SP:fb |sbc AdressingMode[1] 255
+[PC: d365] OPCODE 20 | A:ff X:33 Y:92 P:a4 SP:fb |jsr f962
+[PC: f962] OPCODE b0 | A:ff X:33 Y:92 P:a4 SP:f9 |bcs 11
+[PC: f964] OPCODE f0 | A:ff X:33 Y:92 P:a4 SP:f9 |beq 9 Zero flag[false]
+[PC: f966] OPCODE 10 | A:ff X:33 Y:92 P:a4 SP:f9 |bpl 7
+[PC: f968] OPCODE 70 | A:ff X:33 Y:92 P:a4 SP:f9 |bvs 5
+[PC: f96a] OPCODE c9 | A:ff X:33 Y:92 P:a4 SP:f9 |cmp AdressingMode[0] ff, ff
+[PC: f96c] OPCODE d0 | A:ff X:33 Y:92 P:27 SP:f9 |bne 1
+[PC: f96e] OPCODE 60 | A:ff X:33 Y:92 P:27 SP:f9 |rts d368
+[PC: d368] OPCODE c8 | A:ff X:33 Y:92 P:27 SP:fb |iny 146
+[PC: d369] OPCODE a9 | A:ff X:33 Y:93 P:a5 SP:fb |lda AdressingMode[0] 0
+[PC: d36b] OPCODE 85 | A: 0 X:33 Y:93 P:27 SP:fb |sta AdressingMode[1] 0
+[PC: d36d] OPCODE 20 | A: 0 X:33 Y:93 P:27 SP:fb |jsr f972
+[PC: f972] OPCODE 18 | A: 0 X:33 Y:93 P:27 SP:f9 |clc
+[PC: f973] OPCODE a9 | A: 0 X:33 Y:93 P:26 SP:f9 |lda AdressingMode[0] 80
+[PC: f975] OPCODE 60 | A:80 X:33 Y:93 P:a4 SP:f9 |rts d370
+[PC: d370] OPCODE e5 | A:80 X:33 Y:93 P:a4 SP:fb |sbc AdressingMode[1] 127
+[PC: d372] OPCODE 20 | A:7f X:33 Y:93 P:65 SP:fb |jsr f976
+[PC: f976] OPCODE 90 | A:7f X:33 Y:93 P:65 SP:f9 |bcc 5
+[PC: f978] OPCODE c9 | A:7f X:33 Y:93 P:65 SP:f9 |cmp AdressingMode[0] 7f, 7f
+[PC: f97a] OPCODE d0 | A:7f X:33 Y:93 P:67 SP:f9 |bne 1
+[PC: f97c] OPCODE 60 | A:7f X:33 Y:93 P:67 SP:f9 |rts d375
+[PC: d375] OPCODE c8 | A:7f X:33 Y:93 P:67 SP:fb |iny 147
+[PC: d376] OPCODE a9 | A:7f X:33 Y:94 P:e5 SP:fb |lda AdressingMode[0] 7f
+[PC: d378] OPCODE 85 | A:7f X:33 Y:94 P:65 SP:fb |sta AdressingMode[1] 127
+[PC: d37a] OPCODE 20 | A:7f X:33 Y:94 P:65 SP:fb |jsr f980
+[PC: f980] OPCODE 38 | A:7f X:33 Y:94 P:65 SP:f9 |sec
+[PC: f981] OPCODE a9 | A:7f X:33 Y:94 P:65 SP:f9 |lda AdressingMode[0] 81
+[PC: f983] OPCODE 60 | A:81 X:33 Y:94 P:e5 SP:f9 |rts d37d
+[PC: d37d] OPCODE e5 | A:81 X:33 Y:94 P:e5 SP:fb |sbc AdressingMode[1] 2
+[PC: d37f] OPCODE 20 | A: 2 X:33 Y:94 P:65 SP:fb |jsr f984
+[PC: f984] OPCODE 50 | A: 2 X:33 Y:94 P:65 SP:f9 |bvc 7
+[PC: f986] OPCODE 90 | A: 2 X:33 Y:94 P:65 SP:f9 |bcc 5
+[PC: f988] OPCODE c9 | A: 2 X:33 Y:94 P:65 SP:f9 |cmp AdressingMode[0] 2, 2
+[PC: f98a] OPCODE d0 | A: 2 X:33 Y:94 P:67 SP:f9 |bne 1
+[PC: f98c] OPCODE 60 | A: 2 X:33 Y:94 P:67 SP:f9 |rts d382
+[PC: d382] OPCODE c8 | A: 2 X:33 Y:94 P:67 SP:fb |iny 148
+[PC: d383] OPCODE a9 | A: 2 X:33 Y:95 P:e5 SP:fb |lda AdressingMode[0] 40
+[PC: d385] OPCODE 85 | A:40 X:33 Y:95 P:65 SP:fb |sta AdressingMode[1] 64
+[PC: d387] OPCODE 20 | A:40 X:33 Y:95 P:65 SP:fb |jsr f889
+[PC: f889] OPCODE 24 | A:40 X:33 Y:95 P:65 SP:f9 |bit AdressingMode[1] 255
+[PC: f88b] OPCODE a9 | A:40 X:33 Y:95 P:e5 SP:f9 |lda AdressingMode[0] 40
+[PC: f88d] OPCODE 60 | A:40 X:33 Y:95 P:65 SP:f9 |rts d38a
+[PC: d38a] OPCODE aa | A:40 X:33 Y:95 P:65 SP:fb |tax
+[PC: d38b] OPCODE e4 | A:40 X:40 Y:95 P:65 SP:fb |cpx AdressingMode[1] 64, 64
+[PC: d38d] OPCODE 20 | A:40 X:40 Y:95 P:67 SP:fb |jsr f88e
+[PC: f88e] OPCODE 30 | A:40 X:40 Y:95 P:67 SP:f9 |bmi 7
+[PC: f890] OPCODE 90 | A:40 X:40 Y:95 P:67 SP:f9 |bcc 5
+[PC: f892] OPCODE d0 | A:40 X:40 Y:95 P:67 SP:f9 |bne 3
+[PC: f894] OPCODE 50 | A:40 X:40 Y:95 P:67 SP:f9 |bvc 1
+[PC: f896] OPCODE 60 | A:40 X:40 Y:95 P:67 SP:f9 |rts d390
+[PC: d390] OPCODE c8 | A:40 X:40 Y:95 P:67 SP:fb |iny 149
+[PC: d391] OPCODE a9 | A:40 X:40 Y:96 P:e5 SP:fb |lda AdressingMode[0] 3f
+[PC: d393] OPCODE 85 | A:3f X:40 Y:96 P:65 SP:fb |sta AdressingMode[1] 63
+[PC: d395] OPCODE 20 | A:3f X:40 Y:96 P:65 SP:fb |jsr f89a
+[PC: f89a] OPCODE b8 | A:3f X:40 Y:96 P:65 SP:f9 |clv
+[PC: f89b] OPCODE 60 | A:3f X:40 Y:96 P:25 SP:f9 |rts d398
+[PC: d398] OPCODE e4 | A:3f X:40 Y:96 P:25 SP:fb |cpx AdressingMode[1] 64, 63
+[PC: d39a] OPCODE 20 | A:3f X:40 Y:96 P:25 SP:fb |jsr f89c
+[PC: f89c] OPCODE f0 | A:3f X:40 Y:96 P:25 SP:f9 |beq 7 Zero flag[false]
+[PC: f89e] OPCODE 30 | A:3f X:40 Y:96 P:25 SP:f9 |bmi 5
+[PC: f8a0] OPCODE 90 | A:3f X:40 Y:96 P:25 SP:f9 |bcc 3
+[PC: f8a2] OPCODE 70 | A:3f X:40 Y:96 P:25 SP:f9 |bvs 1
+[PC: f8a4] OPCODE 60 | A:3f X:40 Y:96 P:25 SP:f9 |rts d39d
+[PC: d39d] OPCODE c8 | A:3f X:40 Y:96 P:25 SP:fb |iny 150
+[PC: d39e] OPCODE a9 | A:3f X:40 Y:97 P:a5 SP:fb |lda AdressingMode[0] 41
+[PC: d3a0] OPCODE 85 | A:41 X:40 Y:97 P:25 SP:fb |sta AdressingMode[1] 65
+[PC: d3a2] OPCODE e4 | A:41 X:40 Y:97 P:25 SP:fb |cpx AdressingMode[1] 64, 65
+[PC: d3a4] OPCODE 20 | A:41 X:40 Y:97 P:a4 SP:fb |jsr f8a8
+[PC: f8a8] OPCODE f0 | A:41 X:40 Y:97 P:a4 SP:f9 |beq 5 Zero flag[false]
+[PC: f8aa] OPCODE 10 | A:41 X:40 Y:97 P:a4 SP:f9 |bpl 3
+[PC: f8ac] OPCODE 10 | A:41 X:40 Y:97 P:a4 SP:f9 |bpl 1
+[PC: f8ae] OPCODE 60 | A:41 X:40 Y:97 P:a4 SP:f9 |rts d3a7
+[PC: d3a7] OPCODE c8 | A:41 X:40 Y:97 P:a4 SP:fb |iny 151
+[PC: d3a8] OPCODE a9 | A:41 X:40 Y:98 P:a4 SP:fb |lda AdressingMode[0] 0
+[PC: d3aa] OPCODE 85 | A: 0 X:40 Y:98 P:26 SP:fb |sta AdressingMode[1] 0
+[PC: d3ac] OPCODE 20 | A: 0 X:40 Y:98 P:26 SP:fb |jsr f8b2
+[PC: f8b2] OPCODE a9 | A: 0 X:40 Y:98 P:26 SP:f9 |lda AdressingMode[0] 80
+[PC: f8b4] OPCODE 60 | A:80 X:40 Y:98 P:a4 SP:f9 |rts d3af
+[PC: d3af] OPCODE aa | A:80 X:40 Y:98 P:a4 SP:fb |tax
+[PC: d3b0] OPCODE e4 | A:80 X:80 Y:98 P:a4 SP:fb |cpx AdressingMode[1] 128, 0
+[PC: d3b2] OPCODE 20 | A:80 X:80 Y:98 P:a5 SP:fb |jsr f8b5
+[PC: f8b5] OPCODE f0 | A:80 X:80 Y:98 P:a5 SP:f9 |beq 5 Zero flag[false]
+[PC: f8b7] OPCODE 10 | A:80 X:80 Y:98 P:a5 SP:f9 |bpl 3
+[PC: f8b9] OPCODE 90 | A:80 X:80 Y:98 P:a5 SP:f9 |bcc 1
+[PC: f8bb] OPCODE 60 | A:80 X:80 Y:98 P:a5 SP:f9 |rts d3b5
+[PC: d3b5] OPCODE c8 | A:80 X:80 Y:98 P:a5 SP:fb |iny 152
+[PC: d3b6] OPCODE a9 | A:80 X:80 Y:99 P:a5 SP:fb |lda AdressingMode[0] 80
+[PC: d3b8] OPCODE 85 | A:80 X:80 Y:99 P:a5 SP:fb |sta AdressingMode[1] 128
+[PC: d3ba] OPCODE e4 | A:80 X:80 Y:99 P:a5 SP:fb |cpx AdressingMode[1] 128, 128
+[PC: d3bc] OPCODE 20 | A:80 X:80 Y:99 P:27 SP:fb |jsr f8bf
+[PC: f8bf] OPCODE d0 | A:80 X:80 Y:99 P:27 SP:f9 |bne 5
+[PC: f8c1] OPCODE 30 | A:80 X:80 Y:99 P:27 SP:f9 |bmi 3
+[PC: f8c3] OPCODE 90 | A:80 X:80 Y:99 P:27 SP:f9 |bcc 1
+[PC: f8c5] OPCODE 60 | A:80 X:80 Y:99 P:27 SP:f9 |rts d3bf
+[PC: d3bf] OPCODE c8 | A:80 X:80 Y:99 P:27 SP:fb |iny 153
+[PC: d3c0] OPCODE a9 | A:80 X:80 Y:9a P:a5 SP:fb |lda AdressingMode[0] 81
+[PC: d3c2] OPCODE 85 | A:81 X:80 Y:9a P:a5 SP:fb |sta AdressingMode[1] 129
+[PC: d3c4] OPCODE e4 | A:81 X:80 Y:9a P:a5 SP:fb |cpx AdressingMode[1] 128, 129
+[PC: d3c6] OPCODE 20 | A:81 X:80 Y:9a P:a4 SP:fb |jsr f8c9
+[PC: f8c9] OPCODE b0 | A:81 X:80 Y:9a P:a4 SP:f9 |bcs 5
+[PC: f8cb] OPCODE f0 | A:81 X:80 Y:9a P:a4 SP:f9 |beq 3 Zero flag[false]
+[PC: f8cd] OPCODE 10 | A:81 X:80 Y:9a P:a4 SP:f9 |bpl 1
+[PC: f8cf] OPCODE 60 | A:81 X:80 Y:9a P:a4 SP:f9 |rts d3c9
+[PC: d3c9] OPCODE c8 | A:81 X:80 Y:9a P:a4 SP:fb |iny 154
+[PC: d3ca] OPCODE a9 | A:81 X:80 Y:9b P:a4 SP:fb |lda AdressingMode[0] 7f
+[PC: d3cc] OPCODE 85 | A:7f X:80 Y:9b P:24 SP:fb |sta AdressingMode[1] 127
+[PC: d3ce] OPCODE e4 | A:7f X:80 Y:9b P:24 SP:fb |cpx AdressingMode[1] 128, 127
+[PC: d3d0] OPCODE 20 | A:7f X:80 Y:9b P:25 SP:fb |jsr f8d3
+[PC: f8d3] OPCODE 90 | A:7f X:80 Y:9b P:25 SP:f9 |bcc 5
+[PC: f8d5] OPCODE f0 | A:7f X:80 Y:9b P:25 SP:f9 |beq 3 Zero flag[false]
+[PC: f8d7] OPCODE 30 | A:7f X:80 Y:9b P:25 SP:f9 |bmi 1
+[PC: f8d9] OPCODE 60 | A:7f X:80 Y:9b P:25 SP:f9 |rts d3d3
+[PC: d3d3] OPCODE c8 | A:7f X:80 Y:9b P:25 SP:fb |iny 155
+[PC: d3d4] OPCODE 98 | A:7f X:80 Y:9c P:a5 SP:fb |tya
+[PC: d3d5] OPCODE aa | A:9c X:80 Y:9c P:a5 SP:fb |tax
+[PC: d3d6] OPCODE a9 | A:9c X:9c Y:9c P:a5 SP:fb |lda AdressingMode[0] 40
+[PC: d3d8] OPCODE 85 | A:40 X:9c Y:9c P:25 SP:fb |sta AdressingMode[1] 64
+[PC: d3da] OPCODE 20 | A:40 X:9c Y:9c P:25 SP:fb |jsr f8dd
+[PC: f8dd] OPCODE 24 | A:40 X:9c Y:9c P:25 SP:f9 |bit AdressingMode[1] 255
+[PC: f8df] OPCODE a0 | A:40 X:9c Y:9c P:e5 SP:f9 |ldy AdressingMode[0] 64
+[PC: f8e1] OPCODE 60 | A:40 X:9c Y:40 P:65 SP:f9 |rts d3dd
+[PC: d3dd] OPCODE c4 | A:40 X:9c Y:40 P:65 SP:fb |cpy AdressingMode[1] 64, 64
+[PC: d3df] OPCODE 20 | A:40 X:9c Y:40 P:67 SP:fb |jsr f8e2
+[PC: f8e2] OPCODE 30 | A:40 X:9c Y:40 P:67 SP:f9 |bmi 7
+[PC: f8e4] OPCODE 90 | A:40 X:9c Y:40 P:67 SP:f9 |bcc 5
+[PC: f8e6] OPCODE d0 | A:40 X:9c Y:40 P:67 SP:f9 |bne 3
+[PC: f8e8] OPCODE 50 | A:40 X:9c Y:40 P:67 SP:f9 |bvc 1
+[PC: f8ea] OPCODE 60 | A:40 X:9c Y:40 P:67 SP:f9 |rts d3e2
+[PC: d3e2] OPCODE e8 | A:40 X:9c Y:40 P:67 SP:fb |inx 156
+[PC: d3e3] OPCODE a9 | A:40 X:9d Y:40 P:e5 SP:fb |lda AdressingMode[0] 3f
+[PC: d3e5] OPCODE 85 | A:3f X:9d Y:40 P:65 SP:fb |sta AdressingMode[1] 63
+[PC: d3e7] OPCODE 20 | A:3f X:9d Y:40 P:65 SP:fb |jsr f8ee
+[PC: f8ee] OPCODE b8 | A:3f X:9d Y:40 P:65 SP:f9 |clv
+[PC: f8ef] OPCODE 60 | A:3f X:9d Y:40 P:25 SP:f9 |rts d3ea
+[PC: d3ea] OPCODE c4 | A:3f X:9d Y:40 P:25 SP:fb |cpy AdressingMode[1] 64, 63
+[PC: d3ec] OPCODE 20 | A:3f X:9d Y:40 P:25 SP:fb |jsr f8f0
+[PC: f8f0] OPCODE f0 | A:3f X:9d Y:40 P:25 SP:f9 |beq 7 Zero flag[false]
+[PC: f8f2] OPCODE 30 | A:3f X:9d Y:40 P:25 SP:f9 |bmi 5
+[PC: f8f4] OPCODE 90 | A:3f X:9d Y:40 P:25 SP:f9 |bcc 3
+[PC: f8f6] OPCODE 70 | A:3f X:9d Y:40 P:25 SP:f9 |bvs 1
+[PC: f8f8] OPCODE 60 | A:3f X:9d Y:40 P:25 SP:f9 |rts d3ef
+[PC: d3ef] OPCODE e8 | A:3f X:9d Y:40 P:25 SP:fb |inx 157
+[PC: d3f0] OPCODE a9 | A:3f X:9e Y:40 P:a5 SP:fb |lda AdressingMode[0] 41
+[PC: d3f2] OPCODE 85 | A:41 X:9e Y:40 P:25 SP:fb |sta AdressingMode[1] 65
+[PC: d3f4] OPCODE c4 | A:41 X:9e Y:40 P:25 SP:fb |cpy AdressingMode[1] 64, 65
+[PC: d3f6] OPCODE 20 | A:41 X:9e Y:40 P:a4 SP:fb |jsr f8fc
+[PC: f8fc] OPCODE f0 | A:41 X:9e Y:40 P:a4 SP:f9 |beq 5 Zero flag[false]
+[PC: f8fe] OPCODE 10 | A:41 X:9e Y:40 P:a4 SP:f9 |bpl 3
+[PC: f900] OPCODE 10 | A:41 X:9e Y:40 P:a4 SP:f9 |bpl 1
+[PC: f902] OPCODE 60 | A:41 X:9e Y:40 P:a4 SP:f9 |rts d3f9
+[PC: d3f9] OPCODE e8 | A:41 X:9e Y:40 P:a4 SP:fb |inx 158
+[PC: d3fa] OPCODE a9 | A:41 X:9f Y:40 P:a4 SP:fb |lda AdressingMode[0] 0
+[PC: d3fc] OPCODE 85 | A: 0 X:9f Y:40 P:26 SP:fb |sta AdressingMode[1] 0
+[PC: d3fe] OPCODE 20 | A: 0 X:9f Y:40 P:26 SP:fb |jsr f906
+[PC: f906] OPCODE a0 | A: 0 X:9f Y:40 P:26 SP:f9 |ldy AdressingMode[0] 128
+[PC: f908] OPCODE 60 | A: 0 X:9f Y:80 P:a4 SP:f9 |rts d401
+[PC: d401] OPCODE c4 | A: 0 X:9f Y:80 P:a4 SP:fb |cpy AdressingMode[1] 128, 0
+[PC: d403] OPCODE 20 | A: 0 X:9f Y:80 P:a5 SP:fb |jsr f909
+[PC: f909] OPCODE f0 | A: 0 X:9f Y:80 P:a5 SP:f9 |beq 5 Zero flag[false]
+[PC: f90b] OPCODE 10 | A: 0 X:9f Y:80 P:a5 SP:f9 |bpl 3
+[PC: f90d] OPCODE 90 | A: 0 X:9f Y:80 P:a5 SP:f9 |bcc 1
+[PC: f90f] OPCODE 60 | A: 0 X:9f Y:80 P:a5 SP:f9 |rts d406
+[PC: d406] OPCODE e8 | A: 0 X:9f Y:80 P:a5 SP:fb |inx 159
+[PC: d407] OPCODE a9 | A: 0 X:a0 Y:80 P:a5 SP:fb |lda AdressingMode[0] 80
+[PC: d409] OPCODE 85 | A:80 X:a0 Y:80 P:a5 SP:fb |sta AdressingMode[1] 128
+[PC: d40b] OPCODE c4 | A:80 X:a0 Y:80 P:a5 SP:fb |cpy AdressingMode[1] 128, 128
+[PC: d40d] OPCODE 20 | A:80 X:a0 Y:80 P:27 SP:fb |jsr f913
+[PC: f913] OPCODE d0 | A:80 X:a0 Y:80 P:27 SP:f9 |bne 5
+[PC: f915] OPCODE 30 | A:80 X:a0 Y:80 P:27 SP:f9 |bmi 3
+[PC: f917] OPCODE 90 | A:80 X:a0 Y:80 P:27 SP:f9 |bcc 1
+[PC: f919] OPCODE 60 | A:80 X:a0 Y:80 P:27 SP:f9 |rts d410
+[PC: d410] OPCODE e8 | A:80 X:a0 Y:80 P:27 SP:fb |inx 160
+[PC: d411] OPCODE a9 | A:80 X:a1 Y:80 P:a5 SP:fb |lda AdressingMode[0] 81
+[PC: d413] OPCODE 85 | A:81 X:a1 Y:80 P:a5 SP:fb |sta AdressingMode[1] 129
+[PC: d415] OPCODE c4 | A:81 X:a1 Y:80 P:a5 SP:fb |cpy AdressingMode[1] 128, 129
+[PC: d417] OPCODE 20 | A:81 X:a1 Y:80 P:a4 SP:fb |jsr f91d
+[PC: f91d] OPCODE b0 | A:81 X:a1 Y:80 P:a4 SP:f9 |bcs 5
+[PC: f91f] OPCODE f0 | A:81 X:a1 Y:80 P:a4 SP:f9 |beq 3 Zero flag[false]
+[PC: f921] OPCODE 10 | A:81 X:a1 Y:80 P:a4 SP:f9 |bpl 1
+[PC: f923] OPCODE 60 | A:81 X:a1 Y:80 P:a4 SP:f9 |rts d41a
+[PC: d41a] OPCODE e8 | A:81 X:a1 Y:80 P:a4 SP:fb |inx 161
+[PC: d41b] OPCODE a9 | A:81 X:a2 Y:80 P:a4 SP:fb |lda AdressingMode[0] 7f
+[PC: d41d] OPCODE 85 | A:7f X:a2 Y:80 P:24 SP:fb |sta AdressingMode[1] 127
+[PC: d41f] OPCODE c4 | A:7f X:a2 Y:80 P:24 SP:fb |cpy AdressingMode[1] 128, 127
+[PC: d421] OPCODE 20 | A:7f X:a2 Y:80 P:25 SP:fb |jsr f927
+[PC: f927] OPCODE 90 | A:7f X:a2 Y:80 P:25 SP:f9 |bcc 5
+[PC: f929] OPCODE f0 | A:7f X:a2 Y:80 P:25 SP:f9 |beq 3 Zero flag[false]
+[PC: f92b] OPCODE 30 | A:7f X:a2 Y:80 P:25 SP:f9 |bmi 1
+[PC: f92d] OPCODE 60 | A:7f X:a2 Y:80 P:25 SP:f9 |rts d424
+[PC: d424] OPCODE e8 | A:7f X:a2 Y:80 P:25 SP:fb |inx 162
+[PC: d425] OPCODE 8a | A:7f X:a3 Y:80 P:a5 SP:fb |txa
+[PC: d426] OPCODE a8 | A:a3 X:a3 Y:80 P:a5 SP:fb |tay
+[PC: d427] OPCODE 20 | A:a3 X:a3 Y:a3 P:a5 SP:fb |jsr f990
+[PC: f990] OPCODE a2 | A:a3 X:a3 Y:a3 P:a5 SP:f9 |ldx AdressingMode[0] 85
+[PC: f992] OPCODE a9 | A:a3 X:55 Y:a3 P:25 SP:f9 |lda AdressingMode[0] ff
+[PC: f994] OPCODE 85 | A:ff X:55 Y:a3 P:a5 SP:f9 |sta AdressingMode[1] 255
+[PC: f996] OPCODE ea | A:ff X:55 Y:a3 P:a5 SP:f9 |nop
+[PC: f997] OPCODE 24 | A:ff X:55 Y:a3 P:a5 SP:f9 |bit AdressingMode[1] 255
+[PC: f999] OPCODE 38 | A:ff X:55 Y:a3 P:e5 SP:f9 |sec
+[PC: f99a] OPCODE a9 | A:ff X:55 Y:a3 P:e5 SP:f9 |lda AdressingMode[0] 1
+[PC: f99c] OPCODE 60 | A: 1 X:55 Y:a3 P:65 SP:f9 |rts d42a
+[PC: d42a] OPCODE 85 | A: 1 X:55 Y:a3 P:65 SP:fb |sta AdressingMode[1] 1
+[PC: d42c] OPCODE 46 | A: 1 X:55 Y:a3 P:65 SP:fb |lsr AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:67 SP:fb |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:67 SP:f8 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:67 SP:f8 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:f8 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:f5 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:f5 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:f5 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:f2 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:f2 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:f2 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:ef |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:ef |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:ef |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:ec |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:ec |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:ec |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:e9 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:e9 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:e9 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:e6 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:e6 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:e6 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:e3 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:e3 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:e3 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:e0 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:e0 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:e0 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:dd |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:dd |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:dd |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:da |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:da |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:da |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:d7 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:d7 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:d7 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:d4 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:d4 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:d4 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:d1 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:d1 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:d1 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:ce |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:ce |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:ce |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:cb |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:cb |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:cb |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:c8 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:c8 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:c8 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:c5 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:c5 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:c5 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:c2 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:c2 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:c2 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:bf |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:bf |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:bf |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:bc |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:bc |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:bc |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:b9 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:b9 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:b9 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:b6 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:b6 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:b6 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:b3 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:b3 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:b3 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:b0 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:b0 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:b0 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:ad |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:ad |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:ad |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:aa |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:aa |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:aa |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:a7 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:a7 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:a7 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:a4 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:a4 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:a4 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:a1 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:a1 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:a1 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:9e |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:9e |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:9e |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:9b |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:9b |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:9b |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:98 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:98 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:98 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:95 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:95 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:95 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:92 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:92 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:92 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:8f |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:8f |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:8f |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:8c |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:8c |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:8c |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:89 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:89 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:89 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:86 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:86 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:86 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:83 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:83 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:83 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:80 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:80 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:80 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:7d |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:7d |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:7d |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:7a |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:7a |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:7a |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:77 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:77 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:77 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:74 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:74 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:74 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:71 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:71 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:71 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:6e |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:6e |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:6e |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:6b |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:6b |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:6b |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:68 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:68 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:68 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:65 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:65 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:65 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:62 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:62 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:62 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:5f |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:5f |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:5f |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:5c |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:5c |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:5c |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:59 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:59 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:59 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:56 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:56 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:56 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:53 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:53 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:53 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:50 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:50 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:50 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:4d |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:4d |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:4d |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:4a |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:4a |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:4a |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:47 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:47 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:47 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:44 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:44 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:44 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:41 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:41 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:41 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:3e |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:3e |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:3e |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:3b |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:3b |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:3b |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:38 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:38 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:38 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:35 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:35 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:35 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:32 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:32 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:32 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:2f |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:2f |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:2f |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:2c |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:2c |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:2c |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:29 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:29 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:29 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:26 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:26 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:26 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:23 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:23 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:23 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:20 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:20 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:20 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:1d |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:1d |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:1d |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:1a |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:1a |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:1a |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:17 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:17 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:17 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:14 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:14 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:14 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP:11 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP:11 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP:11 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP: e |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP: e |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP: e |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP: b |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP: b |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP: b |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP: 8 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP: 8 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP: 8 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP: 5 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP: 5 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP: 5 |brk
+[PC: f4c5] OPCODE 47 | A: 1 X:55 Y:a3 P:66 SP: 2 |Unknown
+[PC: f4c6] OPCODE  6 | A: 1 X:55 Y:a3 P:66 SP: 2 |asl AdressingMode[1] 0
+[PC:    2] OPCODE  0 | A: 1 X:55 Y:a3 P:66 SP: 2 |

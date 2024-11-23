@@ -84,16 +84,23 @@ func (cpu *CPU) stackPull() (val byte) {
 	return
 }
 
-func (cpu *CPU) stackPushCurrentPc() {
-	cpu.stackPush(byte(cpu.pc & 0x00ff))
-	cpu.stackPush(byte((cpu.pc & 0xff00) >> 8))
+func (cpu *CPU) stackPushCurrentPc(displacement int16) {
+	addr := cpu.pc
+	if displacement < 0 {
+		addr -= uint16(-displacement)
+	} else {
+		addr += uint16(displacement)
+	}
+
+	cpu.stackPush(byte((addr & 0xff00) >> 8))
+	cpu.stackPush(byte(addr & 0x00ff))
 }
 
-func (cpu *CPU) stackPullAddr() (addr uint16) {
-	addr = uint16(cpu.stackPull()) << 8
-	addr += uint16(cpu.stackPull())
+func (cpu *CPU) stackPullAddr() uint16 {
+	addr := uint16(cpu.stackPull())
+	addr += uint16(cpu.stackPull()) << 8
 
-	return
+	return addr
 }
 
 func (cpu *CPU) setFlag(flag Flag, val bool) {
