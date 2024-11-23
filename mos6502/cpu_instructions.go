@@ -216,7 +216,7 @@ func (cpu *CPU) dec(am AdressingMode) {
 	pc_temp := cpu.pc
 	val := cpu.nextValue(am) - 1
 	cpu.assignBasicFlags(val)
-	cpu.pc -= pc_temp
+	cpu.pc = pc_temp
 	cpu.write(val, am)
 	fmt.Printf("dec AdressingMode[%v] %v", am, val+1)
 }
@@ -243,7 +243,7 @@ func (cpu *CPU) asl_acc() {
 func (cpu *CPU) asl(am AdressingMode) {
 	pc_temp := cpu.pc
 	val := cpu.nextValue(am)
-	cpu.pc -= pc_temp
+	cpu.pc = pc_temp
 	cpu.setFlag(FlagCarry, val&0x80 == 0x80)
 	val = val << 1
 	cpu.assignBasicFlags(val)
@@ -261,7 +261,7 @@ func (cpu *CPU) lsr_acc() {
 func (cpu *CPU) lsr(am AdressingMode) {
 	pc_temp := cpu.pc
 	val := cpu.nextValue(am)
-	cpu.pc -= pc_temp
+	cpu.pc = pc_temp
 	cpu.setFlag(FlagCarry, val&0x01 == 0x01)
 	val = val >> 1
 	cpu.assignBasicFlags(val)
@@ -270,9 +270,10 @@ func (cpu *CPU) lsr(am AdressingMode) {
 }
 
 func (cpu *CPU) rol_acc() {
-	cpu.setFlag(FlagCarry, cpu.a&0x80 == 0x80)
+	prev_carry := cpu.getFlag(FlagCarry)
+	cpu.setFlag(FlagCarry, isNegative(cpu.a))
 	cpu.a = cpu.a << 1
-	if cpu.getFlag(FlagCarry) {
+	if prev_carry {
 		cpu.a += 1
 	}
 	cpu.assignBasicFlags(cpu.a)
@@ -282,10 +283,12 @@ func (cpu *CPU) rol_acc() {
 func (cpu *CPU) rol(am AdressingMode) {
 	pc_temp := cpu.pc
 	val := cpu.nextValue(am)
-	cpu.pc -= pc_temp
-	cpu.setFlag(FlagCarry, val&0x80 == 0x80)
+	cpu.pc = pc_temp
+
+	prev_carry := cpu.getFlag(FlagCarry)
+	cpu.setFlag(FlagCarry, isNegative(val))
 	val = val << 1
-	if cpu.getFlag(FlagCarry) {
+	if prev_carry {
 		cpu.a += 1
 	}
 	cpu.assignBasicFlags(val)
@@ -294,9 +297,10 @@ func (cpu *CPU) rol(am AdressingMode) {
 }
 
 func (cpu *CPU) ror_acc() {
+	prev_carry := cpu.getFlag(FlagCarry)
 	cpu.setFlag(FlagCarry, cpu.a&0x01 == 0x01)
 	cpu.a = cpu.a >> 1
-	if cpu.getFlag(FlagCarry) {
+	if prev_carry {
 		cpu.a += 0x80
 	}
 	cpu.assignBasicFlags(cpu.a)
@@ -306,11 +310,13 @@ func (cpu *CPU) ror_acc() {
 func (cpu *CPU) ror(am AdressingMode) {
 	pc_temp := cpu.pc
 	val := cpu.nextValue(am)
-	cpu.pc -= pc_temp
+	cpu.pc = pc_temp
+
+	prev_carry := cpu.getFlag(FlagCarry)
 	cpu.setFlag(FlagCarry, val&0x01 == 0x01)
 	val = val << 1
-	if cpu.getFlag(FlagCarry) {
-		cpu.a += 1
+	if prev_carry {
+		cpu.a += 0x80
 	}
 	cpu.assignBasicFlags(val)
 	cpu.write(val, am)
