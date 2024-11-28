@@ -13,6 +13,7 @@ func main() {
 		log.Fatalf("Error reading cartridge: %v", err)
 	}
 
-	cpu := mos6502.NewCPU(cart)
+	rom := mos6502.NewRom(cart)
+	cpu := mos6502.NewCPU(rom)
 	cpu.Run()
 }

@@ -128,7 +128,6 @@ func (cpu *CPU) adc(val byte) {
 	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^val)&0x80) == 0x80)
 }
 
-// TODO: Revisar
 func (cpu *CPU) sbc(val byte) {
 	prev := cpu.a
 	val1, overflow1 := subOverflow(cpu.a, val)
@@ -374,7 +373,7 @@ func (cpu *CPU) Step() {
 	opcode := cpu.nextInstruction()
 	var val byte
 	var addr uint16
-	fmt.Printf("[PC: %4X] OPCODE %2X | %s |", cpu.pc-1, opcode, cpu)
+	fmt.Printf("[PC: %04X] OPCODE %02X | %s | ", cpu.pc-1, opcode, cpu)
 
 	switch opcode {
 	case 0x00:

@@ -43,7 +43,7 @@ type CPU struct {
 	mem Memory
 }
 
-func NewCPU(cartridge []byte) *CPU {
+func NewCPU(cartridge *Rom) *CPU {
 	return &CPU{
 		p:   0x24,
 		pc:  0xc000,
