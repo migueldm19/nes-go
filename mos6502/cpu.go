@@ -199,43 +199,43 @@ func (cpu *CPU) read(addr uint16) byte {
 	return val
 }
 
-func (cpu *CPU) nextValue(am AdressingMode) (val byte) {
+func (cpu *CPU) nextValue(am AdressingMode) (val byte, addr uint16) {
 	var err error
 
 	switch am {
 	case Immediate:
 		val = cpu.nextInstruction()
 	case ZeroPage:
-		addr := uint16(cpu.nextInstruction())
+		addr = uint16(cpu.nextInstruction())
 		val, err = cpu.mem.Read(addr)
 	case ZeroPageX:
-		addr := uint16(cpu.nextInstruction() + cpu.x)
-		val, err = cpu.mem.Read(addr)
+		addr = uint16(cpu.nextInstruction())
+		val, err = cpu.mem.Read(addr + uint16(cpu.x))
 	case ZeroPageY:
-		addr := uint16(cpu.nextInstruction() + cpu.y)
-		val, err = cpu.mem.Read(addr)
+		addr = uint16(cpu.nextInstruction())
+		val, err = cpu.mem.Read(addr + uint16(cpu.y))
 	case Absolute:
-		addr := cpu.nextAddrHelper()
+		addr = cpu.nextAddrHelper()
 		val, err = cpu.mem.Read(addr)
 	case AbsoluteX:
-		addr := cpu.nextAddrHelper() + uint16(cpu.x)
-		val, err = cpu.mem.Read(addr)
+		addr = cpu.nextAddrHelper()
+		val, err = cpu.mem.Read(addr + uint16(cpu.x))
 	case AbsoluteY:
-		addr := cpu.nextAddrHelper() + uint16(cpu.y)
-		val, err = cpu.mem.Read(addr)
+		addr = cpu.nextAddrHelper()
+		val, err = cpu.mem.Read(addr + uint16(cpu.y))
 	case IndirectX:
-		idx := cpu.nextInstruction() + cpu.x
-		val, err = cpu.mem.Read(uint16(idx))
+		addr := uint16(cpu.nextInstruction())
+		val, err = cpu.mem.Read(addr + uint16(cpu.x))
 		if err != nil {
-			addr := uint16(val) << 8
-			val, err = cpu.mem.Read(addr)
+			idx := uint16(val) << 8
+			val, err = cpu.mem.Read(idx)
 		}
 	case IndirectY:
-		addr := uint16(cpu.nextInstruction())
+		addr = uint16(cpu.nextInstruction())
 		val, err = cpu.mem.Read(addr)
 		if err != nil {
-			addr = (uint16(val) << 8) + uint16(cpu.y)
-			val, err = cpu.mem.Read(addr)
+			idx := (uint16(val) << 8) + uint16(cpu.y)
+			val, err = cpu.mem.Read(idx)
 		}
 	}
 
@@ -247,5 +247,5 @@ func (cpu *CPU) nextValue(am AdressingMode) (val byte) {
 }
 
 func (cpu CPU) String() string {
-	return fmt.Sprintf("A:%2x X:%2x Y:%2x P:%2x SP:%2x", cpu.a, cpu.x, cpu.y, cpu.p, cpu.sp)
+	return fmt.Sprintf("A:%02X X:%02X Y:%02X P:%02X SP:%02X", cpu.a, cpu.x, cpu.y, cpu.p, cpu.sp)
 }
