@@ -15,6 +15,7 @@ const (
 	Absolute
 	AbsoluteX
 	AbsoluteY
+	Indirect
 	IndirectX
 	IndirectY
 )
@@ -120,20 +121,6 @@ func (cpu *CPU) assignBasicFlags(val byte) {
 	cpu.setFlag(FlagNegative, isNegative(val))
 }
 
-func (cpu *CPU) nextAddr() (addr uint16) {
-	addr = uint16(cpu.nextInstruction())
-	addr += uint16(cpu.nextInstruction()) << 8
-	return
-}
-
-func (cpu *CPU) nextAddrIndirect() (addr uint16) {
-	idx := cpu.nextAddr()
-	val1, _ := cpu.mem.Read(idx)
-	val2, _ := cpu.mem.Read(idx + 1)
-	addr = uint16(val1) + (uint16(val2) << 8)
-	return
-}
-
 func (cpu *CPU) bitTest(val byte) {
 	cpu.setFlag(FlagZero, (val&cpu.a) == 0)
 	cpu.setFlag(FlagNegative, isNegative(val))
@@ -154,10 +141,13 @@ func (cpu *CPU) branchJump(displacement int8) {
 	}
 }
 
-func (cpu *CPU) write(val byte, am AdressingMode) {
-	var err error
-	var addr uint16
+func (cpu *CPU) nextAddrHelper() uint16 {
+	addr := uint16(cpu.nextInstruction())
+	addr += uint16(cpu.nextInstruction()) << 8
+	return addr
+}
 
+func (cpu *CPU) nextAddress(am AdressingMode) (addr uint16) {
 	switch am {
 	case ZeroPage:
 		addr = uint16(cpu.nextInstruction())
@@ -166,11 +156,11 @@ func (cpu *CPU) write(val byte, am AdressingMode) {
 	case ZeroPageY:
 		addr = uint16(cpu.nextInstruction() + cpu.y)
 	case Absolute:
-		addr = cpu.nextAddr()
+		addr = cpu.nextAddrHelper()
 	case AbsoluteX:
-		addr = cpu.nextAddr() + uint16(cpu.x)
+		addr = cpu.nextAddrHelper() + uint16(cpu.x)
 	case AbsoluteY:
-		addr = cpu.nextAddr() + uint16(cpu.y)
+		addr = cpu.nextAddrHelper() + uint16(cpu.y)
 	case IndirectX:
 		idx := uint16(cpu.nextInstruction() + cpu.x)
 		addr_b, _ := cpu.mem.Read(idx)
@@ -179,13 +169,34 @@ func (cpu *CPU) write(val byte, am AdressingMode) {
 		idx := uint16(cpu.nextInstruction())
 		addr_b, _ := cpu.mem.Read(idx)
 		addr = (uint16(addr_b) << 8) + uint16(cpu.y)
+	case Indirect:
+		idx := cpu.nextAddrHelper()
+		val1, _ := cpu.mem.Read(idx)
+		val2, _ := cpu.mem.Read(idx + 1)
+		addr = uint16(val1) + (uint16(val2) << 8)
 	}
 
-	err = cpu.mem.Write(val, addr)
+	return
+}
+
+func (cpu *CPU) write(val byte, addr uint16) {
+	err := cpu.mem.Write(val, addr)
 
 	if err != nil {
 		log.Fatalf("Error in cpu write! %v", err)
 	}
+
+	return
+}
+
+func (cpu *CPU) read(addr uint16) byte {
+	val, err := cpu.mem.Read(addr)
+
+	if err != nil {
+		log.Fatalf("Error in cpu read! %v", err)
+	}
+
+	return val
 }
 
 func (cpu *CPU) nextValue(am AdressingMode) (val byte) {
@@ -204,13 +215,13 @@ func (cpu *CPU) nextValue(am AdressingMode) (val byte) {
 		addr := uint16(cpu.nextInstruction() + cpu.y)
 		val, err = cpu.mem.Read(addr)
 	case Absolute:
-		addr := cpu.nextAddr()
+		addr := cpu.nextAddrHelper()
 		val, err = cpu.mem.Read(addr)
 	case AbsoluteX:
-		addr := cpu.nextAddr() + uint16(cpu.x)
+		addr := cpu.nextAddrHelper() + uint16(cpu.x)
 		val, err = cpu.mem.Read(addr)
 	case AbsoluteY:
-		addr := cpu.nextAddr() + uint16(cpu.y)
+		addr := cpu.nextAddrHelper() + uint16(cpu.y)
 		val, err = cpu.mem.Read(addr)
 	case IndirectX:
 		idx := cpu.nextInstruction() + cpu.x

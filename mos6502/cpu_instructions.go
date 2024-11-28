@@ -19,37 +19,37 @@ func (cpu *CPU) rti() {
 	fmt.Printf("rti")
 }
 
-func (cpu *CPU) lda(am AdressingMode) {
-	cpu.a = cpu.nextValue(am)
+func (cpu *CPU) lda(val byte) {
+	cpu.a = val
 	cpu.assignBasicFlags(cpu.a)
-	fmt.Printf("lda AdressingMode[%v] %x", am, cpu.a)
+	fmt.Printf("lda %x", cpu.a)
 }
 
-func (cpu *CPU) ldx(am AdressingMode) {
-	cpu.x = cpu.nextValue(am)
+func (cpu *CPU) ldx(val byte) {
+	cpu.x = val
 	cpu.assignBasicFlags(cpu.x)
-	fmt.Printf("ldx AdressingMode[%v] %v", am, cpu.x)
+	fmt.Printf("ldx %x", cpu.x)
 }
 
-func (cpu *CPU) ldy(am AdressingMode) {
-	cpu.y = cpu.nextValue(am)
+func (cpu *CPU) ldy(val byte) {
+	cpu.y = val
 	cpu.assignBasicFlags(cpu.y)
-	fmt.Printf("ldy AdressingMode[%v] %v", am, cpu.y)
+	fmt.Printf("ldy %x", cpu.y)
 }
 
-func (cpu *CPU) sta(am AdressingMode) {
-	cpu.write(cpu.a, am)
-	fmt.Printf("sta AdressingMode[%v] %v", am, cpu.a)
+func (cpu *CPU) sta(addr uint16) {
+	cpu.write(cpu.a, addr)
+	fmt.Printf("sta %x %x", addr, cpu.a)
 }
 
-func (cpu *CPU) stx(am AdressingMode) {
-	cpu.write(cpu.x, am)
-	fmt.Printf("stx AdressingMode[%v] %v", am, cpu.x)
+func (cpu *CPU) stx(addr uint16) {
+	cpu.write(cpu.x, addr)
+	fmt.Printf("stx %x %x", addr, cpu.x)
 }
 
-func (cpu *CPU) sty(am AdressingMode) {
-	cpu.write(cpu.y, am)
-	fmt.Printf("sty AdressingMode[%v] %v", am, cpu.y)
+func (cpu *CPU) sty(addr uint16) {
+	cpu.write(cpu.y, addr)
+	fmt.Printf("sty %x %x", addr, cpu.y)
 }
 
 func (cpu *CPU) tax() {
@@ -108,34 +108,32 @@ func (cpu *CPU) plp() {
 	fmt.Printf("plp")
 }
 
-func (cpu *CPU) and(am AdressingMode) {
-	cpu.a &= cpu.nextValue(am)
+func (cpu *CPU) and(val byte) {
+	cpu.a &= val
 	cpu.assignBasicFlags(cpu.a)
-	fmt.Printf("and AdressingMode[%v] %x", am, cpu.a)
+	fmt.Printf("and %x %x", val, cpu.a)
 }
 
-func (cpu *CPU) eor(am AdressingMode) {
-	cpu.a ^= cpu.nextValue(am)
+func (cpu *CPU) eor(val byte) {
+	cpu.a ^= val
 	cpu.assignBasicFlags(cpu.a)
-	fmt.Printf("eor AdressingMode[%v] %v", am, cpu.a)
+	fmt.Printf("eor %x %x", val, cpu.a)
 }
 
-func (cpu *CPU) ora(am AdressingMode) {
-	cpu.a |= cpu.nextValue(am)
+func (cpu *CPU) ora(val byte) {
+	cpu.a |= val
 	cpu.assignBasicFlags(cpu.a)
-	fmt.Printf("ora AdressingMode[%v] %v", am, cpu.a)
+	fmt.Printf("ora %x %x", val, cpu.a)
 }
 
-func (cpu *CPU) bit(am AdressingMode) {
-	val := cpu.nextValue(am)
+func (cpu *CPU) bit(val byte) {
 	cpu.bitTest(val)
-	fmt.Printf("bit AdressingMode[%v] %v", am, val)
+	fmt.Printf("bit %x", val)
 }
 
-func (cpu *CPU) adc(am AdressingMode) {
+func (cpu *CPU) adc(val byte) {
 	prev := cpu.a
-	memory := cpu.nextValue(am)
-	val1, overflow1 := addOverflow(cpu.a, memory)
+	val1, overflow1 := addOverflow(cpu.a, val)
 
 	var carry byte
 	if cpu.getFlag(FlagCarry) {
@@ -148,15 +146,14 @@ func (cpu *CPU) adc(am AdressingMode) {
 	cpu.setFlag(FlagZero, cpu.a == 0)
 	cpu.setFlag(FlagCarry, overflow1 || overflow2)
 	cpu.setFlag(FlagNegative, isNegative(cpu.a))
-	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^memory)&0x80) == 0x80)
-	fmt.Printf("adc AdressingMode[%v] %x", am, cpu.a)
+	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^val)&0x80) == 0x80)
+	fmt.Printf("adc %x %x", val, cpu.a)
 }
 
 // TODO: Revisar
-func (cpu *CPU) sbc(am AdressingMode) {
+func (cpu *CPU) sbc(val byte) {
 	prev := cpu.a
-	memory := cpu.nextValue(am)
-	val1, overflow1 := subOverflow(cpu.a, memory)
+	val1, overflow1 := subOverflow(cpu.a, val)
 
 	var carry byte
 	if !cpu.getFlag(FlagCarry) {
@@ -169,35 +166,30 @@ func (cpu *CPU) sbc(am AdressingMode) {
 	cpu.setFlag(FlagCarry, !(overflow1 || overflow2))
 	cpu.setFlag(FlagZero, cpu.a == 0)
 	cpu.setFlag(FlagNegative, isNegative(cpu.a))
-	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^(^memory))&0x80) == 0x80)
-	fmt.Printf("sbc AdressingMode[%v] %v", am, cpu.a)
+	cpu.setFlag(FlagOverflow, ((cpu.a^prev)&(cpu.a^(^val))&0x80) == 0x80)
+	fmt.Printf("sbc %x %x", val, cpu.a)
 }
 
-func (cpu *CPU) cmp(am AdressingMode) {
-	val := cpu.nextValue(am)
+func (cpu *CPU) cmp(val byte) {
 	cpu.compare(cpu.a, val)
-	fmt.Printf("cmp AdressingMode[%v] %x, %x", am, cpu.a, val)
+	fmt.Printf("cmp %x, %x", cpu.a, val)
 }
 
-func (cpu *CPU) cpx(am AdressingMode) {
-	val := cpu.nextValue(am)
+func (cpu *CPU) cpx(val byte) {
 	cpu.compare(cpu.x, val)
-	fmt.Printf("cpx AdressingMode[%v] %v, %v", am, cpu.x, val)
+	fmt.Printf("cpx %x, %x", cpu.x, val)
 }
 
-func (cpu *CPU) cpy(am AdressingMode) {
-	val := cpu.nextValue(am)
+func (cpu *CPU) cpy(val byte) {
 	cpu.compare(cpu.y, val)
-	fmt.Printf("cpy AdressingMode[%v] %v, %v", am, cpu.y, val)
+	fmt.Printf("cpy %x, %x", cpu.y, val)
 }
 
-func (cpu *CPU) inc(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am) + 1
+func (cpu *CPU) inc(addr uint16) {
+	val := cpu.read(addr) + 1
 	cpu.assignBasicFlags(val)
-	cpu.pc = pc_temp
-	cpu.write(val, am)
-	fmt.Printf("inc AdressingMode[%v] %v", am, val-1)
+	cpu.write(val, addr)
+	fmt.Printf("inc %x %x", addr, val-1)
 }
 
 func (cpu *CPU) inx() {
@@ -212,13 +204,11 @@ func (cpu *CPU) iny() {
 	fmt.Printf("iny %v", cpu.y-1)
 }
 
-func (cpu *CPU) dec(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am) - 1
+func (cpu *CPU) dec(addr uint16) {
+	val := cpu.read(addr) - 1
 	cpu.assignBasicFlags(val)
-	cpu.pc = pc_temp
-	cpu.write(val, am)
-	fmt.Printf("dec AdressingMode[%v] %v", am, val+1)
+	cpu.write(val, addr)
+	fmt.Printf("dec %x %x", addr, val+1)
 }
 
 func (cpu *CPU) dex() {
@@ -240,15 +230,16 @@ func (cpu *CPU) asl_acc() {
 	fmt.Printf("asl acc %v", cpu.a)
 }
 
-func (cpu *CPU) asl(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am)
-	cpu.pc = pc_temp
+func (cpu *CPU) asl(addr uint16) {
+	val := cpu.read(addr)
+
 	cpu.setFlag(FlagCarry, val&0x80 == 0x80)
+
 	val = val << 1
+
 	cpu.assignBasicFlags(val)
-	cpu.write(val, am)
-	fmt.Printf("asl AdressingMode[%v] %v", am, val)
+	cpu.write(val, addr)
+	fmt.Printf("asl %x %x", addr, val)
 }
 
 func (cpu *CPU) lsr_acc() {
@@ -258,15 +249,16 @@ func (cpu *CPU) lsr_acc() {
 	fmt.Printf("lsr acc %v", cpu.a)
 }
 
-func (cpu *CPU) lsr(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am)
-	cpu.pc = pc_temp
+func (cpu *CPU) lsr(addr uint16) {
+	val := cpu.read(addr)
+
 	cpu.setFlag(FlagCarry, val&0x01 == 0x01)
+
 	val = val >> 1
+
 	cpu.assignBasicFlags(val)
-	cpu.write(val, am)
-	fmt.Printf("lsr AdressingMode[%v] %v", am, val)
+	cpu.write(val, addr)
+	fmt.Printf("lsr %x %x", addr, val)
 }
 
 func (cpu *CPU) rol_acc() {
@@ -280,20 +272,20 @@ func (cpu *CPU) rol_acc() {
 	fmt.Printf("rol acc %v", cpu.a)
 }
 
-func (cpu *CPU) rol(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am)
-	cpu.pc = pc_temp
+func (cpu *CPU) rol(addr uint16) {
+	val := cpu.read(addr)
 
 	prev_carry := cpu.getFlag(FlagCarry)
 	cpu.setFlag(FlagCarry, isNegative(val))
+
 	val = val << 1
 	if prev_carry {
 		cpu.a += 1
 	}
+
 	cpu.assignBasicFlags(val)
-	cpu.write(val, am)
-	fmt.Printf("rol AdressingMode[%v] %v", am, val)
+	cpu.write(val, addr)
+	fmt.Printf("rol %x %x", addr, val)
 }
 
 func (cpu *CPU) ror_acc() {
@@ -307,36 +299,28 @@ func (cpu *CPU) ror_acc() {
 	fmt.Printf("ror acc %v", cpu.a)
 }
 
-func (cpu *CPU) ror(am AdressingMode) {
-	pc_temp := cpu.pc
-	val := cpu.nextValue(am)
-	cpu.pc = pc_temp
+func (cpu *CPU) ror(addr uint16) {
+	val := cpu.read(addr)
 
 	prev_carry := cpu.getFlag(FlagCarry)
 	cpu.setFlag(FlagCarry, val&0x01 == 0x01)
+
 	val = val << 1
 	if prev_carry {
 		cpu.a += 0x80
 	}
+
 	cpu.assignBasicFlags(val)
-	cpu.write(val, am)
-	fmt.Printf("ror AdressingMode[%v] %v", am, val)
+	cpu.write(val, addr)
+	fmt.Printf("ror %x %x", addr, val)
 }
 
-func (cpu *CPU) jmp_absolute() {
-	addr := cpu.nextAddr()
+func (cpu *CPU) jmp(addr uint16) {
 	cpu.pc = addr
-	fmt.Printf("jmp absolute %x", addr)
+	fmt.Printf("jmp %x", addr)
 }
 
-func (cpu *CPU) jmp_indirect() {
-	addr := cpu.nextAddrIndirect()
-	cpu.pc = addr
-	fmt.Printf("jmp indirect %x", addr)
-}
-
-func (cpu *CPU) jsr() {
-	addr := cpu.nextAddr()
+func (cpu *CPU) jsr(addr uint16) {
 	cpu.stackPushCurrentPc(-1)
 	cpu.pc = addr
 	fmt.Printf("jsr %x", addr)
@@ -347,67 +331,58 @@ func (cpu *CPU) rts() {
 	fmt.Printf("rts %x", cpu.pc)
 }
 
-// TODO: comprobar si funciona bien. PC + 1?
-func (cpu *CPU) bcc() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bcc(displacement byte) {
 	if !cpu.getFlag(FlagCarry) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bcc %v", displacement)
 }
 
-func (cpu *CPU) bcs() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bcs(displacement byte) {
 	if cpu.getFlag(FlagCarry) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bcs %v", displacement)
 }
 
-func (cpu *CPU) beq() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) beq(displacement byte) {
 	if cpu.getFlag(FlagZero) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("beq %v Zero flag[%v]", displacement, cpu.getFlag(FlagZero))
 }
 
-func (cpu *CPU) bmi() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bmi(displacement byte) {
 	if cpu.getFlag(FlagNegative) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bmi %v", displacement)
 }
 
-func (cpu *CPU) bne() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bne(displacement byte) {
 	if !cpu.getFlag(FlagZero) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bne %v", displacement)
 }
 
-func (cpu *CPU) bpl() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bpl(displacement byte) {
 	if !cpu.getFlag(FlagNegative) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bpl %v", displacement)
 }
 
-func (cpu *CPU) bvc() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bvc(displacement byte) {
 	if !cpu.getFlag(FlagOverflow) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bvc %v", displacement)
 }
 
-func (cpu *CPU) bvs() {
-	displacement := int8(cpu.nextValue(Immediate))
+func (cpu *CPU) bvs(displacement byte) {
 	if cpu.getFlag(FlagOverflow) {
-		cpu.branchJump(displacement)
+		cpu.branchJump(int8(displacement))
 	}
 	fmt.Printf("bvs %v", displacement)
 }
@@ -455,6 +430,8 @@ func (cpu *CPU) Run() {
 
 func (cpu *CPU) Step() {
 	opcode := cpu.nextInstruction()
+	var val byte
+	var addr uint16
 	fmt.Printf("[PC: %4x] OPCODE %2x | %s |", cpu.pc-1, opcode, cpu)
 
 	switch opcode {
@@ -468,72 +445,103 @@ func (cpu *CPU) Step() {
 		fmt.Printf("nop")
 
 	case 0xa9:
-		cpu.lda(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.lda(val)
 	case 0xa5:
-		cpu.lda(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.lda(val)
 	case 0xb5:
-		cpu.lda(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.lda(val)
 	case 0xad:
-		cpu.lda(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.lda(val)
 	case 0xbd:
-		cpu.lda(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.lda(val)
 	case 0xb9:
-		cpu.lda(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.lda(val)
 	case 0xa1:
-		cpu.lda(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.lda(val)
 	case 0xb1:
-		cpu.lda(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.lda(val)
 
 	case 0xa2:
-		cpu.ldx(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.ldx(val)
 	case 0xa6:
-		cpu.ldx(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.ldx(val)
 	case 0xb6:
-		cpu.ldx(ZeroPageY)
+		val = cpu.nextValue(ZeroPageY)
+		cpu.ldx(val)
 	case 0xae:
-		cpu.ldx(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.ldx(val)
 	case 0xbe:
-		cpu.ldx(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.ldx(val)
 
 	case 0xa0:
-		cpu.ldy(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.ldy(val)
 	case 0xa4:
-		cpu.ldy(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.ldy(val)
 	case 0xb4:
-		cpu.ldy(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.ldy(val)
 	case 0xac:
-		cpu.ldy(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.ldy(val)
 	case 0xbc:
-		cpu.ldy(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.ldy(val)
 
 	case 0x85:
-		cpu.sta(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.sta(addr)
 	case 0x95:
-		cpu.sta(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.sta(addr)
 	case 0x8d:
-		cpu.sta(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.sta(addr)
 	case 0x9d:
-		cpu.sta(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.sta(addr)
 	case 0x99:
-		cpu.sta(AbsoluteY)
+		addr = cpu.nextAddress(AbsoluteY)
+		cpu.sta(addr)
 	case 0x81:
-		cpu.sta(IndirectX)
+		addr = cpu.nextAddress(IndirectX)
+		cpu.sta(addr)
 	case 0x91:
-		cpu.sta(IndirectY)
+		addr = cpu.nextAddress(IndirectY)
+		cpu.sta(addr)
 
 	case 0x86:
-		cpu.stx(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.stx(addr)
 	case 0x96:
-		cpu.stx(ZeroPageY)
+		addr = cpu.nextAddress(ZeroPageY)
+		cpu.stx(addr)
 	case 0x8e:
-		cpu.stx(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.stx(addr)
 
 	case 0x84:
-		cpu.sty(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.sty(addr)
 	case 0x94:
-		cpu.sty(ZeroPageY)
+		addr = cpu.nextAddress(ZeroPageY)
+		cpu.sty(addr)
 	case 0x8c:
-		cpu.sty(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.sty(addr)
 
 	case 0xaa:
 		cpu.tax()
@@ -558,134 +566,194 @@ func (cpu *CPU) Step() {
 		cpu.plp()
 
 	case 0x29:
-		cpu.and(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.and(val)
 	case 0x25:
-		cpu.and(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.and(val)
 	case 0x35:
-		cpu.and(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.and(val)
 	case 0x2d:
-		cpu.and(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.and(val)
 	case 0x3d:
-		cpu.and(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.and(val)
 	case 0x39:
-		cpu.and(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.and(val)
 	case 0x21:
-		cpu.and(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.and(val)
 	case 0x31:
-		cpu.and(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.and(val)
 
 	case 0x49:
-		cpu.eor(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.eor(val)
 	case 0x45:
-		cpu.eor(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.eor(val)
 	case 0x55:
-		cpu.eor(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.eor(val)
 	case 0x4d:
-		cpu.eor(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.eor(val)
 	case 0x5d:
-		cpu.eor(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.eor(val)
 	case 0x59:
-		cpu.eor(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.eor(val)
 	case 0x41:
-		cpu.eor(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.eor(val)
 	case 0x51:
-		cpu.eor(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.eor(val)
 
 	case 0x09:
-		cpu.ora(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.ora(val)
 	case 0x05:
-		cpu.ora(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.ora(val)
 	case 0x15:
-		cpu.ora(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.ora(val)
 	case 0x0d:
-		cpu.ora(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.ora(val)
 	case 0x1d:
-		cpu.ora(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.ora(val)
 	case 0x19:
-		cpu.ora(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.ora(val)
 	case 0x01:
-		cpu.ora(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.ora(val)
 	case 0x11:
-		cpu.ora(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.ora(val)
 
 	case 0x24:
-		cpu.bit(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.bit(val)
 	case 0x2c:
-		cpu.bit(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.bit(val)
 
 	case 0x69:
-		cpu.adc(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.adc(val)
 	case 0x65:
-		cpu.adc(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.adc(val)
 	case 0x75:
-		cpu.adc(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.adc(val)
 	case 0x6d:
-		cpu.adc(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.adc(val)
 	case 0x7d:
-		cpu.adc(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.adc(val)
 	case 0x79:
-		cpu.adc(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.adc(val)
 	case 0x61:
-		cpu.adc(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.adc(val)
 	case 0x71:
-		cpu.adc(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.adc(val)
 
 	case 0xe9:
-		cpu.sbc(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.sbc(val)
 	case 0xe5:
-		cpu.sbc(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.sbc(val)
 	case 0xf5:
-		cpu.sbc(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.sbc(val)
 	case 0xed:
-		cpu.sbc(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.sbc(val)
 	case 0xfd:
-		cpu.sbc(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.sbc(val)
 	case 0xf9:
-		cpu.sbc(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.sbc(val)
 	case 0xe1:
-		cpu.sbc(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.sbc(val)
 	case 0xf1:
-		cpu.sbc(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.sbc(val)
 
 	case 0xc9:
-		cpu.cmp(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.cmp(val)
 	case 0xc5:
-		cpu.cmp(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.cmp(val)
 	case 0xd5:
-		cpu.cmp(ZeroPageX)
+		val = cpu.nextValue(ZeroPageX)
+		cpu.cmp(val)
 	case 0xcd:
-		cpu.cmp(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.cmp(val)
 	case 0xdd:
-		cpu.cmp(AbsoluteX)
+		val = cpu.nextValue(AbsoluteX)
+		cpu.cmp(val)
 	case 0xd9:
-		cpu.cmp(AbsoluteY)
+		val = cpu.nextValue(AbsoluteY)
+		cpu.cmp(val)
 	case 0xc1:
-		cpu.cmp(IndirectX)
+		val = cpu.nextValue(IndirectX)
+		cpu.cmp(val)
 	case 0xd1:
-		cpu.cmp(IndirectY)
+		val = cpu.nextValue(IndirectY)
+		cpu.cmp(val)
 
 	case 0xe0:
-		cpu.cpx(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.cpx(val)
 	case 0xe4:
-		cpu.cpx(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.cpx(val)
 	case 0xec:
-		cpu.cpx(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.cpx(val)
 
 	case 0xc0:
-		cpu.cpy(Immediate)
+		val = cpu.nextValue(Immediate)
+		cpu.cpy(val)
 	case 0xc4:
-		cpu.cpy(ZeroPage)
+		val = cpu.nextValue(ZeroPage)
+		cpu.cpy(val)
 	case 0xcc:
-		cpu.cpy(Absolute)
+		val = cpu.nextValue(Absolute)
+		cpu.cpy(val)
 
 	case 0xe6:
-		cpu.inc(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.inc(addr)
 	case 0xf6:
-		cpu.inc(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.inc(addr)
 	case 0xee:
-		cpu.inc(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.inc(addr)
 	case 0xfe:
-		cpu.inc(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.inc(addr)
 
 	case 0xe8:
 		cpu.inx()
@@ -693,13 +761,17 @@ func (cpu *CPU) Step() {
 		cpu.iny()
 
 	case 0xc6:
-		cpu.dec(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.dec(addr)
 	case 0xd6:
-		cpu.dec(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.dec(addr)
 	case 0xce:
-		cpu.dec(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.dec(addr)
 	case 0xde:
-		cpu.dec(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.dec(addr)
 
 	case 0xca:
 		cpu.dex()
@@ -709,74 +781,101 @@ func (cpu *CPU) Step() {
 	case 0x0a:
 		cpu.asl_acc()
 	case 0x06:
-		cpu.asl(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.asl(addr)
 	case 0x16:
-		cpu.asl(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.asl(addr)
 	case 0x0e:
-		cpu.asl(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.asl(addr)
 	case 0x1e:
-		cpu.asl(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.asl(addr)
 
 	case 0x4a:
 		cpu.lsr_acc()
 	case 0x46:
-		cpu.lsr(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.lsr(addr)
 	case 0x56:
-		cpu.lsr(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.lsr(addr)
 	case 0x4e:
-		cpu.lsr(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.lsr(addr)
 	case 0x5e:
-		cpu.lsr(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.lsr(addr)
 
 	case 0x2a:
 		cpu.rol_acc()
 	case 0x26:
-		cpu.rol(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.rol(addr)
 	case 0x36:
-		cpu.rol(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.rol(addr)
 	case 0x2e:
-		cpu.rol(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.rol(addr)
 	case 0x3e:
-		cpu.rol(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.rol(addr)
 
 	case 0x6a:
 		cpu.ror_acc()
 	case 0x66:
-		cpu.ror(ZeroPage)
+		addr = cpu.nextAddress(ZeroPage)
+		cpu.ror(addr)
 	case 0x76:
-		cpu.ror(ZeroPageX)
+		addr = cpu.nextAddress(ZeroPageX)
+		cpu.ror(addr)
 	case 0x6e:
-		cpu.ror(Absolute)
+		addr = cpu.nextAddress(Absolute)
+		cpu.ror(addr)
 	case 0x7e:
-		cpu.ror(AbsoluteX)
+		addr = cpu.nextAddress(AbsoluteX)
+		cpu.ror(addr)
 
 	case 0x4c:
-		cpu.jmp_absolute()
+		addr = cpu.nextAddress(Absolute)
+		cpu.jmp(addr)
 	case 0x6c:
-		cpu.jmp_indirect()
+		addr = cpu.nextAddress(Indirect)
+		cpu.jmp(addr)
 
 	case 0x20:
-		cpu.jsr()
+		addr = cpu.nextAddress(Absolute)
+		cpu.jsr(addr)
 
 	case 0x60:
 		cpu.rts()
 
 	case 0x90:
-		cpu.bcc()
+		val = cpu.nextValue(Immediate)
+		cpu.bcc(val)
 	case 0xb0:
-		cpu.bcs()
+		val = cpu.nextValue(Immediate)
+		cpu.bcs(val)
 	case 0xf0:
-		cpu.beq()
+		val = cpu.nextValue(Immediate)
+		cpu.beq(val)
 	case 0x30:
-		cpu.bmi()
+		val = cpu.nextValue(Immediate)
+		cpu.bmi(val)
 	case 0xd0:
-		cpu.bne()
+		val = cpu.nextValue(Immediate)
+		cpu.bne(val)
 	case 0x10:
-		cpu.bpl()
+		val = cpu.nextValue(Immediate)
+		cpu.bpl(val)
 	case 0x50:
-		cpu.bvc()
+		val = cpu.nextValue(Immediate)
+		cpu.bvc(val)
 	case 0x70:
-		cpu.bvs()
+		val = cpu.nextValue(Immediate)
+		cpu.bvs(val)
 
 	case 0x18:
 		cpu.clc()
