@@ -242,7 +242,7 @@ func (cpu *CPU) rol(addr uint16) {
 
 	val = val << 1
 	if prev_carry {
-		cpu.a += 1
+		val += 1
 	}
 
 	cpu.assignBasicFlags(val)

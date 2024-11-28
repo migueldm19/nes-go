@@ -137,3 +137,49 @@ func TestRor(t *testing.T) {
 	}
 	assert.Equal(t, val, cpu.read(addr))
 }
+
+func TestRol(t *testing.T) {
+	rom_data := slices.Repeat([]byte{0}, 16400)
+	rom_data[4] = 1
+	rom := NewRom(rom_data)
+	cpu := NewCPU(rom)
+
+	var addr uint16 = 0x100
+	var val byte = 0xff
+	var out byte
+
+	cpu.write(val, addr)
+	cpu.setFlag(FlagCarry, true)
+	cpu.rol(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0xff), out)
+	assert.True(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.True(t, cpu.getFlag(FlagNegative))
+
+	val = 0x00
+	cpu.write(val, addr)
+	cpu.rol(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x01), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	cpu.rol(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x02), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	val = 0xaa
+	cpu.write(val, addr)
+	for range 9 {
+		cpu.rol(addr)
+	}
+	assert.Equal(t, val, cpu.read(addr))
+}
