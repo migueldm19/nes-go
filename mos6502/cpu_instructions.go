@@ -265,9 +265,9 @@ func (cpu *CPU) ror(addr uint16) {
 	prev_carry := cpu.getFlag(FlagCarry)
 	cpu.setFlag(FlagCarry, val&0x01 == 0x01)
 
-	val = val << 1
+	val = val >> 1
 	if prev_carry {
-		cpu.a += 0x80
+		val += 0x80
 	}
 
 	cpu.assignBasicFlags(val)

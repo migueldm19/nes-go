@@ -91,3 +91,49 @@ func TestMemoryWrite(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, val, mem.PrgRom.Data[0x50])
 }
+
+func TestRor(t *testing.T) {
+	rom_data := slices.Repeat([]byte{0}, 16400)
+	rom_data[4] = 1
+	rom := NewRom(rom_data)
+	cpu := NewCPU(rom)
+
+	var addr uint16 = 0x100
+	var val byte = 0xff
+	var out byte
+
+	cpu.write(val, addr)
+	cpu.setFlag(FlagCarry, true)
+	cpu.ror(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0xff), out)
+	assert.True(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.True(t, cpu.getFlag(FlagNegative))
+
+	val = 0x00
+	cpu.write(val, addr)
+	cpu.ror(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x80), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.True(t, cpu.getFlag(FlagNegative))
+
+	cpu.ror(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x40), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	val = 0xaa
+	cpu.write(val, addr)
+	for range 9 {
+		cpu.ror(addr)
+	}
+	assert.Equal(t, val, cpu.read(addr))
+}
