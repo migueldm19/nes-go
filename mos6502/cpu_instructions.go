@@ -463,57 +463,57 @@ func (cpu *CPU) Step() {
 		fmt.Printf("LDY $%04X, X", addr)
 
 	case 0x85:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.sta(addr)
 		fmt.Printf("STA $%02X", addr)
 	case 0x95:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.sta(addr)
 		fmt.Printf("STA $%02X, X", addr)
 	case 0x8d:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.sta(addr)
 		fmt.Printf("STA $%04X", addr)
 	case 0x9d:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.sta(addr)
 		fmt.Printf("STA $%04X, X", addr)
 	case 0x99:
-		addr = cpu.nextAddress(AbsoluteY)
+		_, addr = cpu.nextAddress(AbsoluteY)
 		cpu.sta(addr)
 		fmt.Printf("STA $%04X, Y", addr)
 	case 0x81:
-		addr = cpu.nextAddress(IndirectX)
+		_, addr = cpu.nextAddress(IndirectX)
 		cpu.sta(addr)
 		fmt.Printf("STA ($%04X, X)", addr)
 	case 0x91:
-		addr = cpu.nextAddress(IndirectY)
+		_, addr = cpu.nextAddress(IndirectY)
 		cpu.sta(addr)
 		fmt.Printf("STA ($%04X), Y", addr)
 
 	case 0x86:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.stx(addr)
 		fmt.Printf("STX $%02X", addr)
 	case 0x96:
-		addr = cpu.nextAddress(ZeroPageY)
+		_, addr = cpu.nextAddress(ZeroPageY)
 		cpu.stx(addr)
 		fmt.Printf("STX $%02X, Y", addr)
 	case 0x8e:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.stx(addr)
 		fmt.Printf("STX $%04X", addr)
 
 	case 0x84:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.sty(addr)
 		fmt.Printf("STY $%02X", addr)
 	case 0x94:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.sty(addr)
 		fmt.Printf("STY $%02X, X", addr)
 	case 0x8c:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.sty(addr)
 		fmt.Printf("STY $%04X", addr)
 
@@ -770,7 +770,7 @@ func (cpu *CPU) Step() {
 		fmt.Printf("CPX $%04X", addr)
 
 	case 0xc0:
-		val, addr = cpu.nextValue(Immediate)
+		val, _ = cpu.nextValue(Immediate)
 		cpu.cpy(val)
 		fmt.Printf("CPY #$%02X", val)
 	case 0xc4:
@@ -783,36 +783,36 @@ func (cpu *CPU) Step() {
 		fmt.Printf("CPY $%04X", addr)
 
 	case 0xe6:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.inc(addr)
 		fmt.Printf("INC $%02X", addr)
 	case 0xf6:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.inc(addr)
 		fmt.Printf("INC $%02X, X", addr)
 	case 0xee:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.inc(addr)
 		fmt.Printf("INC $%04X", addr)
 	case 0xfe:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.inc(addr)
 		fmt.Printf("INC $%04X, X", addr)
 
 	case 0xc6:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.dec(addr)
 		fmt.Printf("DEC $%02X", addr)
 	case 0xd6:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.dec(addr)
 		fmt.Printf("DEC $%02X, X", addr)
 	case 0xce:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.dec(addr)
 		fmt.Printf("DEC $%04X", addr)
 	case 0xde:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.dec(addr)
 		fmt.Printf("DEC $%04X, X", addr)
 
@@ -833,38 +833,38 @@ func (cpu *CPU) Step() {
 	case 0x0a:
 		cpu.asl_acc()
 	case 0x06:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.asl(addr)
 		fmt.Printf("ASL $%02X", addr)
 	case 0x16:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.asl(addr)
 		fmt.Printf("ASL $%02X, X", addr)
 	case 0x0e:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.asl(addr)
 		fmt.Printf("ASL $%04X", addr)
 	case 0x1e:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.asl(addr)
 		fmt.Printf("ASL $%04X, X", addr)
 
 	case 0x4a:
 		cpu.lsr_acc()
 	case 0x46:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.lsr(addr)
 		fmt.Printf("LSR $%02X", addr)
 	case 0x56:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.lsr(addr)
 		fmt.Printf("LSR $%02X, X", addr)
 	case 0x4e:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.lsr(addr)
 		fmt.Printf("LSR $%04X", addr)
 	case 0x5e:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.lsr(addr)
 		fmt.Printf("LSR $%04X, X", addr)
 
@@ -872,19 +872,19 @@ func (cpu *CPU) Step() {
 		cpu.rol_acc()
 		fmt.Print("ROL A")
 	case 0x26:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.rol(addr)
 		fmt.Printf("ROL $%02X", addr)
 	case 0x36:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.rol(addr)
 		fmt.Printf("ROL $%02X, X", addr)
 	case 0x2e:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.rol(addr)
 		fmt.Printf("ROL $%04X", addr)
 	case 0x3e:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.rol(addr)
 		fmt.Printf("ROL $%04X, X", addr)
 
@@ -892,33 +892,33 @@ func (cpu *CPU) Step() {
 		cpu.ror_acc()
 		fmt.Print("ROR A")
 	case 0x66:
-		addr = cpu.nextAddress(ZeroPage)
+		_, addr = cpu.nextAddress(ZeroPage)
 		cpu.ror(addr)
 		fmt.Printf("ROR $%02X", addr)
 	case 0x76:
-		addr = cpu.nextAddress(ZeroPageX)
+		_, addr = cpu.nextAddress(ZeroPageX)
 		cpu.ror(addr)
 		fmt.Printf("ROR $%02X, X", addr)
 	case 0x6e:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.ror(addr)
 		fmt.Printf("ROR $%04X", addr)
 	case 0x7e:
-		addr = cpu.nextAddress(AbsoluteX)
+		_, addr = cpu.nextAddress(AbsoluteX)
 		cpu.ror(addr)
 		fmt.Printf("ROR $%04X, X", addr)
 
 	case 0x4c:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.jmp(addr)
 		fmt.Printf("JMP $%04X", addr)
 	case 0x6c:
-		addr = cpu.nextAddress(Indirect)
+		_, addr = cpu.nextAddress(Indirect)
 		cpu.jmp(addr)
 		fmt.Printf("JMP ($%04X)", addr)
 
 	case 0x20:
-		addr = cpu.nextAddress(Absolute)
+		_, addr = cpu.nextAddress(Absolute)
 		cpu.jsr(addr)
 		fmt.Printf("JSR $%04X", addr)
 
