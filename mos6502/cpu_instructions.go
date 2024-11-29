@@ -414,7 +414,7 @@ func (cpu *CPU) Step() {
 	case 0xa1:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.lda(val)
-		fmt.Printf("LDA ($%04X, X)", addr)
+		fmt.Printf("LDA ($%02X, X)", addr)
 	case 0xb1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.lda(val)
@@ -485,7 +485,7 @@ func (cpu *CPU) Step() {
 	case 0x81:
 		_, addr = cpu.nextAddress(IndirectX)
 		cpu.sta(addr)
-		fmt.Printf("STA ($%04X, X)", addr)
+		fmt.Printf("STA ($%02X, X)", addr)
 	case 0x91:
 		_, addr = cpu.nextAddress(IndirectY)
 		cpu.sta(addr)
@@ -576,7 +576,7 @@ func (cpu *CPU) Step() {
 	case 0x21:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.and(val)
-		fmt.Printf("AND ($%04X, X)", addr)
+		fmt.Printf("AND ($%02X, X)", addr)
 	case 0x31:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.and(val)
@@ -609,7 +609,7 @@ func (cpu *CPU) Step() {
 	case 0x41:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.eor(val)
-		fmt.Printf("EOR ($%04X, X)", addr)
+		fmt.Printf("EOR ($%02X, X)", addr)
 	case 0x51:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.eor(val)
@@ -642,7 +642,7 @@ func (cpu *CPU) Step() {
 	case 0x01:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.ora(val)
-		fmt.Printf("ORA ($%04X, X)", addr)
+		fmt.Printf("ORA ($%02X, X)", addr)
 	case 0x11:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.ora(val)
@@ -684,7 +684,7 @@ func (cpu *CPU) Step() {
 	case 0x61:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.adc(val)
-		fmt.Printf("ADC ($%04X, X)", addr)
+		fmt.Printf("ADC ($%02X, X)", addr)
 	case 0x71:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.adc(val)
@@ -717,7 +717,7 @@ func (cpu *CPU) Step() {
 	case 0xe1:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.sbc(val)
-		fmt.Printf("SBC ($%04X, X)", addr)
+		fmt.Printf("SBC ($%02X, X)", addr)
 	case 0xf1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.sbc(val)
@@ -750,7 +750,7 @@ func (cpu *CPU) Step() {
 	case 0xc1:
 		val, addr = cpu.nextValue(IndirectX)
 		cpu.cmp(val)
-		fmt.Printf("CMP ($%04X, X)", addr)
+		fmt.Printf("CMP ($%02X, X)", addr)
 	case 0xd1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.cmp(val)

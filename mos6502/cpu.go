@@ -153,11 +153,11 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		originalAddr = uint16(cpu.nextInstruction())
 		addr = originalAddr
 	case ZeroPageX:
-		originalAddr = uint16(cpu.nextInstruction() + cpu.x)
-		addr = originalAddr
+		originalAddr = uint16(cpu.nextInstruction())
+		addr = (originalAddr + uint16(cpu.x)) % 256
 	case ZeroPageY:
-		originalAddr = uint16(cpu.nextInstruction() + cpu.y)
-		addr = originalAddr
+		originalAddr = uint16(cpu.nextInstruction())
+		addr = (originalAddr + uint16(cpu.y)) % 256
 	case Absolute:
 		originalAddr = cpu.nextAddrHelper()
 		addr = originalAddr
@@ -168,18 +168,18 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		originalAddr = cpu.nextAddrHelper() + uint16(cpu.y)
 		addr = originalAddr
 	case IndirectX:
-		originalAddr = uint16(cpu.nextInstruction())
-		addr_b, _ := cpu.mem.Read(originalAddr + uint16(cpu.x))
-		addr = uint16(addr_b) << 8
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
+		addr_1_b, _ := cpu.mem.Read(addr)
+		addr_2_b, _ := cpu.mem.Read((addr + 1) % 256)
+		addr = uint16(addr_2_b)<<8 + uint16(addr_1_b)
 	case IndirectY:
-		originalAddr := uint16(cpu.nextInstruction())
-		addr_b, _ := cpu.mem.Read(originalAddr)
-		addr = (uint16(addr_b) << 8) + uint16(cpu.y)
+		addr, originalAddr = cpu.nextAddress(Indirect)
+		addr = addr + uint16(cpu.y)
 	case Indirect:
 		originalAddr := cpu.nextAddrHelper()
-		val1, _ := cpu.mem.Read(originalAddr)
-		val2, _ := cpu.mem.Read(originalAddr + 1)
-		addr = uint16(val1) + (uint16(val2) << 8)
+		addr_1_b, _ := cpu.mem.Read(originalAddr)
+		addr_2_b, _ := cpu.mem.Read((originalAddr + 1) % 256)
+		addr = uint16(addr_1_b) + (uint16(addr_2_b) << 8)
 	}
 
 	return
