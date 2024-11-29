@@ -50,7 +50,7 @@ func TestMemoryRead(t *testing.T) {
 	var addr uint16
 	var val byte = 0xaa
 
-	addr = 0x100
+	addr = 0x50
 	mem.Data[addr] = val
 
 	var out byte
@@ -77,7 +77,7 @@ func TestMemoryWrite(t *testing.T) {
 	var addr uint16
 	var val byte = 0xaa
 
-	addr = 0x100
+	addr = 0x50
 
 	var err error
 
@@ -98,7 +98,7 @@ func TestRor(t *testing.T) {
 	rom := NewRom(rom_data)
 	cpu := NewCPU(rom)
 
-	var addr uint16 = 0x100
+	var addr uint16 = 0x50
 	var val byte = 0xff
 	var out byte
 
@@ -144,7 +144,7 @@ func TestRol(t *testing.T) {
 	rom := NewRom(rom_data)
 	cpu := NewCPU(rom)
 
-	var addr uint16 = 0x100
+	var addr uint16 = 0x50
 	var val byte = 0xff
 	var out byte
 
@@ -182,4 +182,84 @@ func TestRol(t *testing.T) {
 		cpu.rol(addr)
 	}
 	assert.Equal(t, val, cpu.read(addr))
+}
+
+func TestLsr(t *testing.T) {
+	rom_data := slices.Repeat([]byte{0}, 16400)
+	rom_data[4] = 1
+	rom := NewRom(rom_data)
+	cpu := NewCPU(rom)
+
+	var addr uint16 = 0x50
+	var val byte = 0xff
+	var out byte
+
+	cpu.write(val, addr)
+	cpu.lsr(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x7f), out)
+	assert.True(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	val = 0x00
+	cpu.write(val, addr)
+	cpu.lsr(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x00), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.True(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	val = 0x10
+	cpu.write(val, addr)
+	cpu.lsr(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x08), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+}
+
+func TestAsl(t *testing.T) {
+	rom_data := slices.Repeat([]byte{0}, 16400)
+	rom_data[4] = 1
+	rom := NewRom(rom_data)
+	cpu := NewCPU(rom)
+
+	var addr uint16 = 0x50
+	var val byte = 0xff
+	var out byte
+
+	cpu.write(val, addr)
+	cpu.asl(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0xfe), out)
+	assert.True(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.True(t, cpu.getFlag(FlagNegative))
+
+	val = 0x00
+	cpu.write(val, addr)
+	cpu.asl(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x00), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.True(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
+
+	val = 0x10
+	cpu.write(val, addr)
+	cpu.asl(addr)
+	out = cpu.read(addr)
+
+	assert.Equal(t, byte(0x20), out)
+	assert.False(t, cpu.getFlag(FlagCarry))
+	assert.False(t, cpu.getFlag(FlagZero))
+	assert.False(t, cpu.getFlag(FlagNegative))
 }
