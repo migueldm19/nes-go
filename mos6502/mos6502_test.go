@@ -263,3 +263,16 @@ func TestAsl(t *testing.T) {
 	assert.False(t, cpu.getFlag(FlagZero))
 	assert.False(t, cpu.getFlag(FlagNegative))
 }
+
+func TestIndirectAddressing(t *testing.T) {
+	rom_data := slices.Repeat([]byte{0}, 16400)
+	rom_data[4] = 1
+	rom := NewRom(rom_data)
+	cpu := NewCPU(rom)
+
+	cpu.write(0x00, 0)
+	cpu.write(0x02, 1)
+
+	out, _ := cpu.nextAddress(IndirectX)
+	assert.Equal(t, uint16(0x0200), out)
+}

@@ -171,7 +171,7 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		addr_1_b, _ := cpu.mem.Read(addr)
 		addr_2_b, _ := cpu.mem.Read((addr + 1) % 256)
-		addr = uint16(addr_2_b)<<8 + uint16(addr_1_b)
+		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
 	case IndirectY:
 		addr, originalAddr = cpu.nextAddress(Indirect)
 		addr = addr + uint16(cpu.y)
@@ -179,7 +179,7 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		originalAddr := cpu.nextAddrHelper()
 		addr_1_b, _ := cpu.mem.Read(originalAddr)
 		addr_2_b, _ := cpu.mem.Read((originalAddr + 1) % 256)
-		addr = uint16(addr_1_b) + (uint16(addr_2_b) << 8)
+		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
 	}
 
 	return
@@ -220,6 +220,12 @@ func (cpu *CPU) read(addr uint16) byte {
 	}
 
 	return val
+}
+
+func (cpu CPU) Dump() (dump string) {
+	dump += cpu.mem.ZeroPageDump()
+	dump += cpu.mem.StackDump()
+	return
 }
 
 func (cpu CPU) String() string {
