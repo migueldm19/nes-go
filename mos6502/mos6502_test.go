@@ -41,10 +41,14 @@ func TestSubOverflow(t *testing.T) {
 	assert.Equal(t, true, overflow)
 }
 
-func TestMemoryRead(t *testing.T) {
+func getEmptyRom() *Rom {
 	rom_data := slices.Repeat([]byte{0}, 16400)
 	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	return NewRom(rom_data)
+}
+
+func TestMemoryRead(t *testing.T) {
+	rom := getEmptyRom()
 	mem := NewMemory(rom)
 
 	var addr uint16
@@ -69,9 +73,7 @@ func TestMemoryRead(t *testing.T) {
 }
 
 func TestMemoryWrite(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	rom := getEmptyRom()
 	mem := NewMemory(rom)
 
 	var addr uint16
@@ -93,9 +95,7 @@ func TestMemoryWrite(t *testing.T) {
 }
 
 func TestRor(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	rom := getEmptyRom()
 	cpu := NewCPU(rom)
 
 	var addr uint16 = 0x50
@@ -139,9 +139,7 @@ func TestRor(t *testing.T) {
 }
 
 func TestRol(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	rom := getEmptyRom()
 	cpu := NewCPU(rom)
 
 	var addr uint16 = 0x50
@@ -185,9 +183,7 @@ func TestRol(t *testing.T) {
 }
 
 func TestLsr(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	rom := getEmptyRom()
 	cpu := NewCPU(rom)
 
 	var addr uint16 = 0x50
@@ -225,9 +221,7 @@ func TestLsr(t *testing.T) {
 }
 
 func TestAsl(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+	rom := getEmptyRom()
 	cpu := NewCPU(rom)
 
 	var addr uint16 = 0x50
@@ -264,10 +258,8 @@ func TestAsl(t *testing.T) {
 	assert.False(t, cpu.getFlag(FlagNegative))
 }
 
-func TestIndirectAddressing(t *testing.T) {
-	rom_data := slices.Repeat([]byte{0}, 16400)
-	rom_data[4] = 1
-	rom := NewRom(rom_data)
+func TestIndirectXAddressing(t *testing.T) {
+	rom := getEmptyRom()
 	cpu := NewCPU(rom)
 
 	cpu.write(0x00, 0)

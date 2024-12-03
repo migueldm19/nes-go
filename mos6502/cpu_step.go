@@ -619,5 +619,5 @@ func (cpu *CPU) Step() {
 	}
 
 	fmt.Print("\n")
-	fmt.Print(cpu.Dump())
+	//fmt.Print(cpu.Dump())
 }

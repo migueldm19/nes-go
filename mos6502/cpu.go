@@ -8,7 +8,7 @@ import (
 type AdressingMode int
 
 const (
-	Immediate = iota
+	Immediate AdressingMode = iota
 	ZeroPage
 	ZeroPageX
 	ZeroPageY
@@ -49,6 +49,12 @@ func NewCPU(cartridge *Rom) *CPU {
 		pc:  0xc000,
 		sp:  0xfd,
 		mem: *NewMemory(cartridge),
+	}
+}
+
+func (cpu *CPU) Run() {
+	for {
+		cpu.Step()
 	}
 }
 

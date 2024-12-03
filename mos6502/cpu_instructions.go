@@ -362,9 +362,3 @@ func (cpu *CPU) sed() {
 func (cpu *CPU) sei() {
 	cpu.setFlag(FlagInterruptDisable, true)
 }
-
-func (cpu *CPU) Run() {
-	for {
-		cpu.Step()
-	}
-}
