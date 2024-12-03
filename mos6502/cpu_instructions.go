@@ -1,7 +1,5 @@
 package mos6502
 
-import "fmt"
-
 func (cpu *CPU) brk() {
 	cpu.stackPushCurrentPc(2)
 	cpu.stackPush(cpu.p | FlagB)
@@ -66,7 +64,6 @@ func (cpu *CPU) txa() {
 
 func (cpu *CPU) txs() {
 	cpu.sp = cpu.x
-	fmt.Printf("txs")
 }
 
 func (cpu *CPU) tya() {

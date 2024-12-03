@@ -24,7 +24,7 @@ with open("nestest.log") as nestest_log_file:
         nestest_states.append(CPUState(a, x, y, p, sp))
 
 cpu_states = []
-with open("logs.txt") as log_file:
+with open("instructions.log") as log_file:
     for line in log_file:
         a = int(line[25:27].strip(), 16)
         x = int(line[30:32].strip(), 16)
