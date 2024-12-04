@@ -186,6 +186,11 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 	case Indirect:
 		originalAddr = cpu.nextAddrHelper()
 		addr_1_b, _ := cpu.mem.Read(originalAddr)
+		// Due to a bug in the cpu, indirect addressing can't
+		// cross pages, so it goes to the beginning of the page
+		if originalAddr&0x00ff == 0x00ff {
+			originalAddr -= 0x0100
+		}
 		addr_2_b, _ := cpu.mem.Read(originalAddr + 1)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
 	}
