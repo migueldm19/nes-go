@@ -55,7 +55,7 @@ func (cpu *CPU) Step() {
 	case 0xb1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.lda(val)
-		instruction_log += fmt.Sprintf("LDA ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("LDA ($%02X), Y", addr)
 
 	case 0xa2:
 		val, _ = cpu.nextValue(Immediate)
@@ -126,7 +126,7 @@ func (cpu *CPU) Step() {
 	case 0x91:
 		addr, originalAddr = cpu.nextAddress(IndirectY)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA ($%04X), Y", originalAddr)
+		instruction_log += fmt.Sprintf("STA ($%02X), Y", originalAddr)
 
 	case 0x86:
 		_, addr = cpu.nextAddress(ZeroPage)
@@ -217,7 +217,7 @@ func (cpu *CPU) Step() {
 	case 0x31:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.and(val)
-		instruction_log += fmt.Sprintf("AND ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("AND ($%02X), Y", addr)
 
 	case 0x49:
 		val, _ = cpu.nextValue(Immediate)
@@ -250,7 +250,7 @@ func (cpu *CPU) Step() {
 	case 0x51:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.eor(val)
-		instruction_log += fmt.Sprintf("EOR ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("EOR ($%02X), Y", addr)
 
 	case 0x09:
 		val, _ = cpu.nextValue(Immediate)
@@ -283,7 +283,7 @@ func (cpu *CPU) Step() {
 	case 0x11:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.ora(val)
-		instruction_log += fmt.Sprintf("ORA ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("ORA ($%02X), Y", addr)
 
 	case 0x24:
 		val, addr = cpu.nextValue(ZeroPage)
@@ -325,7 +325,7 @@ func (cpu *CPU) Step() {
 	case 0x71:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.adc(val)
-		instruction_log += fmt.Sprintf("ADC ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("ADC ($%02X), Y", addr)
 
 	case 0xe9:
 		val, _ = cpu.nextValue(Immediate)
@@ -358,7 +358,7 @@ func (cpu *CPU) Step() {
 	case 0xf1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.sbc(val)
-		instruction_log += fmt.Sprintf("SBC ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("SBC ($%02X), Y", addr)
 
 	case 0xc9:
 		val, _ = cpu.nextValue(Immediate)
@@ -391,7 +391,7 @@ func (cpu *CPU) Step() {
 	case 0xd1:
 		val, addr = cpu.nextValue(IndirectY)
 		cpu.cmp(val)
-		instruction_log += fmt.Sprintf("CMP ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("CMP ($%02X), Y", addr)
 
 	case 0xe0:
 		val, _ = cpu.nextValue(Immediate)
