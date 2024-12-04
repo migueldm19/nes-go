@@ -15,11 +15,11 @@ func (cpu *CPU) Step() {
 	switch opcode {
 	case 0x00:
 		cpu.brk()
-		instruction_log += fmt.Sprint("BRK")
+		instruction_log += "BRK"
 
 	case 0x40:
 		cpu.rti()
-		instruction_log += fmt.Sprint("RTI")
+		instruction_log += "RTI"
 
 	case 0xea:
 		instruction_log += fmt.Sprintf("NOP")
@@ -156,35 +156,35 @@ func (cpu *CPU) Step() {
 
 	case 0xaa:
 		cpu.tax()
-		instruction_log += fmt.Sprint("TAX")
+		instruction_log += "TAX"
 	case 0xa8:
 		cpu.tay()
-		instruction_log += fmt.Sprint("TAY")
+		instruction_log += "TAY"
 	case 0xba:
 		cpu.tsx()
-		instruction_log += fmt.Sprint("TSX")
+		instruction_log += "TSX"
 	case 0x8a:
 		cpu.txa()
-		instruction_log += fmt.Sprint("TXA")
+		instruction_log += "TXA"
 	case 0x9a:
 		cpu.txs()
-		instruction_log += fmt.Sprint("TXS")
+		instruction_log += "TXS"
 	case 0x98:
 		cpu.tya()
-		instruction_log += fmt.Sprint("TYA")
+		instruction_log += "TYA"
 
 	case 0x48:
 		cpu.pha()
-		instruction_log += fmt.Sprint("PHA")
+		instruction_log += "PHA"
 	case 0x08:
 		cpu.php()
-		instruction_log += fmt.Sprint("PHP")
+		instruction_log += "PHP"
 	case 0x68:
 		cpu.pla()
-		instruction_log += fmt.Sprint("PLA")
+		instruction_log += "PLA"
 	case 0x28:
 		cpu.plp()
-		instruction_log += fmt.Sprint("PLP")
+		instruction_log += "PLP"
 
 	case 0x29:
 		val, _ = cpu.nextValue(Immediate)
@@ -455,21 +455,21 @@ func (cpu *CPU) Step() {
 
 	case 0xe8:
 		cpu.inx()
-		instruction_log += fmt.Sprint("INX")
+		instruction_log += "INX"
 	case 0xc8:
 		cpu.iny()
-		instruction_log += fmt.Sprint("INY")
+		instruction_log += "INY"
 
 	case 0xca:
 		cpu.dex()
-		instruction_log += fmt.Sprint("DEX")
+		instruction_log += "DEX"
 	case 0x88:
 		cpu.dey()
-		instruction_log += fmt.Sprint("DEY")
+		instruction_log += "DEY"
 
 	case 0x0a:
 		cpu.asl_acc()
-		instruction_log += fmt.Sprint("ASL A")
+		instruction_log += "ASL A"
 	case 0x06:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.asl(addr)
@@ -489,7 +489,7 @@ func (cpu *CPU) Step() {
 
 	case 0x4a:
 		cpu.lsr_acc()
-		instruction_log += fmt.Sprint("LSR A")
+		instruction_log += "LSR A"
 	case 0x46:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.lsr(addr)
@@ -509,7 +509,7 @@ func (cpu *CPU) Step() {
 
 	case 0x2a:
 		cpu.rol_acc()
-		instruction_log += fmt.Sprint("ROL A")
+		instruction_log += "ROL A"
 	case 0x26:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.rol(addr)
@@ -529,7 +529,7 @@ func (cpu *CPU) Step() {
 
 	case 0x6a:
 		cpu.ror_acc()
-		instruction_log += fmt.Sprint("ROR A")
+		instruction_log += "ROR A"
 	case 0x66:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.ror(addr)
@@ -563,7 +563,7 @@ func (cpu *CPU) Step() {
 
 	case 0x60:
 		cpu.rts()
-		instruction_log += fmt.Sprint("RTS")
+		instruction_log += "RTS"
 
 	case 0x90:
 		val, _ = cpu.nextValue(Immediate)
@@ -600,25 +600,25 @@ func (cpu *CPU) Step() {
 
 	case 0x18:
 		cpu.clc()
-		instruction_log += fmt.Sprint("CLC")
+		instruction_log += "CLC"
 	case 0xd8:
 		cpu.cld()
-		instruction_log += fmt.Sprint("CLD")
+		instruction_log += "CLD"
 	case 0x58:
 		cpu.cli()
-		instruction_log += fmt.Sprint("CLI")
+		instruction_log += "CLI"
 	case 0xb8:
 		cpu.clv()
-		instruction_log += fmt.Sprint("CLV")
+		instruction_log += "CLV"
 	case 0x38:
 		cpu.sec()
-		instruction_log += fmt.Sprint("SEC")
+		instruction_log += "SEC"
 	case 0xf8:
 		cpu.sed()
-		instruction_log += fmt.Sprint("SED")
+		instruction_log += "SED"
 	case 0x78:
 		cpu.sei()
-		instruction_log += fmt.Sprint("SEI")
+		instruction_log += "SEI"
 
 	default:
 		instruction_log += fmt.Sprintf("UNKNOWN")

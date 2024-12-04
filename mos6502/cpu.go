@@ -184,9 +184,9 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		addr_2_b, _ := cpu.mem.Read((addr + 1) % 256)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8 + uint16(cpu.y)
 	case Indirect:
-		originalAddr := cpu.nextAddrHelper()
+		originalAddr = cpu.nextAddrHelper()
 		addr_1_b, _ := cpu.mem.Read(originalAddr)
-		addr_2_b, _ := cpu.mem.Read((originalAddr + 1) % 256)
+		addr_2_b, _ := cpu.mem.Read(originalAddr + 1)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
 	}
 
