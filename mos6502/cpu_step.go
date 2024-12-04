@@ -6,6 +6,7 @@ func (cpu *CPU) Step() {
 	opcode := cpu.nextInstruction()
 	var val byte
 	var addr uint16
+	var originalAddr uint16
 
 	logger := GetLogger()
 	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %s | ", cpu.pc-1, opcode, cpu)
@@ -99,33 +100,33 @@ func (cpu *CPU) Step() {
 		instruction_log += fmt.Sprintf("LDY $%04X, X", addr)
 
 	case 0x85:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA $%02X", addr)
+		instruction_log += fmt.Sprintf("STA $%02X", originalAddr)
 	case 0x95:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA $%02X, X", addr)
+		instruction_log += fmt.Sprintf("STA $%02X, X", originalAddr)
 	case 0x8d:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA $%04X", addr)
+		instruction_log += fmt.Sprintf("STA $%04X", originalAddr)
 	case 0x9d:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA $%04X, X", addr)
+		instruction_log += fmt.Sprintf("STA $%04X, X", originalAddr)
 	case 0x99:
-		_, addr = cpu.nextAddress(AbsoluteY)
+		addr, originalAddr = cpu.nextAddress(AbsoluteY)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA $%04X, Y", addr)
+		instruction_log += fmt.Sprintf("STA $%04X, Y", originalAddr)
 	case 0x81:
-		_, addr = cpu.nextAddress(IndirectX)
+		addr, originalAddr = cpu.nextAddress(IndirectX)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA ($%02X, X)", addr)
+		instruction_log += fmt.Sprintf("STA ($%02X, X)", originalAddr)
 	case 0x91:
-		_, addr = cpu.nextAddress(IndirectY)
+		addr, originalAddr = cpu.nextAddress(IndirectY)
 		cpu.sta(addr)
-		instruction_log += fmt.Sprintf("STA ($%04X), Y", addr)
+		instruction_log += fmt.Sprintf("STA ($%04X), Y", originalAddr)
 
 	case 0x86:
 		_, addr = cpu.nextAddress(ZeroPage)
@@ -419,38 +420,38 @@ func (cpu *CPU) Step() {
 		instruction_log += fmt.Sprintf("CPY $%04X", addr)
 
 	case 0xe6:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.inc(addr)
-		instruction_log += fmt.Sprintf("INC $%02X", addr)
+		instruction_log += fmt.Sprintf("INC $%02X", originalAddr)
 	case 0xf6:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.inc(addr)
-		instruction_log += fmt.Sprintf("INC $%02X, X", addr)
+		instruction_log += fmt.Sprintf("INC $%02X, X", originalAddr)
 	case 0xee:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.inc(addr)
-		instruction_log += fmt.Sprintf("INC $%04X", addr)
+		instruction_log += fmt.Sprintf("INC $%04X", originalAddr)
 	case 0xfe:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.inc(addr)
-		instruction_log += fmt.Sprintf("INC $%04X, X", addr)
+		instruction_log += fmt.Sprintf("INC $%04X, X", originalAddr)
 
 	case 0xc6:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.dec(addr)
-		instruction_log += fmt.Sprintf("DEC $%02X", addr)
+		instruction_log += fmt.Sprintf("DEC $%02X", originalAddr)
 	case 0xd6:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.dec(addr)
-		instruction_log += fmt.Sprintf("DEC $%02X, X", addr)
+		instruction_log += fmt.Sprintf("DEC $%02X, X", originalAddr)
 	case 0xce:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.dec(addr)
-		instruction_log += fmt.Sprintf("DEC $%04X", addr)
+		instruction_log += fmt.Sprintf("DEC $%04X", originalAddr)
 	case 0xde:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.dec(addr)
-		instruction_log += fmt.Sprintf("DEC $%04X, X", addr)
+		instruction_log += fmt.Sprintf("DEC $%04X, X", originalAddr)
 
 	case 0xe8:
 		cpu.inx()
@@ -470,95 +471,95 @@ func (cpu *CPU) Step() {
 		cpu.asl_acc()
 		instruction_log += fmt.Sprint("ASL A")
 	case 0x06:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.asl(addr)
-		instruction_log += fmt.Sprintf("ASL $%02X", addr)
+		instruction_log += fmt.Sprintf("ASL $%02X", originalAddr)
 	case 0x16:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.asl(addr)
-		instruction_log += fmt.Sprintf("ASL $%02X, X", addr)
+		instruction_log += fmt.Sprintf("ASL $%02X, X", originalAddr)
 	case 0x0e:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.asl(addr)
-		instruction_log += fmt.Sprintf("ASL $%04X", addr)
+		instruction_log += fmt.Sprintf("ASL $%04X", originalAddr)
 	case 0x1e:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.asl(addr)
-		instruction_log += fmt.Sprintf("ASL $%04X, X", addr)
+		instruction_log += fmt.Sprintf("ASL $%04X, X", originalAddr)
 
 	case 0x4a:
 		cpu.lsr_acc()
 		instruction_log += fmt.Sprint("LSR A")
 	case 0x46:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.lsr(addr)
-		instruction_log += fmt.Sprintf("LSR $%02X", addr)
+		instruction_log += fmt.Sprintf("LSR $%02X", originalAddr)
 	case 0x56:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.lsr(addr)
-		instruction_log += fmt.Sprintf("LSR $%02X, X", addr)
+		instruction_log += fmt.Sprintf("LSR $%02X, X", originalAddr)
 	case 0x4e:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.lsr(addr)
-		instruction_log += fmt.Sprintf("LSR $%04X", addr)
+		instruction_log += fmt.Sprintf("LSR $%04X", originalAddr)
 	case 0x5e:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.lsr(addr)
-		instruction_log += fmt.Sprintf("LSR $%04X, X", addr)
+		instruction_log += fmt.Sprintf("LSR $%04X, X", originalAddr)
 
 	case 0x2a:
 		cpu.rol_acc()
 		instruction_log += fmt.Sprint("ROL A")
 	case 0x26:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.rol(addr)
-		instruction_log += fmt.Sprintf("ROL $%02X", addr)
+		instruction_log += fmt.Sprintf("ROL $%02X", originalAddr)
 	case 0x36:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.rol(addr)
-		instruction_log += fmt.Sprintf("ROL $%02X, X", addr)
+		instruction_log += fmt.Sprintf("ROL $%02X, X", originalAddr)
 	case 0x2e:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.rol(addr)
-		instruction_log += fmt.Sprintf("ROL $%04X", addr)
+		instruction_log += fmt.Sprintf("ROL $%04X", originalAddr)
 	case 0x3e:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.rol(addr)
-		instruction_log += fmt.Sprintf("ROL $%04X, X", addr)
+		instruction_log += fmt.Sprintf("ROL $%04X, X", originalAddr)
 
 	case 0x6a:
 		cpu.ror_acc()
 		instruction_log += fmt.Sprint("ROR A")
 	case 0x66:
-		_, addr = cpu.nextAddress(ZeroPage)
+		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		cpu.ror(addr)
-		instruction_log += fmt.Sprintf("ROR $%02X", addr)
+		instruction_log += fmt.Sprintf("ROR $%02X", originalAddr)
 	case 0x76:
-		_, addr = cpu.nextAddress(ZeroPageX)
+		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		cpu.ror(addr)
-		instruction_log += fmt.Sprintf("ROR $%02X, X", addr)
+		instruction_log += fmt.Sprintf("ROR $%02X, X", originalAddr)
 	case 0x6e:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.ror(addr)
-		instruction_log += fmt.Sprintf("ROR $%04X", addr)
+		instruction_log += fmt.Sprintf("ROR $%04X", originalAddr)
 	case 0x7e:
-		_, addr = cpu.nextAddress(AbsoluteX)
+		addr, originalAddr = cpu.nextAddress(AbsoluteX)
 		cpu.ror(addr)
-		instruction_log += fmt.Sprintf("ROR $%04X, X", addr)
+		instruction_log += fmt.Sprintf("ROR $%04X, X", originalAddr)
 
 	case 0x4c:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.jmp(addr)
-		instruction_log += fmt.Sprintf("JMP $%04X", addr)
+		instruction_log += fmt.Sprintf("JMP $%04X", originalAddr)
 	case 0x6c:
-		_, addr = cpu.nextAddress(Indirect)
+		addr, originalAddr = cpu.nextAddress(Indirect)
 		cpu.jmp(addr)
-		instruction_log += fmt.Sprintf("JMP ($%04X)", addr)
+		instruction_log += fmt.Sprintf("JMP ($%04X)", originalAddr)
 
 	case 0x20:
-		_, addr = cpu.nextAddress(Absolute)
+		addr, originalAddr = cpu.nextAddress(Absolute)
 		cpu.jsr(addr)
-		instruction_log += fmt.Sprintf("JSR $%04X", addr)
+		instruction_log += fmt.Sprintf("JSR $%04X", originalAddr)
 
 	case 0x60:
 		cpu.rts()
