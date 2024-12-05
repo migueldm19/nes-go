@@ -160,10 +160,10 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		addr = originalAddr
 	case ZeroPageX:
 		originalAddr = uint16(cpu.nextInstruction())
-		addr = (originalAddr + uint16(cpu.x)) % 256
+		addr = (originalAddr + uint16(cpu.x)) % 0x100
 	case ZeroPageY:
 		originalAddr = uint16(cpu.nextInstruction())
-		addr = (originalAddr + uint16(cpu.y)) % 256
+		addr = (originalAddr + uint16(cpu.y)) % 0x100
 	case Absolute:
 		originalAddr = cpu.nextAddrHelper()
 		addr = originalAddr
@@ -176,12 +176,12 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 	case IndirectX:
 		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		addr_1_b, _ := cpu.mem.Read(addr)
-		addr_2_b, _ := cpu.mem.Read((addr + 1) % 256)
+		addr_2_b, _ := cpu.mem.Read((addr + 1) % 0x100)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
 	case IndirectY:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		addr_1_b, _ := cpu.mem.Read(addr)
-		addr_2_b, _ := cpu.mem.Read((addr + 1) % 256)
+		addr_2_b, _ := cpu.mem.Read((addr + 1) % 0x100)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8 + uint16(cpu.y)
 	case Indirect:
 		originalAddr = cpu.nextAddrHelper()
