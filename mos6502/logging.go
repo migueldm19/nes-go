@@ -11,7 +11,7 @@ type LoggerMos6502 struct {
 	MemoryDump   *log.Logger
 }
 
-var logger *LoggerMos6502
+var _logger *LoggerMos6502
 
 func createLogger(name string) *log.Logger {
 	file, err := os.OpenFile(fmt.Sprintf("%v.log", name), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
@@ -23,12 +23,12 @@ func createLogger(name string) *log.Logger {
 }
 
 func GetLogger() *LoggerMos6502 {
-	if logger == nil {
-		logger = &LoggerMos6502{}
+	if _logger == nil {
+		_logger = &LoggerMos6502{}
 
-		logger.Instructions = createLogger("instructions")
-		logger.MemoryDump = createLogger("memory_dump")
+		_logger.Instructions = createLogger("instructions")
+		_logger.MemoryDump = createLogger("memory_dump")
 	}
 
-	return logger
+	return _logger
 }

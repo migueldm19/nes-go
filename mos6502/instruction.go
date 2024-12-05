@@ -505,7 +505,7 @@ func (cpu *CPU) GetNextInstruction() *Instruction {
 		cpu.pc += 2
 
 	default:
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("UNKNOWN"), func() {})
+		instruction = NewInstruction(instruction_pc, "UNKNOWN", func() {})
 	}
 
 	return instruction
