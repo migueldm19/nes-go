@@ -3,36 +3,46 @@ package mos6502
 import "fmt"
 
 type Instruction struct {
-	PC              uint16
-	InstructionText string
+	pc              uint16
+	instructionText string
 	action          func()
 }
 
 func NewInstruction(pc uint16, text string, action func()) *Instruction {
 	return &Instruction{
-		PC:              pc,
-		InstructionText: text,
+		pc:              pc,
+		instructionText: text,
 		action:          action,
 	}
 }
 
 func (instruction Instruction) Run(cpu *CPU) {
 	logger := GetLogger()
-	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.PC, cpu.read(instruction.PC), cpu)
-	instruction_log += instruction.InstructionText
+	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.pc, cpu.read(instruction.pc), cpu)
+	instruction_log += instruction.instructionText
 	logger.Instructions.Print(instruction_log)
+	logger.MemoryDump.Printf("[PC: %04X]\n%v", instruction.pc, cpu.Dump())
+
 	instruction.action()
 }
 
+func (cpu *CPU) execByte(action func(byte), am AdressingMode) {
+	val, _ := cpu.nextValue(am)
+	action(val)
+}
+
+func (cpu *CPU) execAddr(action func(uint16), am AdressingMode) {
+	addr, _ := cpu.nextAddress(am)
+	action(addr)
+}
+
 func (cpu *CPU) GetNextInstruction() *Instruction {
-	logger := GetLogger()
 	opcode := cpu.nextInstruction()
 	var val byte
 	var addr uint16
 	var originalAddr uint16
 
 	instruction_pc := cpu.pc - 1
-	logger.MemoryDump.Printf("[PC: %04X]\n%v", instruction_pc, cpu.Dump())
 
 	var instruction *Instruction
 
@@ -48,102 +58,102 @@ func (cpu *CPU) GetNextInstruction() *Instruction {
 
 	case 0xa9:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA #$%02X", val), func() { cpu.lda(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA #$%02X", val), func() { cpu.execByte(cpu.lda, Immediate) })
 	case 0xa5:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%02X", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%02X", addr), func() { cpu.execByte(cpu.lda, ZeroPage) })
 	case 0xb5:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%02X, X", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%02X, X", addr), func() { cpu.execByte(cpu.lda, ZeroPageX) })
 	case 0xad:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X", addr), func() { cpu.execByte(cpu.lda, Absolute) })
 	case 0xbd:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X, X", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X, X", addr), func() { cpu.execByte(cpu.lda, AbsoluteX) })
 	case 0xb9:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X, Y", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA $%04X, Y", addr), func() { cpu.execByte(cpu.lda, AbsoluteY) })
 	case 0xa1:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA ($%02X, X)", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA ($%02X, X)", addr), func() { cpu.execByte(cpu.lda, IndirectX) })
 	case 0xb1:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA ($%02X), Y", addr), func() { cpu.lda(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDA ($%02X), Y", addr), func() { cpu.execByte(cpu.lda, IndirectY) })
 
 	case 0xa2:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX #$%02X", val), func() { cpu.ldx(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX #$%02X", val), func() { cpu.execByte(cpu.ldx, Immediate) })
 	case 0xa6:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%02X", addr), func() { cpu.ldx(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%02X", addr), func() { cpu.execByte(cpu.ldx, ZeroPage) })
 	case 0xb6:
-		val, addr = cpu.nextValue(ZeroPageY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%02X, Y", addr), func() { cpu.ldx(val) })
+		_, addr = cpu.nextValue(ZeroPageY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%02X, Y", addr), func() { cpu.execByte(cpu.ldx, ZeroPageY) })
 	case 0xae:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%04X", addr), func() { cpu.ldx(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%04X", addr), func() { cpu.execByte(cpu.ldx, Absolute) })
 	case 0xbe:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%04X, Y", addr), func() { cpu.ldx(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDX $%04X, Y", addr), func() { cpu.execByte(cpu.ldx, AbsoluteY) })
 
 	case 0xa0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY #$%02X", val), func() { cpu.ldy(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY #$%02X", val), func() { cpu.execByte(cpu.ldy, Immediate) })
 	case 0xa4:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%02X", addr), func() { cpu.ldy(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%02X", addr), func() { cpu.execByte(cpu.ldy, ZeroPage) })
 	case 0xb4:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%02X, X", addr), func() { cpu.ldy(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%02X, X", addr), func() { cpu.execByte(cpu.ldy, ZeroPageX) })
 	case 0xac:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%04X", addr), func() { cpu.ldy(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%04X", addr), func() { cpu.execByte(cpu.ldy, Absolute) })
 	case 0xbc:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%04X, X", addr), func() { cpu.ldy(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LDY $%04X, X", addr), func() { cpu.execByte(cpu.ldy, AbsoluteX) })
 
 	case 0x85:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%02X", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%02X", originalAddr), func() { cpu.execAddr(cpu.sta, ZeroPage) })
 	case 0x95:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%02X, X", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%02X, X", originalAddr), func() { cpu.execAddr(cpu.sta, ZeroPageX) })
 	case 0x8d:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X", originalAddr), func() { cpu.execAddr(cpu.sta, Absolute) })
 	case 0x9d:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X, X", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X, X", originalAddr), func() { cpu.execAddr(cpu.sta, AbsoluteX) })
 	case 0x99:
-		addr, originalAddr = cpu.nextAddress(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X, Y", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA $%04X, Y", originalAddr), func() { cpu.execAddr(cpu.sta, AbsoluteY) })
 	case 0x81:
-		addr, originalAddr = cpu.nextAddress(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA ($%02X, X)", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA ($%02X, X)", originalAddr), func() { cpu.execAddr(cpu.sta, IndirectX) })
 	case 0x91:
-		addr, originalAddr = cpu.nextAddress(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA ($%02X), Y", originalAddr), func() { cpu.sta(addr) })
+		_, originalAddr = cpu.nextAddress(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STA ($%02X), Y", originalAddr), func() { cpu.execAddr(cpu.sta, IndirectY) })
 
 	case 0x86:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%02X", originalAddr), func() { cpu.stx(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%02X", originalAddr), func() { cpu.execAddr(cpu.stx, ZeroPage) })
 	case 0x96:
-		addr, originalAddr = cpu.nextAddress(ZeroPageY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%02X, Y", originalAddr), func() { cpu.stx(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%02X, Y", originalAddr), func() { cpu.execAddr(cpu.stx, ZeroPageY) })
 	case 0x8e:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%04X", originalAddr), func() { cpu.stx(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STX $%04X", originalAddr), func() { cpu.execAddr(cpu.stx, Absolute) })
 
 	case 0x84:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%02X", originalAddr), func() { cpu.sty(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%02X", originalAddr), func() { cpu.execAddr(cpu.sty, ZeroPage) })
 	case 0x94:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%02X, X", originalAddr), func() { cpu.sty(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%02X, X", originalAddr), func() { cpu.execAddr(cpu.sty, ZeroPageX) })
 	case 0x8c:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%04X", originalAddr), func() { cpu.sty(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("STY $%04X", originalAddr), func() { cpu.execAddr(cpu.sty, Absolute) })
 
 	case 0xaa:
 		instruction = NewInstruction(instruction_pc, "TAX", cpu.tax)
@@ -169,206 +179,206 @@ func (cpu *CPU) GetNextInstruction() *Instruction {
 
 	case 0x29:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND #$%02X", val), func() { cpu.and(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND #$%02X", val), func() { cpu.execByte(cpu.and, Immediate) })
 	case 0x25:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%02X", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%02X", addr), func() { cpu.execByte(cpu.and, ZeroPage) })
 	case 0x35:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%02X, X", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%02X, X", addr), func() { cpu.execByte(cpu.and, ZeroPageX) })
 	case 0x2d:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X", addr), func() { cpu.execByte(cpu.and, Absolute) })
 	case 0x3d:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X, X", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X, X", addr), func() { cpu.execByte(cpu.and, AbsoluteX) })
 	case 0x39:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X, Y", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND $%04X, Y", addr), func() { cpu.execByte(cpu.and, AbsoluteY) })
 	case 0x21:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND ($%02X, X)", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND ($%02X, X)", addr), func() { cpu.execByte(cpu.and, IndirectX) })
 	case 0x31:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND ($%02X), Y", addr), func() { cpu.and(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("AND ($%02X), Y", addr), func() { cpu.execByte(cpu.and, IndirectY) })
 
 	case 0x49:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR #$%02X", val), func() { cpu.eor(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR #$%02X", val), func() { cpu.execByte(cpu.eor, Immediate) })
 	case 0x45:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%02X", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%02X", addr), func() { cpu.execByte(cpu.eor, ZeroPage) })
 	case 0x55:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%02X, X", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%02X, X", addr), func() { cpu.execByte(cpu.eor, ZeroPageX) })
 	case 0x4d:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X", addr), func() { cpu.execByte(cpu.eor, Absolute) })
 	case 0x5d:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X, X", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X, X", addr), func() { cpu.execByte(cpu.eor, AbsoluteX) })
 	case 0x59:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X, Y", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR $%04X, Y", addr), func() { cpu.execByte(cpu.eor, AbsoluteY) })
 	case 0x41:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR ($%02X, X)", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR ($%02X, X)", addr), func() { cpu.execByte(cpu.eor, IndirectX) })
 	case 0x51:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR ($%02X), Y", addr), func() { cpu.eor(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("EOR ($%02X), Y", addr), func() { cpu.execByte(cpu.eor, IndirectY) })
 
 	case 0x09:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA #$%02X", val), func() { cpu.ora(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA #$%02X", val), func() { cpu.execByte(cpu.ora, Immediate) })
 	case 0x05:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%02X", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%02X", addr), func() { cpu.execByte(cpu.ora, ZeroPage) })
 	case 0x15:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%02X, X", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%02X, X", addr), func() { cpu.execByte(cpu.ora, ZeroPageX) })
 	case 0x0d:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X", addr), func() { cpu.execByte(cpu.ora, Absolute) })
 	case 0x1d:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X, X", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X, X", addr), func() { cpu.execByte(cpu.ora, AbsoluteX) })
 	case 0x19:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X, Y", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA $%04X, Y", addr), func() { cpu.execByte(cpu.ora, AbsoluteY) })
 	case 0x01:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA ($%02X, X)", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA ($%02X, X)", addr), func() { cpu.execByte(cpu.ora, IndirectX) })
 	case 0x11:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA ($%02X), Y", addr), func() { cpu.ora(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ORA ($%02X), Y", addr), func() { cpu.execByte(cpu.ora, IndirectY) })
 
 	case 0x24:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BIT $%02X", addr), func() { cpu.bit(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BIT $%02X", addr), func() { cpu.execByte(cpu.bit, ZeroPage) })
 	case 0x2c:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BIT $%04X", addr), func() { cpu.bit(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BIT $%04X", addr), func() { cpu.execByte(cpu.bit, Absolute) })
 
 	case 0x69:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC #$%02X", val), func() { cpu.adc(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC #$%02X", val), func() { cpu.execByte(cpu.adc, Immediate) })
 	case 0x65:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%02X", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%02X", addr), func() { cpu.execByte(cpu.adc, ZeroPage) })
 	case 0x75:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%02X, X", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%02X, X", addr), func() { cpu.execByte(cpu.adc, ZeroPageX) })
 	case 0x6d:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X", addr), func() { cpu.execByte(cpu.adc, Absolute) })
 	case 0x7d:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X, X", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X, X", addr), func() { cpu.execByte(cpu.adc, AbsoluteX) })
 	case 0x79:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X, Y", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC $%04X, Y", addr), func() { cpu.execByte(cpu.adc, AbsoluteY) })
 	case 0x61:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC ($%02X, X)", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC ($%02X, X)", addr), func() { cpu.execByte(cpu.adc, IndirectX) })
 	case 0x71:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC ($%02X), Y", addr), func() { cpu.adc(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ADC ($%02X), Y", addr), func() { cpu.execByte(cpu.adc, IndirectY) })
 
 	case 0xe9:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC #$%02X", val), func() { cpu.sbc(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC #$%02X", val), func() { cpu.execByte(cpu.sbc, Immediate) })
 	case 0xe5:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%02X", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%02X", addr), func() { cpu.execByte(cpu.sbc, ZeroPage) })
 	case 0xf5:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%02X, X", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%02X, X", addr), func() { cpu.execByte(cpu.sbc, ZeroPageX) })
 	case 0xed:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X", addr), func() { cpu.execByte(cpu.sbc, Absolute) })
 	case 0xfd:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X, X", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X, X", addr), func() { cpu.execByte(cpu.sbc, AbsoluteX) })
 	case 0xf9:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X, Y", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC $%04X, Y", addr), func() { cpu.execByte(cpu.sbc, AbsoluteY) })
 	case 0xe1:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC ($%02X, X)", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC ($%02X, X)", addr), func() { cpu.execByte(cpu.sbc, IndirectX) })
 	case 0xf1:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC ($%02X), Y", addr), func() { cpu.sbc(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("SBC ($%02X), Y", addr), func() { cpu.execByte(cpu.sbc, IndirectY) })
 
 	case 0xc9:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP #$%02X", val), func() { cpu.cmp(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP #$%02X", val), func() { cpu.execByte(cpu.cmp, Immediate) })
 	case 0xc5:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%02X", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%02X", addr), func() { cpu.execByte(cpu.cmp, ZeroPage) })
 	case 0xd5:
-		val, addr = cpu.nextValue(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%02X, X", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%02X, X", addr), func() { cpu.execByte(cpu.cmp, ZeroPageX) })
 	case 0xcd:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X", addr), func() { cpu.execByte(cpu.cmp, Absolute) })
 	case 0xdd:
-		val, addr = cpu.nextValue(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X, X", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X, X", addr), func() { cpu.execByte(cpu.cmp, AbsoluteX) })
 	case 0xd9:
-		val, addr = cpu.nextValue(AbsoluteY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X, Y", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(AbsoluteY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP $%04X, Y", addr), func() { cpu.execByte(cpu.cmp, AbsoluteY) })
 	case 0xc1:
-		val, addr = cpu.nextValue(IndirectX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP ($%02X, X)", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(IndirectX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP ($%02X, X)", addr), func() { cpu.execByte(cpu.cmp, IndirectX) })
 	case 0xd1:
-		val, addr = cpu.nextValue(IndirectY)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP ($%02X), Y", addr), func() { cpu.cmp(val) })
+		_, addr = cpu.nextValue(IndirectY)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CMP ($%02X), Y", addr), func() { cpu.execByte(cpu.cmp, IndirectY) })
 
 	case 0xe0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX #$%02X", val), func() { cpu.cpx(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX #$%02X", val), func() { cpu.execByte(cpu.cpx, Immediate) })
 	case 0xe4:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX $%02X", addr), func() { cpu.cpx(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX $%02X", addr), func() { cpu.execByte(cpu.cpx, ZeroPage) })
 	case 0xec:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX $%04X", addr), func() { cpu.cpx(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPX $%04X", addr), func() { cpu.execByte(cpu.cpx, Absolute) })
 
 	case 0xc0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY #$%02X", val), func() { cpu.cpy(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY #$%02X", val), func() { cpu.execByte(cpu.cpy, Immediate) })
 	case 0xc4:
-		val, addr = cpu.nextValue(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY $%02X", addr), func() { cpu.cpy(val) })
+		_, addr = cpu.nextValue(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY $%02X", addr), func() { cpu.execByte(cpu.cpy, ZeroPage) })
 	case 0xcc:
-		val, addr = cpu.nextValue(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY $%04X", addr), func() { cpu.cpy(val) })
+		_, addr = cpu.nextValue(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("CPY $%04X", addr), func() { cpu.execByte(cpu.cpy, Absolute) })
 
 	case 0xe6:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%02X", originalAddr), func() { cpu.inc(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%02X", originalAddr), func() { cpu.execAddr(cpu.inc, ZeroPage) })
 	case 0xf6:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%02X, X", originalAddr), func() { cpu.inc(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%02X, X", originalAddr), func() { cpu.execAddr(cpu.inc, ZeroPageX) })
 	case 0xee:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%04X", originalAddr), func() { cpu.inc(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%04X", originalAddr), func() { cpu.execAddr(cpu.inc, Absolute) })
 	case 0xfe:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%04X, X", originalAddr), func() { cpu.inc(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("INC $%04X, X", originalAddr), func() { cpu.execAddr(cpu.inc, AbsoluteX) })
 
 	case 0xc6:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%02X", originalAddr), func() { cpu.dec(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%02X", originalAddr), func() { cpu.execAddr(cpu.dec, ZeroPage) })
 	case 0xd6:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%02X, X", originalAddr), func() { cpu.dec(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%02X, X", originalAddr), func() { cpu.execAddr(cpu.dec, ZeroPageX) })
 	case 0xce:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%04X", originalAddr), func() { cpu.dec(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%04X", originalAddr), func() { cpu.execAddr(cpu.dec, Absolute) })
 	case 0xde:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%04X, X", originalAddr), func() { cpu.dec(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("DEC $%04X, X", originalAddr), func() { cpu.execAddr(cpu.dec, AbsoluteX) })
 
 	case 0xe8:
 		instruction = NewInstruction(instruction_pc, "INX", cpu.inx)
@@ -383,101 +393,101 @@ func (cpu *CPU) GetNextInstruction() *Instruction {
 	case 0x0a:
 		instruction = NewInstruction(instruction_pc, "ASL A", cpu.asl_acc)
 	case 0x06:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%02X", originalAddr), func() { cpu.asl(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%02X", originalAddr), func() { cpu.execAddr(cpu.asl, ZeroPage) })
 	case 0x16:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%02X, X", originalAddr), func() { cpu.asl(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%02X, X", originalAddr), func() { cpu.execAddr(cpu.asl, ZeroPageX) })
 	case 0x0e:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%04X", originalAddr), func() { cpu.asl(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%04X", originalAddr), func() { cpu.execAddr(cpu.asl, Absolute) })
 	case 0x1e:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%04X, X", originalAddr), func() { cpu.asl(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ASL $%04X, X", originalAddr), func() { cpu.execAddr(cpu.asl, AbsoluteX) })
 
 	case 0x4a:
 		instruction = NewInstruction(instruction_pc, "LSR A", cpu.lsr_acc)
 	case 0x46:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%02X", originalAddr), func() { cpu.lsr(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%02X", originalAddr), func() { cpu.execAddr(cpu.lsr, ZeroPage) })
 	case 0x56:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%02X, X", originalAddr), func() { cpu.lsr(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%02X, X", originalAddr), func() { cpu.execAddr(cpu.lsr, ZeroPageX) })
 	case 0x4e:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%04X", originalAddr), func() { cpu.lsr(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%04X", originalAddr), func() { cpu.execAddr(cpu.lsr, Absolute) })
 	case 0x5e:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%04X, X", originalAddr), func() { cpu.lsr(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("LSR $%04X, X", originalAddr), func() { cpu.execAddr(cpu.lsr, AbsoluteX) })
 
 	case 0x2a:
 		instruction = NewInstruction(instruction_pc, "ROL A", cpu.rol_acc)
 	case 0x26:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%02X", originalAddr), func() { cpu.rol(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%02X", originalAddr), func() { cpu.execAddr(cpu.rol, ZeroPage) })
 	case 0x36:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%02X, X", originalAddr), func() { cpu.rol(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%02X, X", originalAddr), func() { cpu.execAddr(cpu.rol, ZeroPageX) })
 	case 0x2e:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%04X", originalAddr), func() { cpu.rol(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%04X", originalAddr), func() { cpu.execAddr(cpu.rol, Absolute) })
 	case 0x3e:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%04X, X", originalAddr), func() { cpu.rol(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROL $%04X, X", originalAddr), func() { cpu.execAddr(cpu.rol, AbsoluteX) })
 
 	case 0x6a:
 		instruction = NewInstruction(instruction_pc, "ROR A", cpu.ror_acc)
 	case 0x66:
-		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%02X", originalAddr), func() { cpu.ror(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPage)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%02X", originalAddr), func() { cpu.execAddr(cpu.ror, ZeroPage) })
 	case 0x76:
-		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%02X, X", originalAddr), func() { cpu.ror(addr) })
+		_, originalAddr = cpu.nextAddress(ZeroPageX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%02X, X", originalAddr), func() { cpu.execAddr(cpu.ror, ZeroPageX) })
 	case 0x6e:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%04X", originalAddr), func() { cpu.ror(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%04X", originalAddr), func() { cpu.execAddr(cpu.ror, Absolute) })
 	case 0x7e:
-		addr, originalAddr = cpu.nextAddress(AbsoluteX)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%04X, X", originalAddr), func() { cpu.ror(addr) })
+		_, originalAddr = cpu.nextAddress(AbsoluteX)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("ROR $%04X, X", originalAddr), func() { cpu.execAddr(cpu.ror, AbsoluteX) })
 
 	case 0x4c:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JMP $%04X", originalAddr), func() { cpu.jmp(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JMP $%04X", originalAddr), func() { cpu.execAddr(cpu.jmp, Absolute) })
 	case 0x6c:
-		addr, originalAddr = cpu.nextAddress(Indirect)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JMP ($%04X)", originalAddr), func() { cpu.jmp(addr) })
+		_, originalAddr = cpu.nextAddress(Indirect)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JMP ($%04X)", originalAddr), func() { cpu.execAddr(cpu.jmp, Indirect) })
 
 	case 0x20:
-		addr, originalAddr = cpu.nextAddress(Absolute)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JSR $%04X", originalAddr), func() { cpu.jsr(addr) })
+		_, originalAddr = cpu.nextAddress(Absolute)
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("JSR $%04X", originalAddr), func() { cpu.execAddr(cpu.jsr, Absolute) })
 
 	case 0x60:
 		instruction = NewInstruction(instruction_pc, "RTS", cpu.rts)
 
 	case 0x90:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BCC #$%02X", val), func() { cpu.bcc(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BCC #$%02X", val), func() { cpu.execByte(cpu.bcc, Immediate) })
 	case 0xb0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BCS #$%02X", val), func() { cpu.bcs(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BCS #$%02X", val), func() { cpu.execByte(cpu.bcs, Immediate) })
 	case 0xf0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BEQ #$%02X", val), func() { cpu.beq(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BEQ #$%02X", val), func() { cpu.execByte(cpu.beq, Immediate) })
 	case 0x30:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BMI #$%02X", val), func() { cpu.bmi(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BMI #$%02X", val), func() { cpu.execByte(cpu.bmi, Immediate) })
 	case 0xd0:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BNE #$%02X", val), func() { cpu.bne(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BNE #$%02X", val), func() { cpu.execByte(cpu.bne, Immediate) })
 	case 0x10:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BPL #$%02X", val), func() { cpu.bpl(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BPL #$%02X", val), func() { cpu.execByte(cpu.bpl, Immediate) })
 	case 0x50:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BVC #$%02X", val), func() { cpu.bvc(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BVC #$%02X", val), func() { cpu.execByte(cpu.bvc, Immediate) })
 	case 0x70:
 		val, _ = cpu.nextValue(Immediate)
-		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BVS #$%02X", val), func() { cpu.bvs(val) })
+		instruction = NewInstruction(instruction_pc, fmt.Sprintf("BVS #$%02X", val), func() { cpu.execByte(cpu.bvs, Immediate) })
 
 	case 0x18:
 		instruction = NewInstruction(instruction_pc, "CLC", cpu.clc)
@@ -498,11 +508,9 @@ func (cpu *CPU) GetNextInstruction() *Instruction {
 	case 0x1a, 0x3a, 0x5a, 0x7a, 0xda, 0xfa:
 		instruction = NewInstruction(instruction_pc, "*NOP", func() {})
 	case 0x04, 0x44, 0x64, 0x14, 0x34, 0x54, 0x74, 0xd4, 0xf4, 0x80:
-		instruction = NewInstruction(instruction_pc, "*NOP", func() {})
-		cpu.pc++
+		instruction = NewInstruction(instruction_pc, "*NOP", func() { cpu.nextValue(Immediate) })
 	case 0x0c, 0x1c, 0x3c, 0x5c, 0x7c, 0xdc, 0xfc:
-		instruction = NewInstruction(instruction_pc, "*NOP", func() {})
-		cpu.pc += 2
+		instruction = NewInstruction(instruction_pc, "*NOP", func() { cpu.nextValue(Absolute) })
 
 	default:
 		instruction = NewInstruction(instruction_pc, "UNKNOWN", func() {})

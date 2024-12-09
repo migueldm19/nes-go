@@ -40,7 +40,7 @@ type CPU struct {
 	pc  uint16
 	sp  byte
 	p   byte
-	mem Memory
+	mem *Memory
 }
 
 func NewCPU(cartridge *Rom) *CPU {
@@ -48,12 +48,13 @@ func NewCPU(cartridge *Rom) *CPU {
 		p:   0x24,
 		pc:  0xc000,
 		sp:  0xfd,
-		mem: *NewMemory(cartridge),
+		mem: NewMemory(cartridge),
 	}
 }
 
 func (cpu *CPU) Step() {
 	instruction := cpu.GetNextInstruction()
+	cpu.pc = instruction.pc + 1
 	instruction.Run(cpu)
 }
 

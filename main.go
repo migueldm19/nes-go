@@ -15,5 +15,7 @@ func main() {
 
 	rom := mos6502.NewRom(cart)
 	cpu := mos6502.NewCPU(rom)
-	cpu.Run()
+
+	disassembler := mos6502.NewDisassembler(cpu)
+	disassembler.Run()
 }
