@@ -27,3 +27,5 @@ go.work.sum
 
 # log files
 memory_dump.log
+disassembly.log
+instructions.log

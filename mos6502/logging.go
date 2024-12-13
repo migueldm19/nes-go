@@ -9,6 +9,7 @@ import (
 type LoggerMos6502 struct {
 	Instructions *log.Logger
 	MemoryDump   *log.Logger
+	Disassembly  *log.Logger
 }
 
 var _logger *LoggerMos6502
@@ -28,6 +29,7 @@ func GetLogger() *LoggerMos6502 {
 
 		_logger.Instructions = createLogger("instructions")
 		_logger.MemoryDump = createLogger("memory_dump")
+		_logger.Disassembly = createLogger("disassembly")
 	}
 
 	return _logger
