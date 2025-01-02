@@ -27,6 +27,10 @@ func (instruction Instruction) Run(cpu *CPU) {
 	instruction.action()
 }
 
+func (instruction Instruction) String() string {
+	return fmt.Sprintf("[%04X] %v", instruction.pc, instruction.instructionText)
+}
+
 func (cpu *CPU) execByte(action func(byte), am AdressingMode) {
 	val, _ := cpu.nextValue(am)
 	action(val)

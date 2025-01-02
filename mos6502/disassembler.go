@@ -2,7 +2,11 @@ package mos6502
 
 import (
 	"fmt"
+	"log"
 	"math"
+	"net/http"
+	"strings"
+	"text/template"
 )
 
 type Disassembler struct {
@@ -57,17 +61,70 @@ func (disassembler *Disassembler) Disassemble() {
 		disassembler.cpu.pc = currentInstruction.pc + 1
 
 		fmt.Printf("%v\n", disassembler.cpu)
-		fmt.Printf("\x1b[1;33m[%04X] %v\x1b[0m\n", currentInstruction.pc, currentInstruction.instructionText)
+		fmt.Printf("\x1b[1;33m%v\x1b[0m\n", currentInstruction)
 
 		next := currentInstruction
 		for range 10 {
 			next = disassembler.instructions[next.nextPc]
 			if next != nil {
-				fmt.Printf("[%04X] %v\n", next.pc, next.instructionText)
+				fmt.Printf("%v\n", next)
 			}
 		}
 
 		fmt.Scanln(&input)
 		currentInstruction.Run(disassembler.cpu)
 	}
+}
+
+type Page struct {
+	NextInstructions   []string
+	CurrentInstruction string
+	MemoryDump         string
+	CpuState           string
+}
+
+func (disassembler *Disassembler) DisassembleWeb() {
+	disassembler.cpu.pc = disassembler.startPc
+
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		currentInstruction, got := disassembler.instructions[disassembler.cpu.pc]
+		if !got {
+			currentInstruction = disassembler.cpu.GetNextInstruction()
+		}
+		disassembler.cpu.pc = currentInstruction.pc + 1
+
+		fmt.Println(currentInstruction)
+
+		t, err := template.ParseFiles("disassembler/disassembler.html")
+		if err != nil {
+			fmt.Println("Error parsing template:", err)
+			return
+		}
+
+		instructions := make([]string, 0)
+
+		next := currentInstruction
+		for range 10 {
+			next = disassembler.instructions[next.nextPc]
+			if next != nil {
+				instructions = append(instructions, next.String())
+			}
+		}
+
+		page := Page{
+			NextInstructions:   instructions,
+			CurrentInstruction: currentInstruction.String(),
+			MemoryDump:         strings.ReplaceAll(disassembler.cpu.Dump(), "\n", "<br>"),
+			CpuState:           disassembler.cpu.String(),
+		}
+
+		t.Execute(w, page)
+		currentInstruction.Run(disassembler.cpu)
+	}
+
+	fmt.Println("Starting web server on port 8080...")
+
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
