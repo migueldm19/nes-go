@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Current instruction</h1>
-    <p>{{ .CurrentInstruction }}</p>
+    <p>[{{ .CurrentInstruction.Pc }}] {{ .CurrentInstruction.InstructionText }}</p>
     <h1>Next instructions</h1>
     {{ range .NextInstructions }}
         <p>{{ . }}</p>
@@ -16,6 +16,6 @@
     <p>{{ .CpuState }}</p>
     <h1>Memory dump</h1>
     <p>{{ .MemoryDump }}</p>
-    <a href="https://localhost:8080">Next</a>
+    <button onClick="window.location.reload();">Next</button>
 </body>
 </html>

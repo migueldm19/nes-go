@@ -54,7 +54,7 @@ func NewCPU(cartridge *Rom) *CPU {
 
 func (cpu *CPU) Step() {
 	instruction := cpu.GetNextInstruction()
-	cpu.pc = instruction.pc + 1
+	cpu.pc = instruction.Pc + 1
 	instruction.Run(cpu)
 }
 

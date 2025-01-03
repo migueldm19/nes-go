@@ -3,32 +3,32 @@ package mos6502
 import "fmt"
 
 type Instruction struct {
-	pc, nextPc      uint16
-	instructionText string
+	Pc, NextPc      uint16
+	InstructionText string
 	action          func()
 }
 
 func NewInstruction(pc, nextPc uint16, text string, action func()) *Instruction {
 	return &Instruction{
-		pc:              pc,
-		nextPc:          nextPc,
-		instructionText: text,
+		Pc:              pc,
+		NextPc:          nextPc,
+		InstructionText: text,
 		action:          action,
 	}
 }
 
 func (instruction Instruction) Run(cpu *CPU) {
 	logger := GetLogger()
-	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.pc, cpu.read(instruction.pc), cpu)
-	instruction_log += instruction.instructionText
+	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.Pc, cpu.read(instruction.Pc), cpu)
+	instruction_log += instruction.InstructionText
 	logger.Instructions.Print(instruction_log)
-	logger.MemoryDump.Printf("[PC: %04X]\n%v", instruction.pc, cpu.Dump())
+	logger.MemoryDump.Printf("[PC: %04X]\n%v", instruction.Pc, cpu.Dump())
 
 	instruction.action()
 }
 
 func (instruction Instruction) String() string {
-	return fmt.Sprintf("[%04X] %v", instruction.pc, instruction.instructionText)
+	return fmt.Sprintf("[%04X] %v", instruction.Pc, instruction.InstructionText)
 }
 
 func (cpu *CPU) execByte(action func(byte), am AdressingMode) {

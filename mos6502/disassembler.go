@@ -23,7 +23,7 @@ func NewDisassembler(cpu *CPU) *Disassembler {
 	for pc := cpu.pc; pc < math.MaxUint16; pc = cpu.pc {
 		instruction := cpu.GetNextInstruction()
 		instructions[pc] = instruction
-		logger.Disassembly.Printf("[%04X] %v", pc, instruction.instructionText)
+		logger.Disassembly.Printf("[%04X] %v", pc, instruction.InstructionText)
 	}
 
 	return &Disassembler{
@@ -44,7 +44,7 @@ func (disassembler *Disassembler) Run() {
 			//disassembler.instructions[disassembler.cpu.pc] = instruction
 		}
 
-		disassembler.cpu.pc = instruction.pc + 1
+		disassembler.cpu.pc = instruction.Pc + 1
 		instruction.Run(disassembler.cpu)
 	}
 }
@@ -58,14 +58,14 @@ func (disassembler *Disassembler) Disassemble() {
 		if currentInstruction == nil {
 			currentInstruction = disassembler.cpu.GetNextInstruction()
 		}
-		disassembler.cpu.pc = currentInstruction.pc + 1
+		disassembler.cpu.pc = currentInstruction.Pc + 1
 
 		fmt.Printf("%v\n", disassembler.cpu)
 		fmt.Printf("\x1b[1;33m%v\x1b[0m\n", currentInstruction)
 
 		next := currentInstruction
 		for range 10 {
-			next = disassembler.instructions[next.nextPc]
+			next = disassembler.instructions[next.NextPc]
 			if next != nil {
 				fmt.Printf("%v\n", next)
 			}
@@ -76,9 +76,9 @@ func (disassembler *Disassembler) Disassemble() {
 	}
 }
 
-type Page struct {
-	NextInstructions   []string
-	CurrentInstruction string
+type DisassemblerPage struct {
+	NextInstructions   []*Instruction
+	CurrentInstruction *Instruction
 	MemoryDump         string
 	CpuState           string
 }
@@ -91,7 +91,7 @@ func (disassembler *Disassembler) DisassembleWeb() {
 		if !got {
 			currentInstruction = disassembler.cpu.GetNextInstruction()
 		}
-		disassembler.cpu.pc = currentInstruction.pc + 1
+		disassembler.cpu.pc = currentInstruction.Pc + 1
 
 		fmt.Println(currentInstruction)
 
@@ -101,19 +101,19 @@ func (disassembler *Disassembler) DisassembleWeb() {
 			return
 		}
 
-		instructions := make([]string, 0)
+		instructions := make([]*Instruction, 0)
 
 		next := currentInstruction
 		for range 10 {
-			next = disassembler.instructions[next.nextPc]
+			next = disassembler.instructions[next.NextPc]
 			if next != nil {
-				instructions = append(instructions, next.String())
+				instructions = append(instructions, next)
 			}
 		}
 
-		page := Page{
+		page := DisassemblerPage{
 			NextInstructions:   instructions,
-			CurrentInstruction: currentInstruction.String(),
+			CurrentInstruction: currentInstruction,
 			MemoryDump:         strings.ReplaceAll(disassembler.cpu.Dump(), "\n", "<br>"),
 			CpuState:           disassembler.cpu.String(),
 		}
@@ -126,5 +126,7 @@ func (disassembler *Disassembler) DisassembleWeb() {
 
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	err := http.ListenAndServe(":8080", nil)
+	log.Fatal(err)
 }
