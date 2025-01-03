@@ -6,9 +6,7 @@
     <title>Hello World</title>
 </head>
 <body>
-    <h1>Current instruction</h1>
-    <p>[{{ .CurrentInstruction.Pc }}] {{ .CurrentInstruction.InstructionText }}</p>
-    <h1>Next instructions</h1>
+    <strong><p>{{ .CurrentInstruction }}</p></strong>
     {{ range .NextInstructions }}
         <p>{{ . }}</p>
     {{ end }}
