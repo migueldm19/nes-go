@@ -5,7 +5,6 @@ import (
 	"log"
 	"math"
 	"net/http"
-	"strings"
 	"text/template"
 )
 
@@ -79,7 +78,7 @@ func (disassembler *Disassembler) Disassemble() {
 type DisassemblerPage struct {
 	NextInstructions   []*Instruction
 	CurrentInstruction *Instruction
-	MemoryDump         string
+	MemoryDump         *MemoryDump
 	CpuState           string
 }
 
@@ -114,7 +113,7 @@ func (disassembler *Disassembler) DisassembleWeb() {
 		page := DisassemblerPage{
 			NextInstructions:   instructions,
 			CurrentInstruction: currentInstruction,
-			MemoryDump:         strings.ReplaceAll(disassembler.cpu.Dump(), "\n", "<br>"),
+			MemoryDump:         disassembler.cpu.Dump(),
 			CpuState:           disassembler.cpu.String(),
 		}
 

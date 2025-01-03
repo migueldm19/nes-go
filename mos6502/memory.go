@@ -49,26 +49,25 @@ func (mem *Memory) Write(value byte, address uint16) error {
 	return nil
 }
 
-func (mem Memory) getDump(start, finish, step int) (dump string) {
+func (mem Memory) getDump(start, finish, step int) map[int]string {
+	dump := make(map[int]string, 0)
+
 	for i, prev := start+step, start; i <= finish; i += step {
-		dump += fmt.Sprintf("%04X\t", prev)
+		dump_str := ""
 		for _, b := range mem.Data[prev:i] {
-			dump += fmt.Sprintf("%02X ", b)
+			dump_str += fmt.Sprintf("%02X ", b)
 		}
-		dump += "\n"
+		dump[prev] = dump_str
 		prev = i
 	}
-	return
+
+	return dump
 }
 
-func (mem Memory) ZeroPageDump() (dump string) {
-	dump += "------- ZERO PAGE -------\n"
-	dump += mem.getDump(ZERO_PAGE_START, ZERO_PAGE_FINISH, 32)
-	return
+func (mem Memory) ZeroPageDump() map[int]string {
+	return mem.getDump(ZERO_PAGE_START, ZERO_PAGE_FINISH, 32)
 }
 
-func (mem Memory) StackDump() (dump string) {
-	dump += "------- STACK -------\n"
-	dump += mem.getDump(STACK_START, STACK_FINISH, 32)
-	return
+func (mem Memory) StackDump() map[int]string {
+	return mem.getDump(STACK_START, STACK_FINISH, 32)
 }

@@ -241,10 +241,12 @@ func (cpu *CPU) read(addr uint16) byte {
 	return val
 }
 
-func (cpu CPU) Dump() (dump string) {
-	dump += cpu.mem.ZeroPageDump()
-	dump += cpu.mem.StackDump()
-	return
+func (cpu CPU) Dump() *MemoryDump {
+	dump := &MemoryDump{
+		ZeroPage: cpu.mem.ZeroPageDump(),
+		Stack:    cpu.mem.StackDump(),
+	}
+	return dump
 }
 
 func (cpu CPU) String() string {

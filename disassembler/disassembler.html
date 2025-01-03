@@ -15,7 +15,18 @@
     <h1>CPU state</h1>
     <p>{{ .CpuState }}</p>
     <h1>Memory dump</h1>
-    <p>{{ .MemoryDump }}</p>
+    <h2>Zero page</h2>
+    <p>
+    {{ range $addr, $data := .MemoryDump.ZeroPage }}
+        [{{ printf "%.04X" $addr }}] {{ $data }} <br>
+    {{ end }}
+    </p>
+    <h2>Stack</h2>
+    <p>
+    {{ range $addr, $data := .MemoryDump.Stack }}
+        [{{ printf "%.04X" $addr }}] {{ $data }} <br>
+    {{ end }}
+    </p>
     <button onClick="window.location.reload();">Next</button>
 </body>
 </html>
