@@ -30,3 +30,20 @@ func NewPPU(memory *mos6502.Memory) *PPU {
 		mem: memory,
 	}
 }
+
+func GetTile(data [16]byte) [8][8]byte {
+	var tile [8][8]byte
+
+	plane0 := data[:8]
+	plane1 := data[8:]
+
+	for i := range 8 {
+		for j := range 8 {
+			val0 := (plane0[i] >> j) & 1
+			val1 := (plane1[i] >> j) & 1
+			tile[i][7-j] = val1*2 + val0
+		}
+	}
+
+	return tile
+}
