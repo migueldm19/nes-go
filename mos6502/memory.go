@@ -13,12 +13,12 @@ const STACK_START = 0x0100
 const STACK_FINISH = 0x0200
 
 type Memory struct {
-	Data   [MEMORY_SIZE]byte
-	PrgRom *Rom
+	Data    [MEMORY_SIZE]byte
+	RomData *Rom
 }
 
 func NewMemory(cartridge *Rom) *Memory {
-	return &Memory{PrgRom: cartridge}
+	return &Memory{RomData: cartridge}
 }
 
 func (mem *Memory) Read(address uint16) (byte, error) {
@@ -27,11 +27,11 @@ func (mem *Memory) Read(address uint16) (byte, error) {
 	}
 
 	address -= MEMORY_SIZE
-	if int(address) > len(mem.PrgRom.Data) {
+	if int(address) > len(mem.RomData.PrgData) {
 		return 0, fmt.Errorf("Read index out of range: %04X", address)
 	}
 
-	return mem.PrgRom.Data[address], nil
+	return mem.RomData.PrgData[address], nil
 }
 
 func (mem *Memory) Write(value byte, address uint16) error {
@@ -41,11 +41,11 @@ func (mem *Memory) Write(value byte, address uint16) error {
 	}
 
 	address -= MEMORY_SIZE
-	if int(address) > len(mem.PrgRom.Data) {
+	if int(address) > len(mem.RomData.PrgData) {
 		return fmt.Errorf("Write index out of range: %04X", address)
 	}
 
-	mem.PrgRom.Data[address] = value
+	mem.RomData.PrgData[address] = value
 	return nil
 }
 

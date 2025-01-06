@@ -28,7 +28,8 @@ func main() {
 	}
 
 	rom := mos6502.NewRom(cart)
-	cpu := mos6502.NewCPU(rom)
+	memory := mos6502.NewMemory(rom)
+	cpu := mos6502.NewCPU(memory)
 
 	if *disassemble_activated {
 		disassembler := mos6502.NewDisassembler(cpu)

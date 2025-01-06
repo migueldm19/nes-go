@@ -3,7 +3,8 @@ package mos6502
 type Rom struct {
 	PrgRomSize uint16
 	ChrRomSize uint16
-	Data       []byte
+	PrgData    []byte
+	ChrData    []byte
 }
 
 func NewRom(cartridge []byte) *Rom {
@@ -11,15 +12,20 @@ func NewRom(cartridge []byte) *Rom {
 	var prgSize uint16 = uint16(header[4]) * 16384
 	var chrSize uint16 = uint16(header[5]) * 8192
 
-	prgData := cartridge[16 : 16+prgSize]
+	start_chr := 16 + prgSize
+
+	prgData := cartridge[16:start_chr]
 
 	if prgSize >= 0x4000 {
 		prgData = append(prgData, prgData...)
 	}
 
+	chrData := cartridge[start_chr : start_chr+chrSize]
+
 	return &Rom{
 		PrgRomSize: prgSize,
 		ChrRomSize: chrSize,
-		Data:       prgData,
+		PrgData:    prgData,
+		ChrData:    chrData,
 	}
 }
