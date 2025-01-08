@@ -6,13 +6,9 @@ import (
 	"os"
 )
 
-type LoggerMos6502 struct {
-	Instructions *log.Logger
-	MemoryDump   *log.Logger
-	Disassembly  *log.Logger
-}
-
-var _logger *LoggerMos6502
+var _instructions_logger *log.Logger
+var _memory_dump_logger *log.Logger
+var _disassembly_logger *log.Logger
 
 func createLogger(name string) *log.Logger {
 	file, err := os.OpenFile(fmt.Sprintf("%v.log", name), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
@@ -23,14 +19,26 @@ func createLogger(name string) *log.Logger {
 	return log.New(file, "", 0)
 }
 
-func GetLogger() *LoggerMos6502 {
-	if _logger == nil {
-		_logger = &LoggerMos6502{}
-
-		_logger.Instructions = createLogger("instructions")
-		_logger.MemoryDump = createLogger("memory_dump")
-		_logger.Disassembly = createLogger("disassembly")
+func GetInstructionsLogger() *log.Logger {
+	if _instructions_logger == nil {
+		_instructions_logger = createLogger("instructions")
 	}
 
-	return _logger
+	return _instructions_logger
+}
+
+func GetMemoryDumpLogger() *log.Logger {
+	if _memory_dump_logger == nil {
+		_memory_dump_logger = createLogger("memory_dump")
+	}
+
+	return _memory_dump_logger
+}
+
+func GetDisassemblyLogger() *log.Logger {
+	if _disassembly_logger == nil {
+		_disassembly_logger = createLogger("disassembly")
+	}
+
+	return _disassembly_logger
 }

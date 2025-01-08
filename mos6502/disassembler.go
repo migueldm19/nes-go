@@ -17,12 +17,12 @@ type Disassembler struct {
 func NewDisassembler(cpu *CPU) *Disassembler {
 	instructions := make(map[uint16]*Instruction)
 	startPc := cpu.pc
-	logger := GetLogger()
+	logger := GetDisassemblyLogger()
 
 	for pc := cpu.pc; pc < math.MaxUint16; pc = cpu.pc {
 		instruction := cpu.GetNextInstruction()
 		instructions[pc] = instruction
-		logger.Disassembly.Printf("[%04X] %v", pc, instruction.InstructionText)
+		logger.Printf("[%04X] %v", pc, instruction.InstructionText)
 	}
 
 	return &Disassembler{

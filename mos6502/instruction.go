@@ -18,11 +18,13 @@ func NewInstruction(pc, nextPc uint16, text string, action func()) *Instruction 
 }
 
 func (instruction Instruction) Run(cpu *CPU) {
-	logger := GetLogger()
+	instructions_logger := GetInstructionsLogger()
+	memory_dump_logger := GetMemoryDumpLogger()
+
 	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.Pc, cpu.read(instruction.Pc), cpu)
 	instruction_log += instruction.InstructionText
-	logger.Instructions.Print(instruction_log)
-	logger.MemoryDump.Printf("[PC: %04X]\n%v", instruction.Pc, cpu.Dump())
+	instructions_logger.Print(instruction_log)
+	memory_dump_logger.Printf("[PC: %04X]\n%v", instruction.Pc, cpu.Dump())
 
 	instruction.action()
 }
