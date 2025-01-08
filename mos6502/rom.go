@@ -1,5 +1,7 @@
 package mos6502
 
+import "fmt"
+
 type Rom struct {
 	PrgRomSize uint16
 	ChrRomSize uint16
@@ -21,6 +23,10 @@ func NewRom(cartridge []byte) *Rom {
 	}
 
 	chrData := cartridge[start_chr : start_chr+chrSize]
+
+	if len(chrData) != 0x2000 {
+		panic(fmt.Sprintf("Chr data should be 0x2000 bytes long (len: %v)", len(chrData)))
+	}
 
 	return &Rom{
 		PrgRomSize: prgSize,

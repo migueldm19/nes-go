@@ -29,3 +29,8 @@ go.work.sum
 memory_dump.log
 disassembly.log
 instructions.log
+
+pt0.png
+pt1.png
+
+mario.nes

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"nes-go/mos6502"
+	"nes-go/ppu"
 	"os"
 )
 
@@ -30,6 +31,13 @@ func main() {
 	rom := mos6502.NewRom(cart)
 	memory := mos6502.NewMemory(rom)
 	cpu := mos6502.NewCPU(memory)
+
+	mppu := ppu.NewPPU(memory)
+	pt0 := mppu.GetPatternTable0()
+	pt1 := mppu.GetPatternTable1()
+
+	ppu.GenerateImage("pt0.png", pt0)
+	ppu.GenerateImage("pt1.png", pt1)
 
 	if *disassemble_activated {
 		disassembler := mos6502.NewDisassembler(cpu)
