@@ -1,6 +1,7 @@
 package mos6502
 
 import (
+	"nes-go/emulator"
 	"slices"
 	"testing"
 
@@ -41,40 +42,40 @@ func TestSubOverflow(t *testing.T) {
 	assert.Equal(t, true, overflow)
 }
 
-func getEmptyRom() *Rom {
+func getEmptyRom() *emulator.Rom {
 	rom_data := slices.Repeat([]byte{0}, 16400)
 	rom_data[4] = 1
-	return NewRom(rom_data)
+	return emulator.NewRom(rom_data)
 }
 
 func TestMemoryRead(t *testing.T) {
 	rom := getEmptyRom()
-	mem := NewMemory(rom)
+	mem := emulator.NewMemory(rom)
 
 	var addr uint16
 	var val byte = 0xaa
 
 	addr = 0x50
-	mem.Data[addr] = val
+	mem.CPUData[addr] = val
 
 	var out byte
 	var err error
 
-	out, err = mem.Read(addr)
+	out, err = mem.ReadCpu(addr)
 	assert.Nil(t, err)
 	assert.Equal(t, val, out)
 
-	mem.PrgRom.Data[0x50] = val
-	addr = MEMORY_SIZE + 0x50
+	mem.RomData.PrgData[0x50] = val
+	addr = emulator.CPU_MEMORY_SIZE + 0x50
 
-	out, err = mem.Read(addr)
+	out, err = mem.ReadCpu(addr)
 	assert.Nil(t, err)
 	assert.Equal(t, val, out)
 }
 
 func TestMemoryWrite(t *testing.T) {
 	rom := getEmptyRom()
-	mem := NewMemory(rom)
+	mem := emulator.NewMemory(rom)
 
 	var addr uint16
 	var val byte = 0xaa
@@ -83,20 +84,21 @@ func TestMemoryWrite(t *testing.T) {
 
 	var err error
 
-	err = mem.Write(val, addr)
+	err = mem.WriteCpu(val, addr)
 	assert.Nil(t, err)
-	assert.Equal(t, val, mem.Data[addr])
+	assert.Equal(t, val, mem.CPUData[addr])
 
-	addr = MEMORY_SIZE + 0x50
+	addr = emulator.CPU_MEMORY_SIZE + 0x50
 
-	err = mem.Write(val, addr)
+	err = mem.WriteCpu(val, addr)
 	assert.Nil(t, err)
-	assert.Equal(t, val, mem.PrgRom.Data[0x50])
+	assert.Equal(t, val, mem.RomData.PrgData[0x50])
 }
 
 func TestRor(t *testing.T) {
 	rom := getEmptyRom()
-	cpu := NewCPU(rom)
+	mem := emulator.NewMemory(rom)
+	cpu := NewCPU(mem)
 
 	var addr uint16 = 0x50
 	var val byte = 0xff
@@ -140,7 +142,8 @@ func TestRor(t *testing.T) {
 
 func TestRol(t *testing.T) {
 	rom := getEmptyRom()
-	cpu := NewCPU(rom)
+	mem := emulator.NewMemory(rom)
+	cpu := NewCPU(mem)
 
 	var addr uint16 = 0x50
 	var val byte = 0xff
@@ -184,7 +187,8 @@ func TestRol(t *testing.T) {
 
 func TestLsr(t *testing.T) {
 	rom := getEmptyRom()
-	cpu := NewCPU(rom)
+	mem := emulator.NewMemory(rom)
+	cpu := NewCPU(mem)
 
 	var addr uint16 = 0x50
 	var val byte = 0xff
@@ -222,7 +226,8 @@ func TestLsr(t *testing.T) {
 
 func TestAsl(t *testing.T) {
 	rom := getEmptyRom()
-	cpu := NewCPU(rom)
+	mem := emulator.NewMemory(rom)
+	cpu := NewCPU(mem)
 
 	var addr uint16 = 0x50
 	var val byte = 0xff
@@ -260,7 +265,8 @@ func TestAsl(t *testing.T) {
 
 func TestIndirectXAddressing(t *testing.T) {
 	rom := getEmptyRom()
-	cpu := NewCPU(rom)
+	mem := emulator.NewMemory(rom)
+	cpu := NewCPU(mem)
 
 	cpu.write(0x00, 0)
 	cpu.write(0x02, 1)

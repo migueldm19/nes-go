@@ -19,7 +19,7 @@ func TestGetTile(t *testing.T) {
 		{3, 0, 0, 0, 0, 2, 2, 2},
 	}
 
-	tile := GetTile(data)
+	tile := GetTile(data[:])
 	for _, row := range tile {
 		fmt.Println(row)
 	}

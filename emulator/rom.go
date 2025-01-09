@@ -1,6 +1,6 @@
 package emulator
 
-import "fmt"
+import "log"
 
 type Rom struct {
 	PrgRomSize uint16
@@ -25,7 +25,7 @@ func NewRom(cartridge []byte) *Rom {
 	chrData := cartridge[start_chr : start_chr+chrSize]
 
 	if len(chrData) != 0x2000 {
-		panic(fmt.Sprintf("Chr data should be 0x2000 bytes long (len: %v)", len(chrData)))
+		log.Printf("[Warning] Chr data should be 0x2000 bytes long (len: %v)\n", len(chrData))
 	}
 
 	return &Rom{
