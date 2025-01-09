@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"log"
+	"nes-go/disassembler"
+	"nes-go/emulator"
 	"nes-go/mos6502"
 	"nes-go/ppu"
 	"os"
@@ -28,8 +30,9 @@ func main() {
 		log.Fatalf("Error reading cartridge: %v", err)
 	}
 
-	rom := mos6502.NewRom(cart)
-	memory := mos6502.NewMemory(rom)
+	rom := emulator.NewRom(cart)
+	memory := emulator.NewMemory(rom)
+
 	cpu := mos6502.NewCPU(memory)
 
 	mppu := ppu.NewPPU(memory)
@@ -40,7 +43,7 @@ func main() {
 	ppu.GenerateImage("pt1.png", pt1)
 
 	if *disassemble_activated {
-		disassembler := mos6502.NewDisassembler(cpu)
+		disassembler := disassembler.NewDisassembler(cpu)
 		disassembler.DisassembleWeb()
 	} else {
 		cpu.Run()

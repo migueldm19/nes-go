@@ -5,7 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
-	"nes-go/mos6502"
+	"nes-go/emulator"
 	"os"
 )
 
@@ -26,13 +26,13 @@ const (
 )
 
 type PPU struct {
-	mem *mos6502.Memory
+	mem *emulator.Memory
 }
 
 type Tile [8][8]byte
 type PatternTable [256]Tile
 
-func NewPPU(memory *mos6502.Memory) *PPU {
+func NewPPU(memory *emulator.Memory) *PPU {
 	return &PPU{
 		mem: memory,
 	}

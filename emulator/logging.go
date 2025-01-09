@@ -1,4 +1,4 @@
-package mos6502
+package emulator
 
 import (
 	"fmt"

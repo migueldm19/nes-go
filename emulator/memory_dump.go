@@ -1,4 +1,4 @@
-package mos6502
+package emulator
 
 import (
 	"fmt"
@@ -9,6 +9,13 @@ type Dump map[int]string
 type MemoryDump struct {
 	ZeroPage Dump
 	Stack    Dump
+}
+
+func NewMemoryDump(mem *Memory) *MemoryDump {
+	return &MemoryDump{
+		ZeroPage: mem.ZeroPageDump(),
+		Stack:    mem.StackDump(),
+	}
 }
 
 func (dump Dump) String() string {

@@ -4,15 +4,15 @@ func (cpu *CPU) brk() {
 	cpu.stackPushCurrentPc(2)
 	cpu.stackPush(cpu.p | FlagB)
 
-	addr1, _ := cpu.mem.Read(0xfffe)
-	addr2, _ := cpu.mem.Read(0xffff)
+	addr1, _ := cpu.mem.ReadCpu(0xfffe)
+	addr2, _ := cpu.mem.ReadCpu(0xffff)
 
-	cpu.pc = (uint16(addr1) << 8) + uint16(addr2)
+	cpu.Pc = (uint16(addr1) << 8) + uint16(addr2)
 }
 
 func (cpu *CPU) rti() {
 	cpu.p = (cpu.stackPull() | 0x20) & 0xef
-	cpu.pc = cpu.stackPullAddr()
+	cpu.Pc = cpu.stackPullAddr()
 }
 
 func (cpu *CPU) lda(val byte) {
@@ -272,16 +272,16 @@ func (cpu *CPU) ror(addr uint16) {
 }
 
 func (cpu *CPU) jmp(addr uint16) {
-	cpu.pc = addr
+	cpu.Pc = addr
 }
 
 func (cpu *CPU) jsr(addr uint16) {
 	cpu.stackPushCurrentPc(-1)
-	cpu.pc = addr
+	cpu.Pc = addr
 }
 
 func (cpu *CPU) rts() {
-	cpu.pc = cpu.stackPullAddr() + 1
+	cpu.Pc = cpu.stackPullAddr() + 1
 }
 
 func (cpu *CPU) bcc(displacement byte) {

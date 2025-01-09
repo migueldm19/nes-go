@@ -1,10 +1,11 @@
-package mos6502
+package emulator
 
 import (
 	"fmt"
 )
 
-const MEMORY_SIZE = 0x8000
+const CPU_MEMORY_SIZE = 0x8000
+const PPU_MEMORY_SIZE = 0x4000
 
 const ZERO_PAGE_START = 0x0000
 const ZERO_PAGE_FINISH = 0x0100
@@ -13,7 +14,8 @@ const STACK_START = 0x0100
 const STACK_FINISH = 0x0200
 
 type Memory struct {
-	Data    [MEMORY_SIZE]byte
+	CPUData [CPU_MEMORY_SIZE]byte
+	PPUData [PPU_MEMORY_SIZE]byte
 	RomData *Rom
 }
 
@@ -21,12 +23,12 @@ func NewMemory(cartridge *Rom) *Memory {
 	return &Memory{RomData: cartridge}
 }
 
-func (mem *Memory) Read(address uint16) (byte, error) {
-	if address < MEMORY_SIZE {
-		return mem.Data[address], nil
+func (mem *Memory) ReadCpu(address uint16) (byte, error) {
+	if address < CPU_MEMORY_SIZE {
+		return mem.CPUData[address], nil
 	}
 
-	address -= MEMORY_SIZE
+	address -= CPU_MEMORY_SIZE
 	if int(address) > len(mem.RomData.PrgData) {
 		return 0, fmt.Errorf("Read index out of range: %04X", address)
 	}
@@ -34,13 +36,13 @@ func (mem *Memory) Read(address uint16) (byte, error) {
 	return mem.RomData.PrgData[address], nil
 }
 
-func (mem *Memory) Write(value byte, address uint16) error {
-	if address < MEMORY_SIZE {
-		mem.Data[address] = value
+func (mem *Memory) WriteCpu(value byte, address uint16) error {
+	if address < CPU_MEMORY_SIZE {
+		mem.CPUData[address] = value
 		return nil
 	}
 
-	address -= MEMORY_SIZE
+	address -= CPU_MEMORY_SIZE
 	if int(address) > len(mem.RomData.PrgData) {
 		return fmt.Errorf("Write index out of range: %04X", address)
 	}
@@ -54,7 +56,7 @@ func (mem Memory) getDump(start, finish, step int) map[int]string {
 
 	for i, prev := start+step, start; i <= finish; i += step {
 		dump_str := ""
-		for _, b := range mem.Data[prev:i] {
+		for _, b := range mem.CPUData[prev:i] {
 			dump_str += fmt.Sprintf("%02X ", b)
 		}
 		dump[prev] = dump_str

@@ -1,25 +1,27 @@
-package mos6502
+package disassembler
 
 import (
 	"fmt"
 	"log"
 	"math"
+	"nes-go/emulator"
+	"nes-go/mos6502"
 	"net/http"
 	"text/template"
 )
 
 type Disassembler struct {
-	instructions map[uint16]*Instruction
-	cpu          *CPU
+	instructions map[uint16]*mos6502.Instruction
+	cpu          *mos6502.CPU
 	startPc      uint16
 }
 
-func NewDisassembler(cpu *CPU) *Disassembler {
-	instructions := make(map[uint16]*Instruction)
-	startPc := cpu.pc
-	logger := GetDisassemblyLogger()
+func NewDisassembler(cpu *mos6502.CPU) *Disassembler {
+	instructions := make(map[uint16]*mos6502.Instruction)
+	startPc := cpu.Pc
+	logger := emulator.GetDisassemblyLogger()
 
-	for pc := cpu.pc; pc < math.MaxUint16; pc = cpu.pc {
+	for pc := cpu.Pc; pc < math.MaxUint16; pc = cpu.Pc {
 		instruction := cpu.GetNextInstruction()
 		instructions[pc] = instruction
 		logger.Printf("[%04X] %v", pc, instruction.InstructionText)
@@ -33,31 +35,31 @@ func NewDisassembler(cpu *CPU) *Disassembler {
 }
 
 func (disassembler *Disassembler) Run() {
-	disassembler.cpu.pc = disassembler.startPc
+	disassembler.cpu.Pc = disassembler.startPc
 
 	for {
-		instruction := disassembler.instructions[disassembler.cpu.pc]
+		instruction := disassembler.instructions[disassembler.cpu.Pc]
 
 		if instruction == nil {
 			instruction = disassembler.cpu.GetNextInstruction()
-			//disassembler.instructions[disassembler.cpu.pc] = instruction
+			//disassembler.instructions[disassembler.cpu.Pc] = instruction
 		}
 
-		disassembler.cpu.pc = instruction.Pc + 1
+		disassembler.cpu.Pc = instruction.Pc + 1
 		instruction.Run(disassembler.cpu)
 	}
 }
 
 func (disassembler *Disassembler) Disassemble() {
-	disassembler.cpu.pc = disassembler.startPc
+	disassembler.cpu.Pc = disassembler.startPc
 
 	var input string
 	for {
-		currentInstruction := disassembler.instructions[disassembler.cpu.pc]
+		currentInstruction := disassembler.instructions[disassembler.cpu.Pc]
 		if currentInstruction == nil {
 			currentInstruction = disassembler.cpu.GetNextInstruction()
 		}
-		disassembler.cpu.pc = currentInstruction.Pc + 1
+		disassembler.cpu.Pc = currentInstruction.Pc + 1
 
 		fmt.Printf("%v\n", disassembler.cpu)
 		fmt.Printf("\x1b[1;33m%v\x1b[0m\n", currentInstruction)
@@ -76,31 +78,31 @@ func (disassembler *Disassembler) Disassemble() {
 }
 
 type DisassemblerPage struct {
-	NextInstructions   []*Instruction
-	CurrentInstruction *Instruction
-	MemoryDump         *MemoryDump
+	NextInstructions   []*mos6502.Instruction
+	CurrentInstruction *mos6502.Instruction
+	MemoryDump         *emulator.MemoryDump
 	CpuState           string
 }
 
 func (disassembler *Disassembler) DisassembleWeb() {
-	disassembler.cpu.pc = disassembler.startPc
+	disassembler.cpu.Pc = disassembler.startPc
 
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		currentInstruction, got := disassembler.instructions[disassembler.cpu.pc]
+		currentInstruction, got := disassembler.instructions[disassembler.cpu.Pc]
 		if !got {
 			currentInstruction = disassembler.cpu.GetNextInstruction()
 		}
-		disassembler.cpu.pc = currentInstruction.Pc + 1
+		disassembler.cpu.Pc = currentInstruction.Pc + 1
 
 		fmt.Println(currentInstruction)
 
-		t, err := template.ParseFiles("disassembler/disassembler.html")
+		t, err := template.ParseFiles("disassembler/assets/disassembler.html")
 		if err != nil {
 			fmt.Println("Error parsing template:", err)
 			return
 		}
 
-		instructions := make([]*Instruction, 0)
+		instructions := make([]*mos6502.Instruction, 0)
 
 		next := currentInstruction
 		for range 10 {
