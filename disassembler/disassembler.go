@@ -81,7 +81,7 @@ type DisassemblerPage struct {
 	NextInstructions   []*mos6502.Instruction
 	CurrentInstruction *mos6502.Instruction
 	MemoryDump         *emulator.MemoryDump
-	CpuState           string
+	CpuState           mos6502.StateData
 }
 
 func (disassembler *Disassembler) DisassembleWeb() {
@@ -116,16 +116,17 @@ func (disassembler *Disassembler) DisassembleWeb() {
 			NextInstructions:   instructions,
 			CurrentInstruction: currentInstruction,
 			MemoryDump:         disassembler.cpu.Dump(),
-			CpuState:           disassembler.cpu.String(),
+			CpuState:           disassembler.cpu.GetStateData(),
 		}
 
 		t.Execute(w, page)
 		currentInstruction.Run(disassembler.cpu)
 	}
 
-	fmt.Println("Starting web server on port 8080...")
+	fmt.Println("Starting web server on port http://localhost:8080...")
 
 	http.HandleFunc("/", handler)
+	http.Handle("/css/", http.StripPrefix("/css", http.FileServer(http.Dir("disassembler/assets/style"))))
 	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {})
 
 	err := http.ListenAndServe(":8080", nil)

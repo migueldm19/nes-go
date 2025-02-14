@@ -249,3 +249,41 @@ func (cpu CPU) Dump() *emulator.MemoryDump {
 func (cpu CPU) String() string {
 	return fmt.Sprintf("A:%02X X:%02X Y:%02X P:%02X SP:%02X", cpu.a, cpu.x, cpu.y, cpu.p, cpu.sp)
 }
+
+type FlagData struct {
+	Carry            bool
+	Zero             bool
+	InterruptDisable bool
+	DecimalMode      bool
+	B                bool
+	Overflow         bool
+	Negative         bool
+}
+
+type StateData struct {
+	PC    uint16
+	A     byte
+	X     byte
+	Y     byte
+	SP    byte
+	Flags FlagData
+}
+
+func (cpu CPU) GetStateData() StateData {
+	return StateData{
+		PC: cpu.Pc,
+		A:  cpu.a,
+		X:  cpu.x,
+		Y:  cpu.y,
+		SP: cpu.sp,
+		Flags: FlagData{
+			Carry:            cpu.getFlag(FlagCarry),
+			Zero:             cpu.getFlag(FlagZero),
+			InterruptDisable: cpu.getFlag(FlagInterruptDisable),
+			DecimalMode:      cpu.getFlag(FlagDecimalMode),
+			B:                cpu.getFlag(FlagB),
+			Overflow:         cpu.getFlag(FlagOverflow),
+			Negative:         cpu.getFlag(FlagNegative),
+		},
+	}
+}
