@@ -26,6 +26,7 @@ func (instruction Instruction) Run(cpu *CPU) {
 
 	instruction_log := fmt.Sprintf("[PC: %04X] OPCODE %02X | %v | ", instruction.Pc, cpu.read(instruction.Pc), cpu)
 	instruction_log += instruction.InstructionText
+
 	instructions_logger.Print(instruction_log)
 	memory_dump_logger.Printf("[PC: %04X]\n%v", instruction.Pc, cpu.Dump())
 

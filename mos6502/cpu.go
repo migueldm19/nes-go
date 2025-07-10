@@ -9,6 +9,11 @@ import (
 type AdressingMode int
 
 const (
+	ZERO_PAGE_SIZE = 0x100
+	BYTE_SIZE = 8
+)
+
+const (
 	Immediate AdressingMode = iota
 	ZeroPage
 	ZeroPageX
@@ -29,7 +34,7 @@ const (
 	FlagInterruptDisable
 	FlagDecimalMode
 	FlagB
-	_
+	_ // Unused flag
 	FlagOverflow
 	FlagNegative
 )
@@ -77,7 +82,7 @@ func (cpu *CPU) nextInstruction() byte {
 }
 
 func (cpu *CPU) stackPush(val byte) {
-	addr := 0x0100 + uint16(cpu.sp)
+	addr := ZERO_PAGE_SIZE + uint16(cpu.sp)
 	cpu.mem.WriteCpu(val, addr)
 
 	if cpu.sp == 0 {
@@ -90,7 +95,7 @@ func (cpu *CPU) stackPush(val byte) {
 func (cpu *CPU) stackPull() (val byte) {
 	if cpu.sp < 0xff {
 		cpu.sp += 1
-		val, _ = cpu.mem.ReadCpu(0x0100 + uint16(cpu.sp))
+		val, _ = cpu.mem.ReadCpu(ZERO_PAGE_SIZE + uint16(cpu.sp))
 		return
 	}
 
@@ -106,13 +111,13 @@ func (cpu *CPU) stackPushCurrentPc(displacement int16) {
 		addr += uint16(displacement)
 	}
 
-	cpu.stackPush(byte((addr & 0xff00) >> 8))
+	cpu.stackPush(byte((addr & 0xff00) >> BYTE_SIZE))
 	cpu.stackPush(byte(addr & 0x00ff))
 }
 
 func (cpu *CPU) stackPullAddr() uint16 {
 	addr := uint16(cpu.stackPull())
-	addr += uint16(cpu.stackPull()) << 8
+	addr += uint16(cpu.stackPull()) << BYTE_SIZE
 
 	return addr
 }
@@ -156,7 +161,7 @@ func (cpu *CPU) branchJump(displacement int8) {
 
 func (cpu *CPU) nextAddrHelper() uint16 {
 	addr := uint16(cpu.nextInstruction())
-	addr += uint16(cpu.nextInstruction()) << 8
+	addr += uint16(cpu.nextInstruction()) << BYTE_SIZE
 	return addr
 }
 
@@ -167,10 +172,10 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		addr = originalAddr
 	case ZeroPageX:
 		originalAddr = uint16(cpu.nextInstruction())
-		addr = (originalAddr + uint16(cpu.x)) % 0x100
+		addr = (originalAddr + uint16(cpu.x)) % ZERO_PAGE_SIZE
 	case ZeroPageY:
 		originalAddr = uint16(cpu.nextInstruction())
-		addr = (originalAddr + uint16(cpu.y)) % 0x100
+		addr = (originalAddr + uint16(cpu.y)) % ZERO_PAGE_SIZE
 	case Absolute:
 		originalAddr = cpu.nextAddrHelper()
 		addr = originalAddr
@@ -183,23 +188,23 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 	case IndirectX:
 		addr, originalAddr = cpu.nextAddress(ZeroPageX)
 		addr_1_b, _ := cpu.mem.ReadCpu(addr)
-		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % 0x100)
-		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
+		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
+		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE
 	case IndirectY:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
 		addr_1_b, _ := cpu.mem.ReadCpu(addr)
-		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % 0x100)
-		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8 + uint16(cpu.y)
+		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
+		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE + uint16(cpu.y)
 	case Indirect:
 		originalAddr = cpu.nextAddrHelper()
 		addr_1_b, _ := cpu.mem.ReadCpu(originalAddr)
 		// Due to a bug in the cpu, indirect addressing can't
 		// cross pages, so it goes to the beginning of the page
 		if originalAddr&0x00ff == 0x00ff {
-			originalAddr -= 0x0100
+			originalAddr -= ZERO_PAGE_SIZE
 		}
 		addr_2_b, _ := cpu.mem.ReadCpu(originalAddr + 1)
-		addr = uint16(addr_1_b) + uint16(addr_2_b)<<8
+		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE
 	}
 
 	return

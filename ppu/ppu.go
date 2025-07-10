@@ -25,12 +25,21 @@ const (
 	OAMDMA    = 0x4014
 )
 
+const (
+	TILE_SIZE = 8
+	TILE_RAW_BITS_SIZE = 8
+	PATTERN_TABLE_N_TILES = 256
+	PATTERN_TABLE_SIZE = 16
+	PATTERN_TABLE_0_ADDRESS = 0x0000
+	PATTERN_TABLE_1_ADDRESS = 0x1000
+)
+
 type PPU struct {
 	mem *emulator.Memory
 }
 
-type Tile [8][8]byte
-type PatternTable [256]Tile
+type Tile [TILE_SIZE][TILE_SIZE]byte
+type PatternTable [PATTERN_TABLE_N_TILES]Tile
 
 func NewPPU(memory *emulator.Memory) *PPU {
 	return &PPU{
@@ -38,14 +47,12 @@ func NewPPU(memory *emulator.Memory) *PPU {
 	}
 }
 
-func GetTile(data []byte) Tile {
-	var tile [8][8]byte
+func GetTile(data []byte) (tile Tile) {
+	plane0 := data[:TILE_RAW_BITS_SIZE]
+	plane1 := data[TILE_RAW_BITS_SIZE:]
 
-	plane0 := data[:8]
-	plane1 := data[8:]
-
-	for i := range 8 {
-		for j := range 8 {
+	for i := range TILE_RAW_BITS_SIZE {
+		for j := range TILE_RAW_BITS_SIZE {
 			val0 := (plane0[i] >> j) & 1
 			val1 := (plane1[i] >> j) & 1
 			tile[i][7-j] = val1*2 + val0
@@ -59,10 +66,11 @@ func (ppu *PPU) getPatternTable(start int) PatternTable {
 	var pattern_table PatternTable
 
 	data := ppu.mem.RomData.ChrData
+	tileRawSize := TILE_RAW_BITS_SIZE * 2 // two planes
 
 	pt_idx := 0
-	for i := start; i < start+0x1000; i += 16 {
-		tile := GetTile(data[i : i+16])
+	for i := start; i < start+0x1000; i += tileRawSize {
+		tile := GetTile(data[i : i+tileRawSize])
 		pattern_table[pt_idx] = tile
 		pt_idx++
 	}
@@ -71,11 +79,11 @@ func (ppu *PPU) getPatternTable(start int) PatternTable {
 }
 
 func (ppu *PPU) GetPatternTable0() PatternTable {
-	return ppu.getPatternTable(0x0000)
+	return ppu.getPatternTable(PATTERN_TABLE_0_ADDRESS)
 }
 
 func (ppu *PPU) GetPatternTable1() PatternTable {
-	return ppu.getPatternTable(0x1000)
+	return ppu.getPatternTable(PATTERN_TABLE_1_ADDRESS)
 }
 
 func printTile(img *image.RGBA, tile Tile, row, col int) {
@@ -100,17 +108,17 @@ func printTile(img *image.RGBA, tile Tile, row, col int) {
 }
 
 func GenerateImage(path string, table PatternTable) {
-	width := 8 * 16
-	height := 8 * 16
+	width := TILE_SIZE * PATTERN_TABLE_SIZE
+	height := TILE_SIZE * PATTERN_TABLE_SIZE
 
 	upLeft := image.Point{0, 0}
 	bottomRight := image.Point{width, height}
 
 	img := image.NewRGBA(image.Rectangle{upLeft, bottomRight})
 
-	for row := 0; row < 16; row++ {
-		for col := 0; col < 16; col++ {
-			tile := table[col*8+row]
+	for row := 0; row < PATTERN_TABLE_SIZE; row++ {
+		for col := 0; col < PATTERN_TABLE_SIZE; col++ {
+			tile := table[col*TILE_SIZE+row]
 			printTile(img, tile, row, col)
 		}
 	}
