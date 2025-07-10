@@ -9,23 +9,24 @@ import (
 )
 
 const (
-	TILE_SIZE = 8
-	TILE_RAW_BITS_SIZE = 8
+	TILE_SIZE_IN_BYTES = 8
+	TILE_RAW_SIZE_IN_BITS = 8
 	PATTERN_TABLE_N_TILES = 256
-	PATTERN_TABLE_SIZE = 16
+	PATTERN_TABLE_SIZE_IN_TILES = 16
+	PATTERN_TABLE_SIZE_IN_BYTES = 0x1000
 	PATTERN_TABLE_0_ADDRESS = 0x0000
 	PATTERN_TABLE_1_ADDRESS = 0x1000
 )
 
-type Tile [TILE_SIZE][TILE_SIZE]byte
+type Tile [TILE_SIZE_IN_BYTES][TILE_SIZE_IN_BYTES]byte
 type PatternTable [PATTERN_TABLE_N_TILES]Tile
 
 func GetTile(data []byte) (tile Tile) {
-	plane0 := data[:TILE_RAW_BITS_SIZE]
-	plane1 := data[TILE_RAW_BITS_SIZE:]
+	plane0 := data[:TILE_RAW_SIZE_IN_BITS]
+	plane1 := data[TILE_RAW_SIZE_IN_BITS:]
 
-	for i := range TILE_RAW_BITS_SIZE {
-		for j := range TILE_RAW_BITS_SIZE {
+	for i := range TILE_RAW_SIZE_IN_BITS {
+		for j := range TILE_RAW_SIZE_IN_BITS {
 			val0 := (plane0[i] >> j) & 1
 			val1 := (plane1[i] >> j) & 1
 			tile[i][7-j] = val1*2 + val0 // combine plane0 and plane1 values
@@ -39,10 +40,10 @@ func (ppu *PPU) getPatternTable(start int) PatternTable {
 	var pattern_table PatternTable
 
 	data := ppu.mem.RomData.ChrData
-	tileRawSize := TILE_RAW_BITS_SIZE * 2 // two planes
+	tileRawSize := TILE_RAW_SIZE_IN_BITS * 2 // two planes
 
 	pt_idx := 0
-	for i := start; i < start+0x1000; i += tileRawSize {
+	for i := start; i < start+PATTERN_TABLE_SIZE_IN_BYTES; i += tileRawSize {
 		tile := GetTile(data[i : i+tileRawSize])
 		pattern_table[pt_idx] = tile
 		pt_idx++
@@ -81,17 +82,17 @@ func printTile(img *image.RGBA, tile Tile, row, col int) {
 }
 
 func GenerateImage(path string, table PatternTable) {
-	width := TILE_SIZE * PATTERN_TABLE_SIZE
-	height := TILE_SIZE * PATTERN_TABLE_SIZE
+	width := TILE_SIZE_IN_BYTES * PATTERN_TABLE_SIZE_IN_TILES
+	height := TILE_SIZE_IN_BYTES * PATTERN_TABLE_SIZE_IN_TILES
 
 	upLeft := image.Point{0, 0}
 	bottomRight := image.Point{width, height}
 
 	img := image.NewRGBA(image.Rectangle{upLeft, bottomRight})
 
-	for row := 0; row < PATTERN_TABLE_SIZE; row++ {
-		for col := 0; col < PATTERN_TABLE_SIZE; col++ {
-			tile := table[col*TILE_SIZE+row]
+	for row := 0; row < PATTERN_TABLE_SIZE_IN_TILES; row++ {
+		for col := 0; col < PATTERN_TABLE_SIZE_IN_TILES; col++ {
+			tile := table[col*TILE_SIZE_IN_BYTES+row]
 			printTile(img, tile, row, col)
 		}
 	}
