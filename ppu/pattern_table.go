@@ -36,10 +36,8 @@ func GetTile(data []byte) (tile Tile) {
 	return tile
 }
 
-func (ppu *PPU) getPatternTable(start int) PatternTable {
+func createPatternTable(data []byte, start int) PatternTable {
 	var pattern_table PatternTable
-
-	data := ppu.mem.RomData.ChrData
 	tileRawSize := TILE_RAW_SIZE_IN_BITS * 2 // two planes
 
 	pt_idx := 0
@@ -52,21 +50,13 @@ func (ppu *PPU) getPatternTable(start int) PatternTable {
 	return pattern_table
 }
 
-func (ppu *PPU) GetPatternTable0() PatternTable {
-	return ppu.getPatternTable(PATTERN_TABLE_0_ADDRESS)
-}
-
-func (ppu *PPU) GetPatternTable1() PatternTable {
-	return ppu.getPatternTable(PATTERN_TABLE_1_ADDRESS)
-}
-
 func printTile(img *image.RGBA, tile Tile, row, col int) {
 	cyan := color.RGBA{128, 128, 128, 0xff}
 
-	for i := 0; i < 8; i++ {
-		for j := 0; j < 8; j++ {
-			x := col*8 + j
-			y := row*8 + i
+	for i := range TILE_SIZE_IN_BYTES {
+		for j := range TILE_SIZE_IN_BYTES {
+			x := col*TILE_SIZE_IN_BYTES + j
+			y := row*TILE_SIZE_IN_BYTES + i
 			switch tile[i][j] {
 			case 0:
 				img.Set(x, y, color.Transparent)
@@ -90,8 +80,8 @@ func GenerateImage(path string, table PatternTable) {
 
 	img := image.NewRGBA(image.Rectangle{upLeft, bottomRight})
 
-	for row := 0; row < PATTERN_TABLE_SIZE_IN_TILES; row++ {
-		for col := 0; col < PATTERN_TABLE_SIZE_IN_TILES; col++ {
+	for row := range PATTERN_TABLE_SIZE_IN_TILES {
+		for col := range PATTERN_TABLE_SIZE_IN_TILES {
 			tile := table[col*TILE_SIZE_IN_BYTES+row]
 			printTile(img, tile, row, col)
 		}

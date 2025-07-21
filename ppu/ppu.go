@@ -5,8 +5,8 @@ import (
 )
 
 /*
-* Registros: de $2000 a $2007, y repetidos de $2008 a $3FFF.
-* Una escritura a $3456 es lo mismo que una escritura a $2006.
+* Registers: from $2000 to $2007 and repeated from $2008 to $3FFF.
+* A write in $3456 is the same as a write in $2006.
  */
 const (
 	PPUCTRL   = 0x2000
@@ -29,4 +29,14 @@ func NewPPU(memory *emulator.Memory) *PPU {
 	return &PPU{
 		mem: memory,
 	}
+}
+
+func (ppu *PPU) GetPatternTable0() PatternTable {
+	data := ppu.mem.RomData.ChrData
+	return createPatternTable(data, PATTERN_TABLE_0_ADDRESS)
+}
+
+func (ppu *PPU) GetPatternTable1() PatternTable {
+	data := ppu.mem.RomData.ChrData
+	return createPatternTable(data, PATTERN_TABLE_1_ADDRESS)
 }
