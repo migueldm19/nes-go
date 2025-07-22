@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-const CPU_MEMORY_SIZE = 0x8000
+const CPU_MEMORY_SIZE = 0x8000 // $6000-7FFF: PRG RAM
 const PPU_MEMORY_SIZE = 0x4000
 
 const ZERO_PAGE_START = 0x0000
