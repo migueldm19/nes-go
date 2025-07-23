@@ -4,14 +4,21 @@ import (
 	"fmt"
 )
 
-const CPU_MEMORY_SIZE = 0x8000 // $6000-7FFF: PRG RAM
-const PPU_MEMORY_SIZE = 0x4000
+const (
+	WRITE_ERROR_MSG = "Write index out of range: %04X"
+	READ_ERROR_MSG = "Read index out of range: %04X"
+)
 
-const ZERO_PAGE_START = 0x0000
-const ZERO_PAGE_FINISH = 0x0100
+const (
+	CPU_MEMORY_SIZE = 0x8000 // $6000-7FFF: PRG RAM
+	PPU_MEMORY_SIZE = 0x2000
 
-const STACK_START = 0x0100
-const STACK_FINISH = 0x0200
+	ZERO_PAGE_START = 0x0000
+	ZERO_PAGE_FINISH = 0x0100
+
+	STACK_START = 0x0100
+	STACK_FINISH = 0x0200
+)
 
 type Memory struct {
 	CPUData [CPU_MEMORY_SIZE]byte
@@ -23,6 +30,36 @@ func NewMemory(cartridge *Rom) *Memory {
 	return &Memory{RomData: cartridge}
 }
 
+func (mem *Memory) ReadPpu(address uint16) (byte, error) {
+	if address < CHR_DATA_SIZE {
+		return mem.RomData.ChrData[address], nil
+	}
+
+	address -= CHR_DATA_SIZE
+	if int(address) > PPU_MEMORY_SIZE {
+		return 0, fmt.Errorf(READ_ERROR_MSG, address)
+	}
+
+	// TODO: What to do with mirrors of $3f00-$3f1f?
+	return mem.PPUData[address], nil
+}
+
+func (mem *Memory) WritePpu(value byte, address uint16) error {
+	if address < CHR_DATA_SIZE {
+		mem.RomData.ChrData[address] = value
+		return nil
+	}
+
+	address -= CHR_DATA_SIZE
+	if int(address) > PPU_MEMORY_SIZE {
+		return fmt.Errorf(WRITE_ERROR_MSG, address)
+	}
+
+	// TODO: What to do with mirrors of $3f00-$3f1f?
+	mem.PPUData[address] = value
+	return nil
+}
+
 func (mem *Memory) ReadCpu(address uint16) (byte, error) {
 	if address < CPU_MEMORY_SIZE {
 		return mem.CPUData[address], nil
@@ -30,7 +67,7 @@ func (mem *Memory) ReadCpu(address uint16) (byte, error) {
 
 	address -= CPU_MEMORY_SIZE
 	if int(address) > len(mem.RomData.PrgData) {
-		return 0, fmt.Errorf("Read index out of range: %04X", address)
+		return 0, fmt.Errorf(READ_ERROR_MSG, address)
 	}
 
 	return mem.RomData.PrgData[address], nil
@@ -44,7 +81,7 @@ func (mem *Memory) WriteCpu(value byte, address uint16) error {
 
 	address -= CPU_MEMORY_SIZE
 	if int(address) > len(mem.RomData.PrgData) {
-		return fmt.Errorf("Write index out of range: %04X", address)
+		return fmt.Errorf(WRITE_ERROR_MSG, address)
 	}
 
 	mem.RomData.PrgData[address] = value

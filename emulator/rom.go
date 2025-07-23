@@ -8,6 +8,7 @@ const (
 	CHR_BYTES_UNITS    = 8
 	BYTES_IN_KILOBYTES = 1024
 	TRAINER_SIZE       = 512
+	CHR_DATA_SIZE      = 0x2000
 )
 
 type NametableArrangement byte
@@ -54,15 +55,10 @@ func NewRom(cartridge []byte) *Rom {
 
 	startChr := HEADER_SIZE + prgSize
 
-	prgData := cartridge[HEADER_SIZE:startChr]
-
-	if prgSize >= 0x4000 {
-		prgData = append(prgData, prgData...)
-	}
-
+	prgData := cartridge[startPrg:startChr]
 	chrData := cartridge[startChr : startChr+chrSize]
 
-	if len(chrData) != 0x2000 {
+	if len(chrData) != CHR_DATA_SIZE {
 		log.Printf("[Warning] Chr data should be 0x2000 bytes long (len: %v)\n", len(chrData))
 	}
 
