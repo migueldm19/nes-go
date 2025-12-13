@@ -6,9 +6,10 @@ import (
 )
 
 type Instruction struct {
-	Pc, NextPc      uint16
+	Pc              uint16
+	NextPc          uint16
 	InstructionText string
-	action          func()
+	action          func() `json:"-"`
 }
 
 func NewInstruction(pc, nextPc uint16, text string, action func()) *Instruction {

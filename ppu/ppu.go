@@ -9,7 +9,7 @@ import (
 * A write in $3456 is the same as a write in $2006.
 */
 const (
-	PPUCTRL   = 0x2000
+	PPUCTRL uint16 = 0x2000
 	PPUMASK   = 0x2001
 	PPUSTATUS = 0x2002
 	OAMADDR   = 0x2003
@@ -55,4 +55,9 @@ func (ppu *PPU) GetPatternTable0() PatternTable {
 func (ppu *PPU) GetPatternTable1() PatternTable {
 	data := ppu.mem.RomData.ChrData
 	return createPatternTable(data, PATTERN_TABLE_1_ADDRESS)
+}
+
+func (ppu *PPU) GetPPUCTRLReg() byte {
+	val, _ := ppu.mem.ReadCpu(PPUCTRL)
+	return val
 }

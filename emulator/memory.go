@@ -5,18 +5,18 @@ import (
 )
 
 const (
-	WRITE_ERROR_MSG = "Write index out of range: %04X"
-	READ_ERROR_MSG = "Read index out of range: %04X"
+	WRITE_ERROR_MSG = "write index out of range: %04X"
+	READ_ERROR_MSG  = "read index out of range: %04X"
 )
 
 const (
 	CPU_MEMORY_SIZE = 0x8000 // $6000-7FFF: PRG RAM
 	PPU_MEMORY_SIZE = 0x2000
 
-	ZERO_PAGE_START = 0x0000
+	ZERO_PAGE_START  = 0x0000
 	ZERO_PAGE_FINISH = 0x0100
 
-	STACK_START = 0x0100
+	STACK_START  = 0x0100
 	STACK_FINISH = 0x0200
 )
 

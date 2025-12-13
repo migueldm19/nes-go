@@ -4,8 +4,8 @@ func (cpu *CPU) brk() {
 	cpu.stackPushCurrentPc(2)
 	cpu.stackPush(cpu.p | FlagB)
 
-	addr1, _ := cpu.mem.ReadCpu(0xfffe)
-	addr2, _ := cpu.mem.ReadCpu(0xffff)
+	addr1, _ := cpu.Mem.ReadCpu(0xfffe)
+	addr2, _ := cpu.Mem.ReadCpu(0xffff)
 
 	cpu.Pc = (uint16(addr1) << 8) + uint16(addr2)
 }

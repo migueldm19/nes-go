@@ -43,6 +43,8 @@ body {
 /* Current/Next instructions */
 .instruction-panel {
     grid-column: 2 / 3;
+    overflow: auto;
+    max-height: 30vh;
 }
 
 /* CPU State */

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disassembler</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css" rel="stylesheet">
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/scripts/new-disassembler.js"></script>
+</head>
+<body>
+
+    <h1>Instructions</h1>
+    <div id="instructions" class="panel instruction-panel">
+    </div>
+
+    <h1>CPU state</h1>
+
+    <div class="panel cpu-state">
+        <dt>PC:</dt><dd class="address">{{ printf "%X" .CpuState.PC }}</dd>
+        <dt>A:</dt><dd class="hex">{{ printf "%X" .CpuState.A }}</dd>
+        <dt>X:</dt><dd class="hex">{{ printf "%X" .CpuState.X }}</dd>
+        <dt>Y:</dt><dd class="hex">{{ printf "%X" .CpuState.Y }}</dd>
+        <dt>SP:</dt><dd class="hex">{{ printf "%X" .CpuState.SP }}</dd>
+        <dt>Flags:</dt>
+        <dd>
+            Carry: {{ if .CpuState.Flags.Carry }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            Zero: {{ if .CpuState.Flags.Zero }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            Interrupt disable: {{ if .CpuState.Flags.InterruptDisable }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            Decimal mode: {{ if .CpuState.Flags.DecimalMode }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            B: {{ if .CpuState.Flags.B }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            Overflow: {{ if .CpuState.Flags.Overflow }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+            Negative: {{ if .CpuState.Flags.Negative }}<span class="flag active"></span>{{ else }}<span class="flag"></span> {{ end }}
+
+        </dd>
+    </div>
+
+    <h1>Memory</h1>
+    <div class="memory-dump">
+        <div class="memory-grid">
+            <p>
+                <strong>Zero page</strong> <br>
+                {{ range $addr, $data := .MemoryDump.ZeroPage }}
+                    [{{ printf "%.04X" $addr }}] {{ $data }} <br>
+                {{ end }}
+            </p>
+            <p>
+                <strong>Stack</strong> <br>
+                {{ range $addr, $data := .MemoryDump.Stack }}
+                    [{{ printf "%.04X" $addr }}] {{ $data }} <br>
+                {{ end }}
+            </p>
+        </div>
+    </div>
+    <button onClick="step_disassembler();">Next</button>
+</body>
+</html>

@@ -10,7 +10,7 @@ type AdressingMode int
 
 const (
 	ZERO_PAGE_SIZE = 0x100
-	BYTE_SIZE = 8
+	BYTE_SIZE      = 8
 )
 
 const (
@@ -46,7 +46,7 @@ type CPU struct {
 	Pc  uint16
 	sp  byte
 	p   byte
-	mem *emulator.Memory
+	Mem *emulator.Memory
 }
 
 func NewCPU(memory *emulator.Memory) *CPU {
@@ -54,7 +54,7 @@ func NewCPU(memory *emulator.Memory) *CPU {
 		p:   0x24,
 		Pc:  0xc000,
 		sp:  0xfd,
-		mem: memory,
+		Mem: memory,
 	}
 }
 
@@ -71,7 +71,7 @@ func (cpu *CPU) Run() {
 }
 
 func (cpu *CPU) nextInstruction() byte {
-	val, err := cpu.mem.ReadCpu(cpu.Pc)
+	val, err := cpu.Mem.ReadCpu(cpu.Pc)
 
 	if err != nil {
 		log.Fatalf("Error geting next CPU instruction: %v", err)
@@ -83,7 +83,7 @@ func (cpu *CPU) nextInstruction() byte {
 
 func (cpu *CPU) stackPush(val byte) {
 	addr := ZERO_PAGE_SIZE + uint16(cpu.sp)
-	cpu.mem.WriteCpu(val, addr)
+	cpu.Mem.WriteCpu(val, addr)
 
 	if cpu.sp == 0 {
 		log.Fatal("Stack overflow!")
@@ -95,7 +95,7 @@ func (cpu *CPU) stackPush(val byte) {
 func (cpu *CPU) stackPull() (val byte) {
 	if cpu.sp < 0xff {
 		cpu.sp += 1
-		val, _ = cpu.mem.ReadCpu(ZERO_PAGE_SIZE + uint16(cpu.sp))
+		val, _ = cpu.Mem.ReadCpu(ZERO_PAGE_SIZE + uint16(cpu.sp))
 		return
 	}
 
@@ -187,23 +187,23 @@ func (cpu *CPU) nextAddress(am AdressingMode) (addr, originalAddr uint16) {
 		addr = originalAddr
 	case IndirectX:
 		addr, originalAddr = cpu.nextAddress(ZeroPageX)
-		addr_1_b, _ := cpu.mem.ReadCpu(addr)
-		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
+		addr_1_b, _ := cpu.Mem.ReadCpu(addr)
+		addr_2_b, _ := cpu.Mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE
 	case IndirectY:
 		addr, originalAddr = cpu.nextAddress(ZeroPage)
-		addr_1_b, _ := cpu.mem.ReadCpu(addr)
-		addr_2_b, _ := cpu.mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
+		addr_1_b, _ := cpu.Mem.ReadCpu(addr)
+		addr_2_b, _ := cpu.Mem.ReadCpu((addr + 1) % ZERO_PAGE_SIZE)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE + uint16(cpu.y)
 	case Indirect:
 		originalAddr = cpu.nextAddrHelper()
-		addr_1_b, _ := cpu.mem.ReadCpu(originalAddr)
+		addr_1_b, _ := cpu.Mem.ReadCpu(originalAddr)
 		// Due to a bug in the cpu, indirect addressing can't
 		// cross pages, so it goes to the beginning of the page
 		if originalAddr&0x00ff == 0x00ff {
 			originalAddr -= ZERO_PAGE_SIZE
 		}
-		addr_2_b, _ := cpu.mem.ReadCpu(originalAddr + 1)
+		addr_2_b, _ := cpu.Mem.ReadCpu(originalAddr + 1)
 		addr = uint16(addr_1_b) + uint16(addr_2_b)<<BYTE_SIZE
 	}
 
@@ -220,7 +220,7 @@ func (cpu *CPU) nextValue(am AdressingMode) (val byte, originalAddr uint16) {
 	var addr uint16
 
 	addr, originalAddr = cpu.nextAddress(am)
-	val, err = cpu.mem.ReadCpu(addr)
+	val, err = cpu.Mem.ReadCpu(addr)
 
 	if err != nil {
 		log.Fatalf("Error geting next value! %v", err)
@@ -230,7 +230,7 @@ func (cpu *CPU) nextValue(am AdressingMode) (val byte, originalAddr uint16) {
 }
 
 func (cpu *CPU) write(val byte, addr uint16) {
-	err := cpu.mem.WriteCpu(val, addr)
+	err := cpu.Mem.WriteCpu(val, addr)
 
 	if err != nil {
 		log.Fatalf("Error in cpu write! %v", err)
@@ -238,7 +238,7 @@ func (cpu *CPU) write(val byte, addr uint16) {
 }
 
 func (cpu *CPU) read(addr uint16) byte {
-	val, err := cpu.mem.ReadCpu(addr)
+	val, err := cpu.Mem.ReadCpu(addr)
 
 	if err != nil {
 		log.Fatalf("Error in cpu read! %v", err)
@@ -248,7 +248,7 @@ func (cpu *CPU) read(addr uint16) byte {
 }
 
 func (cpu CPU) Dump() *emulator.MemoryDump {
-	return emulator.NewMemoryDump(cpu.mem)
+	return emulator.NewMemoryDump(cpu.Mem)
 }
 
 func (cpu CPU) String() string {
