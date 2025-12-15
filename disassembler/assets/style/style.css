@@ -88,6 +88,12 @@ body {
     padding: 24px;
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
+    resize: both;
+    /* Enable resizing */
+    overflow: hidden;
+    /* Required for resize to work */
+    min-height: 200px;
+    min-width: 200px;
 }
 
 .panel h2 {
@@ -238,7 +244,7 @@ body {
 
 .memory-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 24px;
 }
 
@@ -249,12 +255,17 @@ body {
     font-family: var(--font-heading);
 }
 
-.hex-dump {
+.memory-dump .hex-dump {
     background: var(--bg-primary);
     padding: 16px;
     border-radius: 8px;
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: auto;
+    /* Enable horizontal scrolling if needed */
+    white-space: pre;
+    /* Prevent text wrapping */
+    width: fit-content;
 }
 
 /* Disassembler Items */
@@ -280,6 +291,31 @@ body {
     color: var(--accent-color) !important;
     border-left: 3px solid var(--accent-color) !important;
     font-weight: 600;
+}
+
+.disassembly-line {
+    cursor: pointer;
+    position: relative;
+    /* For positioning breakpoint indicator */
+}
+
+.disassembly-line.selected {
+    background-color: rgba(220, 38, 38, 0.15);
+    /* Light red background */
+}
+
+.disassembly-line.selected::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    /* Red 500 */
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.4);
 }
 
 .disassembly-line .address {

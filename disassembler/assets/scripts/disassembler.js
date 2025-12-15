@@ -29,7 +29,6 @@ function fill_instructions() {
 
         $("#instructions").html(instruction_div);
 
-        // Scroll to the current instruction
         var currentElement = $("#instructions .current");
         if (currentElement.length) {
             currentElement[0].scrollIntoView({
@@ -38,12 +37,34 @@ function fill_instructions() {
                 inline: 'nearest'
             });
         }
+
+        // Add click handler for selection
+        $(".disassembly-line").click(function () {
+            $(this).toggleClass("selected");
+        });
     });
 }
 
 function step_disassembler() {
     $.post("/step", (data) => {
         fill_information();
+    });
+}
+
+function continue_disassembler() {
+    let breakpoints = [];
+    $(".disassembly-line.selected .address").each(function () {
+        breakpoints.push(parseInt($(this).text(), 16));
+    });
+
+    $.ajax({
+        url: '/continue',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ breakpoints: breakpoints }),
+        success: function (data) {
+            fill_information();
+        }
     });
 }
 

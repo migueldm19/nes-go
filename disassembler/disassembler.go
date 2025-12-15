@@ -49,6 +49,15 @@ func (disassembler *Disassembler) Run() {
 	}
 }
 
+func (disassembler *Disassembler) Step() {
+	currentInstruction, got := disassembler.Instructions[disassembler.Cpu.Pc]
+	if !got {
+		currentInstruction = disassembler.Cpu.GetNextInstruction()
+	}
+	disassembler.Cpu.Pc = currentInstruction.Pc + 1
+	currentInstruction.Run(disassembler.Cpu)
+}
+
 func (disassembler *Disassembler) Disassemble() {
 	disassembler.Cpu.Pc = disassembler.startPc
 
@@ -88,6 +97,7 @@ func (disassembler *Disassembler) DisassembleWeb() {
 
 	http.HandleFunc("/instructions", disassembler.GetInstructions)
 	http.HandleFunc("/step", disassembler.StepHandler)
+	http.HandleFunc("/continue", disassembler.ContinueHandler)
 	http.HandleFunc("/cpu-state", disassembler.GetCpuState)
 	http.HandleFunc("/memory-dump", disassembler.GetMemoryDump)
 
