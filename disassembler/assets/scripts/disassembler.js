@@ -14,13 +14,16 @@ function fill_instructions() {
         current_pc = data["Pc"];
 
         for (const [address, instruction] of Object.entries(data["Instructions"])) {
-            let div_class = (address == current_pc) ? "current" : "next";
+            // Compare using instruction struct Pc field to be safe, loose equality for string/number match
+            let isCurrent = (instruction["Pc"] == current_pc);
+            let div_class = isCurrent ? "disassembly-line current" : "disassembly-line next";
+
             instruction_div +=
                 '<div class="' + div_class + '">' +
-                    '<span class="address">' +
-                        instruction["Pc"].toString(16).toUpperCase() +
-                    '</span> ' +
-                    instruction["InstructionText"] +
+                '<span class="address">' +
+                instruction["Pc"].toString(16).toUpperCase() +
+                '</span> ' +
+                instruction["InstructionText"] +
                 '</div>';
         }
 
@@ -75,9 +78,9 @@ function dump_to_string(dump) {
 
 function fill_memory() {
     $.get("/memory-dump", (data) => {
-        var zero_page = "<strong>Zero page</strong><br>" + dump_to_string(data["ZeroPage"]);
+        var zero_page = dump_to_string(data["ZeroPage"]);
         $("#zero-page-dump").html(zero_page);
-        var stack = "<strong>Stack</strong><br>" + dump_to_string(data["Stack"]);
+        var stack = dump_to_string(data["Stack"]);
         $("#stack-dump").html(stack);
     });
 }

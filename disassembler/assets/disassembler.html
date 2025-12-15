@@ -1,48 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disassembler</title>
+    <title>NES Disassembler</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css" rel="stylesheet">
-     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="/scripts/new-disassembler.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/scripts/disassembler.js?v=2"></script>
 </head>
+
 <body>
+    <div class="disassembler-container">
+        <header class="main-header">
+            <h1>NES Disassembler Debugger</h1>
+            <div class="controls">
+                <button onClick="step_disassembler();" class="btn-primary">Step Next</button>
+            </div>
+        </header>
 
-    <h1>Instructions</h1>
-    <div id="instructions" class="panel instruction-panel">
+        <main class="main-content">
+            <section class="panel-wrapper">
+                <div class="panel instruction-panel">
+                    <h2>Instructions</h2>
+                    <div id="instructions" class="scrollable">
+                        <!-- Content populated by JS -->
+                    </div>
+                </div>
+
+                <div id="cpu-state" class="panel cpu-state">
+                    <h2>CPU State</h2>
+                    <div class="cpu-grid">
+                        <div class="register-group">
+                            <div class="reg-item"><span class="label">PC</span><span id="pc"
+                                    class="address value"></span></div>
+                            <div class="reg-item"><span class="label">A</span><span id="a" class="hex value"></span>
+                            </div>
+                            <div class="reg-item"><span class="label">X</span><span id="x" class="hex value"></span>
+                            </div>
+                            <div class="reg-item"><span class="label">Y</span><span id="y" class="hex value"></span>
+                            </div>
+                            <div class="reg-item"><span class="label">SP</span><span id="sp" class="hex value"></span>
+                            </div>
+                        </div>
+
+                        <div class="flags-group">
+                            <h3>Flags</h3>
+                            <div class="flags-list">
+                                <div class="flag-item"><span id="carry" class="flag"></span> C</div>
+                                <div class="flag-item"><span id="zero" class="flag"></span> Z</div>
+                                <div class="flag-item"><span id="interrupt-disable" class="flag"></span> I</div>
+                                <div class="flag-item"><span id="decimal-mode" class="flag"></span> D</div>
+                                <div class="flag-item"><span id="b" class="flag"></span> B</div>
+                                <div class="flag-item"><span id="overflow" class="flag"></span> V</div>
+                                <div class="flag-item"><span id="negative" class="flag"></span> N</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="memory-section">
+                <h2>Memory Dump</h2>
+                <div class="memory-dump panel">
+                    <div class="memory-grid">
+                        <div class="memory-block">
+                            <h3>Zero Page</h3>
+                            <p id="zero-page-dump" class="hex-dump"></p>
+                        </div>
+                        <div class="memory-block">
+                            <h3>Stack</h3>
+                            <p id="stack-dump" class="hex-dump"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-
-    <h1>CPU state</h1>
-
-    <div id="cpu-state" class="panel cpu-state">
-        <dt>PC:</dt><dd id="pc" class="address"></dd>
-        <dt>A:</dt><dd id="a" class="hex"></dd>
-        <dt>X:</dt><dd id="x" class="hex"></dd>
-        <dt>Y:</dt><dd id="y" class="hex"></dd>
-        <dt>SP:</dt><dd id="sp" class="hex"></dd>
-        <dt>Flags:</dt>
-        <dd>
-            Carry: <span id="carry" class="flag"></span>
-            Zero: <span id="zero" class="flag"></span>
-            Interrupt disable: <span id="interrupt-disable" class="flag"></span>
-            Decimal mode: <span id="decimal-mode" class="flag"></span>
-            B: <span id="b" class="flag"></span>
-            Overflow: <span id="overflow" class="flag"></span>
-            Negative: <span id="negative" class="flag"></span>
-
-        </dd>
-    </div>
-
-    <h1>Memory</h1>
-    <div class="memory-dump">
-        <div class="memory-grid">
-            <p id="zero-page-dump"></p>
-            <p id="stack-dump"></p>
-        </div>
-    </div>
-    <button onClick="step_disassembler();">Next</button>
 </body>
+
 </html>
