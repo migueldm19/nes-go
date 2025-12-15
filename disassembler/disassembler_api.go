@@ -42,6 +42,13 @@ func (disassembler *Disassembler) GetCpuState(w http.ResponseWriter, r *http.Req
 	json.NewEncoder(w).Encode(cpuStateData)
 }
 
+func (disassembler *Disassembler) GetMemoryDump(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	dump := disassembler.Cpu.Dump()
+	json.NewEncoder(w).Encode(dump)
+}
+
 func serveStaticSite(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "disassembler/assets/new-disassembler.html")
+	http.ServeFile(w, r, "disassembler/assets/disassembler.html")
 }

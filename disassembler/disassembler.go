@@ -7,7 +7,6 @@ import (
 	"nes-go/emulator"
 	"nes-go/mos6502"
 	"net/http"
-	"text/template"
 )
 
 type Disassembler struct {
@@ -80,45 +79,9 @@ func (disassembler *Disassembler) Disassemble() {
 func (disassembler *Disassembler) DisassembleWeb() {
 	disassembler.Cpu.Pc = disassembler.startPc
 
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		currentInstruction, got := disassembler.Instructions[disassembler.Cpu.Pc]
-		if !got {
-			currentInstruction = disassembler.Cpu.GetNextInstruction()
-		}
-		disassembler.Cpu.Pc = currentInstruction.Pc + 1
-
-		fmt.Println(currentInstruction)
-
-		t, err := template.ParseFiles("disassembler/assets/disassembler.html")
-		if err != nil {
-			fmt.Println("Error parsing template:", err)
-			return
-		}
-
-		instructions := make([]*mos6502.Instruction, 0)
-
-		next := currentInstruction
-		for range 10 {
-			next = disassembler.Instructions[next.NextPc]
-			if next != nil {
-				instructions = append(instructions, next)
-			}
-		}
-
-		page := DisassemblerPage{
-			NextInstructions:   instructions,
-			CurrentInstruction: currentInstruction,
-			MemoryDump:         disassembler.Cpu.Dump(),
-			CpuState:           disassembler.Cpu.GetStateData(),
-		}
-
-		t.Execute(w, page)
-		currentInstruction.Run(disassembler.Cpu)
-	}
-
 	fmt.Println("Starting web server on port http://localhost:8080...")
 
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", serveStaticSite)
 	http.Handle("/css/", http.StripPrefix("/css", http.FileServer(http.Dir("disassembler/assets/style"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts", http.FileServer(http.Dir("disassembler/assets/scripts"))))
 	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {})
@@ -126,7 +89,7 @@ func (disassembler *Disassembler) DisassembleWeb() {
 	http.HandleFunc("/instructions", disassembler.GetInstructions)
 	http.HandleFunc("/step", disassembler.StepHandler)
 	http.HandleFunc("/cpu-state", disassembler.GetCpuState)
-	http.HandleFunc("/new-disassembler", serveStaticSite)
+	http.HandleFunc("/memory-dump", disassembler.GetMemoryDump)
 
 	err := http.ListenAndServe(":8080", nil)
 	log.Fatal(err)
